@@ -237,6 +237,10 @@ function displayCards(drawnCards, categoryKey) {
 
   // 総合鑑定テキストを生成
   const summaryText    = generateSummary(categoryKey, drawnCards);
+
+  // 履歴に保存（表示前に確定するため先に実行）
+  saveHistory(categoryKey, drawnCards, summaryText);
+
   const summaryContent = document.getElementById("summary-content");
   summaryContent.innerHTML = "";
   summaryText.split("\n\n").forEach((paragraph) => {
@@ -368,6 +372,129 @@ function generateSummary(categoryKey, drawnCards) {
 }
 
 // ===========================
+// 履歴の保存・読み込み・描画
+// ===========================
+const HISTORY_KEY = "tarot_history";
+const HISTORY_MAX = 5;
+
+function saveHistory(categoryKey, drawnCards, summaryText) {
+  const cat = categories[categoryKey];
+  const now = new Date();
+  const pad = (n) => String(n).padStart(2, "0");
+  const dateStr = `${now.getFullYear()}年${now.getMonth() + 1}月${now.getDate()}日 ${pad(now.getHours())}:${pad(now.getMinutes())}`;
+
+  const entry = {
+    date: dateStr,
+    categoryName: cat.name,
+    categoryIcon: cat.icon,
+    cards: drawnCards.map(({ card, isReversed, role }) => ({
+      role,
+      name:       card.name,
+      symbol:     card.symbol,
+      isReversed,
+      meaning:    isReversed ? card.reversedMeaning : card.uprightMeaning,
+    })),
+    summary: summaryText,
+  };
+
+  const history = loadHistory();
+  history.unshift(entry);
+  if (history.length > HISTORY_MAX) history.length = HISTORY_MAX;
+
+  try {
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+  } catch (_) {}
+
+  renderHistory();
+}
+
+function loadHistory() {
+  try {
+    return JSON.parse(localStorage.getItem(HISTORY_KEY)) || [];
+  } catch (_) {
+    return [];
+  }
+}
+
+function renderHistory() {
+  const history = loadHistory();
+  const section = document.getElementById("history-section");
+  const list    = document.getElementById("history-list");
+
+  if (history.length === 0) {
+    section.classList.add("hidden");
+    return;
+  }
+
+  section.classList.remove("hidden");
+  list.innerHTML = "";
+
+  history.forEach((entry) => {
+    const item = document.createElement("div");
+    item.className = "history-item";
+
+    // ヘッダー（常に表示・クリックで開閉）
+    const header = document.createElement("div");
+    header.className = "history-item-header";
+    header.innerHTML = `
+      <span class="history-date">${entry.date}</span>
+      <span class="history-cat">${entry.categoryIcon} ${entry.categoryName}</span>
+      <span class="history-chevron">▼</span>
+    `;
+    header.addEventListener("click", () => {
+      const detail  = item.querySelector(".history-detail");
+      const chevron = item.querySelector(".history-chevron");
+      const isOpen  = item.classList.contains("open");
+
+      // 他を閉じる
+      document.querySelectorAll(".history-item.open").forEach((el) => {
+        el.classList.remove("open");
+        el.querySelector(".history-detail").classList.add("hidden");
+        el.querySelector(".history-chevron").textContent = "▼";
+      });
+
+      if (!isOpen) {
+        item.classList.add("open");
+        detail.classList.remove("hidden");
+        chevron.textContent = "▲";
+      }
+    });
+
+    // 概要（総合鑑定の1段落目）
+    const brief = document.createElement("p");
+    brief.className   = "history-brief";
+    brief.textContent = entry.summary.split("\n\n")[0];
+
+    // 詳細（最初は非表示）
+    const detail = document.createElement("div");
+    detail.className = "history-detail hidden";
+
+    const cardsHtml = entry.cards.map((c) => `
+      <div class="history-card">
+        <span class="history-card-role">${c.role}</span>
+        <span class="history-card-symbol" style="${c.isReversed ? "display:inline-block;transform:rotate(180deg)" : ""}">${c.symbol}</span>
+        <span class="history-card-name">${c.name}</span>
+        <span class="history-card-pos ${c.isReversed ? "reversed" : "upright"}">${c.isReversed ? "🔻 逆位置" : "🔺 正位置"}</span>
+        <p class="history-card-meaning">${c.meaning}</p>
+      </div>
+    `).join("");
+
+    const summaryHtml = entry.summary.split("\n\n")
+      .map((p) => `<p>${p}</p>`).join("");
+
+    detail.innerHTML = `
+      <div class="history-cards-row">${cardsHtml}</div>
+      <div class="history-summary">${summaryHtml}</div>
+    `;
+
+    item.appendChild(header);
+    item.appendChild(brief);
+    item.appendChild(detail);
+    list.appendChild(item);
+  });
+}
+
+// ===========================
 // カテゴリー未選択のときのヒント表示
 // ===========================
 function showHint() {
@@ -401,4 +528,5 @@ function createStars() {
 // ===========================
 window.addEventListener("load", () => {
   createStars();
+  renderHistory();
 });
