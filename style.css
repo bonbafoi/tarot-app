@@ -34,7 +34,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none; /* クリックを透過 */
+  pointer-events: none;
   z-index: 0;
 }
 
@@ -105,7 +105,6 @@ h1 {
   margin-bottom: 32px;
 }
 
-/* セクションの小見出し */
 .section-label {
   font-size: 0.85rem;
   color: #b89fcc;
@@ -113,7 +112,6 @@ h1 {
   margin-bottom: 18px;
 }
 
-/* 5つのボタンを横並びに（折り返しあり） */
 .category-buttons {
   display: flex;
   flex-wrap: wrap;
@@ -122,7 +120,6 @@ h1 {
   margin-bottom: 14px;
 }
 
-/* カテゴリーボタン（通常状態） */
 .cat-btn {
   display: flex;
   flex-direction: column;
@@ -139,7 +136,6 @@ h1 {
   transition: all 0.22s ease;
 }
 
-/* ホバー時 */
 .cat-btn:hover {
   background: rgba(160, 80, 255, 0.15);
   border-color: rgba(200, 140, 255, 0.5);
@@ -148,7 +144,6 @@ h1 {
   box-shadow: 0 4px 16px rgba(160, 80, 255, 0.2);
 }
 
-/* 選択中（activeクラスがつく） */
 .cat-btn.active {
   background: rgba(130, 50, 255, 0.3);
   border-color: rgba(210, 150, 255, 0.75);
@@ -160,14 +155,12 @@ h1 {
 .cat-icon  { font-size: 1.6rem; }
 .cat-label { font-size: 0.75rem; letter-spacing: 0.04em; white-space: nowrap; }
 
-/* 未選択時のヒントメッセージ */
 .hint-message {
   font-size: 0.8rem;
   color: #ff9ecc;
   letter-spacing: 0.05em;
 }
 
-/* hintが揺れるアニメーション */
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
   20%       { transform: translateX(-7px); }
@@ -182,7 +175,6 @@ h1 {
   margin-bottom: 48px;
 }
 
-/* 選択した項目名の表示 */
 .selected-info {
   font-size: 0.85rem;
   color: #c8a0ff;
@@ -190,7 +182,6 @@ h1 {
   margin-bottom: 16px;
 }
 
-/* カードを引くボタン */
 .draw-button {
   display: inline-block;
   padding: 16px 48px;
@@ -245,7 +236,6 @@ h1 {
   gap: 32px;
 }
 
-/* 結果のタイトル行（例：「⭐ 運気 の鑑定結果」） */
 .result-header {
   font-size: 1.05rem;
   color: #d4aaff;
@@ -257,37 +247,33 @@ h1 {
 }
 
 /* ===========================
-   3枚のカードを横に並べる
+   3枚カードの並び
    =========================== */
 .cards-row {
   display: flex;
   flex-direction: row;
   gap: 16px;
   justify-content: center;
-  align-items: flex-start; /* 上端を揃える */
+  align-items: flex-start;
   flex-wrap: wrap;
   width: 100%;
 }
 
-/* 個々のカードアイテム（ラベル＋カード本体のセット） */
 .card-item {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  /* アニメーション初期状態：透明＆少し下にある */
   opacity: 0;
   transform: translateY(30px) scale(0.9);
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-/* .show クラスが付いたら表示される */
 .card-item.show {
   opacity: 1;
   transform: translateY(0) scale(1);
 }
 
-/* 役割ラベル（「現状」「注意点」など） */
 .card-role-label {
   font-size: 0.78rem;
   font-weight: bold;
@@ -299,7 +285,6 @@ h1 {
   box-shadow: 0 2px 10px rgba(150, 60, 220, 0.35);
 }
 
-/* カード本体（内側の枠） */
 .card-inner {
   width: 200px;
   background: linear-gradient(145deg, #1e0a40, #2d1060, #1a0a35);
@@ -316,7 +301,6 @@ h1 {
   position: relative;
 }
 
-/* カード内側の細い装飾ボーダー */
 .card-inner::before {
   content: "";
   position: absolute;
@@ -326,7 +310,6 @@ h1 {
   pointer-events: none;
 }
 
-/* 絵文字シンボル */
 .card-symbol {
   font-size: 2.8rem;
   display: block;
@@ -334,42 +317,16 @@ h1 {
   filter: drop-shadow(0 0 10px rgba(255, 200, 255, 0.5));
 }
 
-/* ローマ数字番号 */
-.card-number {
-  font-size: 0.78rem;
-  color: #c8a0ff;
-  letter-spacing: 0.2em;
-}
+.card-number  { font-size: 0.78rem; color: #c8a0ff; letter-spacing: 0.2em; }
+.card-name    { font-size: 1.4rem; font-weight: bold; color: #f0e0ff; letter-spacing: 0.1em; text-shadow: 0 0 12px rgba(220, 160, 255, 0.5); }
+.card-name-en { font-size: 0.68rem; color: #806098; letter-spacing: 0.1em; }
 
-/* カード名（日本語） */
-.card-name {
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: #f0e0ff;
-  letter-spacing: 0.1em;
-  text-shadow: 0 0 12px rgba(220, 160, 255, 0.5);
-}
-
-/* カード名（英語） */
-.card-name-en {
-  font-size: 0.68rem;
-  color: #806098;
-  letter-spacing: 0.1em;
-}
-
-/* 区切り線 */
 .divider {
   width: 65%;
   height: 1px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    rgba(200, 140, 255, 0.45),
-    transparent
-  );
+  background: linear-gradient(to right, transparent, rgba(200, 140, 255, 0.45), transparent);
 }
 
-/* 正位置・逆位置バッジ */
 .card-position {
   font-size: 0.78rem;
   font-weight: bold;
@@ -390,7 +347,6 @@ h1 {
   color: #ffaacc;
 }
 
-/* 意味テキスト */
 .card-meaning {
   font-size: 0.76rem;
   line-height: 1.75;
@@ -404,11 +360,7 @@ h1 {
 .summary-box {
   width: 100%;
   max-width: 700px;
-  background: linear-gradient(
-    145deg,
-    rgba(60, 15, 100, 0.72),
-    rgba(28, 8, 60, 0.88)
-  );
+  background: linear-gradient(145deg, rgba(60, 15, 100, 0.72), rgba(28, 8, 60, 0.88));
   border: 1.5px solid rgba(210, 150, 255, 0.42);
   border-radius: 24px;
   padding: 36px 32px;
@@ -417,19 +369,16 @@ h1 {
     0 0 120px rgba(100, 40, 180, 0.1),
     inset 0 0 40px rgba(120, 60, 200, 0.08);
   position: relative;
-  /* アニメーション初期状態 */
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-/* 表示アニメーション */
 .summary-box.show {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* 装飾の細いボーダー */
 .summary-box::before {
   content: "";
   position: absolute;
@@ -439,7 +388,6 @@ h1 {
   pointer-events: none;
 }
 
-/* 総合鑑定のタイトル */
 .summary-title {
   font-size: 1.15rem;
   font-weight: bold;
@@ -449,7 +397,6 @@ h1 {
   text-shadow: 0 0 20px rgba(220, 160, 255, 0.5);
 }
 
-/* 総合鑑定のテキスト段落 */
 .summary-content p {
   font-size: 0.9rem;
   line-height: 2;
@@ -458,12 +405,184 @@ h1 {
   margin-bottom: 14px;
 }
 
-/* 最後の段落（締めくくりメッセージ）は中央揃えで少し明るく */
 .summary-content p:last-child {
   margin-bottom: 0;
   text-align: center;
   color: #e8d4ff;
   font-size: 0.88rem;
+}
+
+/* ===========================
+   ラッキーおやつボックス
+   占いの雰囲気を崩さない、温かみのあるゴールド系デザイン
+   =========================== */
+.snack-box {
+  width: 100%;
+  max-width: 700px;
+  background: linear-gradient(
+    145deg,
+    rgba(35, 18, 5, 0.85),
+    rgba(55, 30, 8, 0.78)
+  );
+  border: 1.5px solid rgba(220, 170, 80, 0.35);
+  border-radius: 24px;
+  padding: 32px 28px 28px;
+  position: relative;
+  /* アニメーション初期状態 */
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* フェードイン */
+.snack-box.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 内側の細い装飾ボーダー */
+.snack-box::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(220, 170, 80, 0.1);
+  border-radius: 18px;
+  pointer-events: none;
+}
+
+/* 広告ラベル（右上に小さく表示） */
+.snack-ad-label {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 0.62rem;
+  color: rgba(220, 170, 80, 0.55);
+  border: 1px solid rgba(220, 170, 80, 0.25);
+  padding: 2px 10px;
+  border-radius: 10px;
+  letter-spacing: 0.04em;
+}
+
+/* セクションタイトル */
+.snack-title {
+  font-size: 1.05rem;
+  font-weight: bold;
+  color: #ffd580;
+  letter-spacing: 0.18em;
+  margin-bottom: 6px;
+  text-shadow: 0 0 16px rgba(255, 200, 80, 0.4);
+}
+
+/* サブタイトル */
+.snack-subtitle {
+  font-size: 0.78rem;
+  color: rgba(255, 200, 80, 0.6);
+  letter-spacing: 0.06em;
+  margin-bottom: 20px;
+}
+
+/* 商品カード（内側の枠） */
+.snack-card {
+  background: rgba(255, 200, 80, 0.04);
+  border: 1px solid rgba(220, 170, 80, 0.2);
+  border-radius: 16px;
+  padding: 22px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+/* タイプバッジ（「チョコ」or「クッキー」） */
+.snack-type-badge {
+  font-size: 0.72rem;
+  font-weight: bold;
+  padding: 3px 16px;
+  border-radius: 20px;
+  letter-spacing: 0.1em;
+}
+
+/* チョコのバッジ：チョコブラウン系 */
+.snack-type-badge.choco {
+  background: rgba(100, 50, 10, 0.55);
+  border: 1px solid rgba(180, 120, 50, 0.5);
+  color: #d4a060;
+}
+
+/* クッキーのバッジ：キャラメル系 */
+.snack-type-badge.cookie {
+  background: rgba(120, 90, 30, 0.45);
+  border: 1px solid rgba(200, 160, 70, 0.45);
+  color: #e0c070;
+}
+
+/* 商品の絵文字 */
+.snack-emoji {
+  font-size: 2.6rem;
+  filter: drop-shadow(0 0 8px rgba(255, 200, 80, 0.35));
+}
+
+/* 商品名 */
+.snack-name {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #ffe8b0;
+  text-align: center;
+  letter-spacing: 0.04em;
+}
+
+/* 商品説明 */
+.snack-desc {
+  font-size: 0.82rem;
+  color: #c8a060;
+  line-height: 1.75;
+  text-align: center;
+}
+
+/* 価格注意書き */
+.snack-price-note {
+  font-size: 0.68rem;
+  color: rgba(200, 160, 70, 0.55);
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* Amazonへのリンクボタン */
+.snack-btn {
+  display: inline-block;
+  padding: 12px 36px;
+  background: linear-gradient(135deg, #b87020, #e09030, #b87020);
+  background-size: 200% 200%;
+  color: #fff;
+  font-weight: bold;
+  font-size: 0.88rem;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  border-radius: 30px;
+  margin-top: 4px;
+  box-shadow:
+    0 0 18px rgba(200, 140, 40, 0.35),
+    0 3px 12px rgba(0, 0, 0, 0.35);
+  animation: goldShift 3s ease infinite;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* ゴールドのグラデーションがゆっくり動く */
+@keyframes goldShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.snack-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow:
+    0 0 28px rgba(220, 160, 60, 0.5),
+    0 5px 16px rgba(0, 0, 0, 0.4);
+}
+
+.snack-btn:active {
+  transform: translateY(0) scale(0.98);
 }
 
 /* ===========================
@@ -474,6 +593,14 @@ footer {
   font-size: 0.75rem;
   color: #5a4070;
   letter-spacing: 0.08em;
+}
+
+/* Amazonアソシエイト開示文言 */
+.affiliate-disclosure {
+  margin-top: 10px;
+  font-size: 0.68rem;
+  color: #4a3555;
+  letter-spacing: 0.04em;
 }
 
 /* ===========================
@@ -493,14 +620,12 @@ footer {
     align-items: center;
   }
 
-  /* スマホ時はカードを少し広くする */
-  .card-inner {
-    width: 260px;
-  }
+  .card-inner { width: 260px; }
 
-  .summary-box {
-    padding: 26px 18px;
-  }
+  .summary-box,
+  .snack-box   { padding: 24px 16px; }
+
+  .snack-ad-label { font-size: 0.58rem; }
 
   .cat-btn {
     min-width: 74px;

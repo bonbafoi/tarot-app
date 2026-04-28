@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- 星のアニメーション用（JavaScriptで追加する） -->
     <div id="stars"></div>
 
     <div class="container">
@@ -19,51 +18,40 @@
         <p class="subtitle">星たちがあなたにメッセージを届けます</p>
       </header>
 
-      <!-- ===== STEP 1：占い項目を選ぶ ===== -->
+      <!-- STEP 1：占い項目を選ぶ -->
       <section class="category-section">
         <p class="section-label">✦ 占いたい項目を選んでください ✦</p>
-
-        <!-- 5つのカテゴリーボタン -->
         <div class="category-buttons">
           <button class="cat-btn" data-key="luck"   onclick="selectCategory('luck')">
-            <span class="cat-icon">⭐</span>
-            <span class="cat-label">運気</span>
+            <span class="cat-icon">⭐</span><span class="cat-label">運気</span>
           </button>
           <button class="cat-btn" data-key="work"   onclick="selectCategory('work')">
-            <span class="cat-icon">💼</span>
-            <span class="cat-label">仕事</span>
+            <span class="cat-icon">💼</span><span class="cat-label">仕事</span>
           </button>
           <button class="cat-btn" data-key="money"  onclick="selectCategory('money')">
-            <span class="cat-icon">💰</span>
-            <span class="cat-label">金運</span>
+            <span class="cat-icon">💰</span><span class="cat-label">金運</span>
           </button>
           <button class="cat-btn" data-key="love"   onclick="selectCategory('love')">
-            <span class="cat-icon">💕</span>
-            <span class="cat-label">恋愛</span>
+            <span class="cat-icon">💕</span><span class="cat-label">恋愛</span>
           </button>
           <button class="cat-btn" data-key="secret" onclick="selectCategory('secret')">
-            <span class="cat-icon">🌹</span>
-            <span class="cat-label">秘密の恋愛</span>
+            <span class="cat-icon">🌹</span><span class="cat-label">秘密の恋愛</span>
           </button>
         </div>
-
-        <!-- 未選択のときのヒント（最初は非表示） -->
         <p class="hint-message hidden" id="hint-message">
           ↑ まず占いたい項目をタップしてください
         </p>
       </section>
 
-      <!-- ===== STEP 2：カードを引くボタン ===== -->
+      <!-- STEP 2：カードを引くボタン -->
       <div class="draw-area">
-        <!-- 選択中の項目を表示（選ぶまでは非表示） -->
         <p class="selected-info hidden" id="selected-info"></p>
-
         <button class="draw-button" onclick="drawCards()">
           ✨ カードを3枚引く ✨
         </button>
       </div>
 
-      <!-- ===== STEP 3：占い結果（最初は非表示） ===== -->
+      <!-- STEP 3：占い結果（最初は非表示） -->
       <div id="result-area" class="hidden">
 
         <!-- 結果のタイトル行 -->
@@ -73,10 +61,10 @@
           の鑑定結果
         </div>
 
-        <!-- 3枚のカードを横に並べるエリア -->
+        <!-- 3枚のカード -->
         <div class="cards-row">
 
-          <!-- ── カード1枚目 ── -->
+          <!-- カード1枚目 -->
           <div class="card-item" id="card-item-0">
             <div class="card-role-label" id="role-0">現状</div>
             <div class="card-inner">
@@ -90,7 +78,7 @@
             </div>
           </div>
 
-          <!-- ── カード2枚目 ── -->
+          <!-- カード2枚目 -->
           <div class="card-item" id="card-item-1">
             <div class="card-role-label" id="role-1">注意点</div>
             <div class="card-inner">
@@ -104,7 +92,7 @@
             </div>
           </div>
 
-          <!-- ── カード3枚目 ── -->
+          <!-- カード3枚目 -->
           <div class="card-item" id="card-item-2">
             <div class="card-role-label" id="role-2">アドバイス</div>
             <div class="card-inner">
@@ -126,10 +114,58 @@
           <div class="summary-content" id="summary-content"></div>
         </div>
 
+        <!-- ===== ラッキーおやつ（アフィリエイト） ===== -->
+        <!-- JavaScriptが結果表示後に内容を入れて visible にする -->
+        <div class="snack-box hidden" id="snack-box">
+
+          <!-- 広告表示ラベル（右上） -->
+          <span class="snack-ad-label">広告 / アフィリエイトリンクを含みます</span>
+
+          <!-- セクションタイトル -->
+          <div class="snack-title">🍬 今日のラッキーおやつ</div>
+          <p class="snack-subtitle">カードが引き寄せた、あなたへの小さなご褒美</p>
+
+          <!-- 商品カード -->
+          <div class="snack-card">
+            <!-- タイプバッジ（チョコ or クッキー）：JavaScriptがクラスを付け替える -->
+            <span class="snack-type-badge choco" id="snack-type">チョコ</span>
+
+            <!-- 商品の絵文字 -->
+            <span class="snack-emoji" id="snack-emoji">🍫</span>
+
+            <!-- 商品名 -->
+            <p class="snack-name" id="snack-name">商品名が入ります</p>
+
+            <!-- 商品説明 -->
+            <p class="snack-desc" id="snack-desc">説明文が入ります</p>
+
+            <!-- 価格注意書き -->
+            <p class="snack-price-note">
+              ※ 価格・在庫状況はAmazonのページでご確認ください
+            </p>
+
+            <!-- Amazonへのリンクボタン -->
+            <!-- target="_blank" で別タブ、rel="noopener noreferrer" はセキュリティのお作法 -->
+            <a class="snack-btn"
+               id="snack-link"
+               href="#"
+               target="_blank"
+               rel="noopener noreferrer">
+              Amazonで見てみる →
+            </a>
+          </div>
+
+        </div><!-- /snack-box -->
+
       </div><!-- /result-area -->
 
+      <!-- フッター -->
       <footer>
         <p>大アルカナ 22枚＋小アルカナ 56枚 ／ 全78枚 ／ 3枚引き ／ 正位置・逆位置ランダム</p>
+        <!-- Amazonアソシエイト必須の開示文言 -->
+        <p class="affiliate-disclosure">
+          Amazonのアソシエイトとして、bonbafoiは適格販売により収入を得ています。
+        </p>
       </footer>
 
     </div><!-- /container -->
