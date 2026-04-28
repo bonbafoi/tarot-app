@@ -156,7 +156,7 @@ const snacks = [
     type: "チョコ",
     emoji: "🍫",
     description: "定番のまろやかなミルクチョコ。疲れた時の小さな休憩においしい一枚。",
-    link: "https://www.amazon.co.jp/%E6%98%8E%E6%B2%BB-%E3%83%9F%E3%83%AB%E3%82%AF%E3%83%81%E3%83%A7%E3%82%B3%E3%83%AC%E3%83%BC%E3%83%88%E3%83%9F%E3%83%8B%E3%82%AD%E3%83%A5%E3%83%BC%E3%83%96-250g/dp/B0CPT9K9XX?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&crid=5V4KIQ9XWCNN&dib=eyJ2IjoiMSJ9.kWvzfzFjYKoOWW4-7SXBoqFcVQ_2KXHf3yb7OM_pUxXFgKzRsiCRxE_Gg4mh_YM_qnHt8l51hayHKCeluFrF_PFz3jMgpydwyOIIqYieTtLoWoU8d0eI1lJKum2YEpgTjvV-17hH0Ro9fqB6QVeBPyxM6xvgjcGafk531V2m90mXSQ9yfC4f3RVuUOguPrB_5P3Kkchx_S92Ci7wgeOaawTXyibcNItV1Jy0_zQ_Vcy7TkvPUEytsWii-nPhyONeraRyxOWqjjio6hlKFTfvdz8A9tnkpvvGIEVyZW6LP9I.0N50vUFFTnJDmgnWapl9ghdhtOVsiLOhb-0VkHB-3dY&dib_tag=se&keywords=%E6%98%8E%E6%B2%BB%2B%E3%83%9F%E3%83%AB%E3%82%AF%E3%83%81%E3%83%A7%E3%82%B3%E3%83%AC%E3%83%BC%E3%83%88&qid=1777411862&sprefix=%E6%98%8E%E6%B2%BB%E3%83%9F%E3%83%AB%E3%82%AF%E3%83%81%E3%83%A7%E3%82%B3%E3%83%AC%E3%83%BC%E3%83%88%2Caps%2C258&sr=8-4&th=1&linkCode=ll2&tag=bonbafoi-22&linkId=d58cae366d6e564c311c22f27bf4c591&ref_=as_li_ss_tl",
+    link: "#",
   },
   {
     name: "ロイズ 生チョコレート オーレ",
@@ -353,14 +353,12 @@ function displayCards(drawnCards, categoryKey) {
 
   // おすすめおやつ：総合鑑定の後に自然に登場させる
   setTimeout(() => {
-    displaySnack();
-    snackBox.classList.remove("hidden");
-    // display:none を外した次のフレームで show を付けることでアニメーションが動く
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        snackBox.classList.add("show");
-      });
-    });
+    displaySnack();               // 商品データをセット
+    snackBox.classList.remove("hidden"); // display:none を解除
+    // 50ms 待ってから .show を付ける
+    // → ブラウザが display:none 解除を描画に反映した後で
+    //   keyframe animation が確実に動くようにするため
+    setTimeout(() => snackBox.classList.add("show"), 50);
   }, 1600);
 }
 

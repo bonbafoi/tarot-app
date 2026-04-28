@@ -428,16 +428,27 @@ h1 {
   border-radius: 24px;
   padding: 32px 28px 28px;
   position: relative;
-  /* アニメーション初期状態 */
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  /* ※ opacity や transition はここには書かない。
+       display:none 解除後に transition を動かすと
+       ブラウザが描画を確定する前に終わってしまうため、
+       代わりに .show クラスの keyframe animation を使う */
 }
 
-/* フェードイン */
+/* .show が付いた瞬間に keyframe animation が確実に再生される
+   （transition と違い、display:none 解除後でも動く） */
 .snack-box.show {
-  opacity: 1;
-  transform: translateY(0);
+  animation: snackReveal 0.65s ease both;
+}
+
+@keyframes snackReveal {
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 /* 内側の細い装飾ボーダー */
