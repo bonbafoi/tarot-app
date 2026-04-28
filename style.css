@@ -1,0 +1,509 @@
+/* ===========================
+   全体のリセットと基本設定
+   =========================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===========================
+   背景：夜空の雰囲気
+   =========================== */
+body {
+  min-height: 100vh;
+  background: linear-gradient(
+    160deg,
+    #0a0020 0%,
+    #110035 30%,
+    #1a0050 60%,
+    #0d1a40 100%
+  );
+  font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+  color: #e8d5ff;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ===========================
+   星（背景のキラキラ）
+   =========================== */
+#stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* クリックを透過 */
+  z-index: 0;
+}
+
+.star {
+  position: absolute;
+  background: #ffffff;
+  border-radius: 50%;
+  animation: twinkle 3s infinite alternate ease-in-out;
+}
+
+@keyframes twinkle {
+  0%   { opacity: 0.2; transform: scale(1); }
+  100% { opacity: 1;   transform: scale(1.4); }
+}
+
+/* ===========================
+   メインコンテンツ
+   =========================== */
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+  text-align: center;
+}
+
+/* ===========================
+   ヘッダー
+   =========================== */
+header {
+  margin-bottom: 40px;
+}
+
+.moon-decoration {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 12px;
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+
+h1 {
+  font-size: 2.2rem;
+  font-weight: bold;
+  letter-spacing: 0.15em;
+  background: linear-gradient(120deg, #d4a8ff, #ffe0f7, #a8d4ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: #b89fcc;
+  letter-spacing: 0.1em;
+}
+
+/* ===========================
+   STEP 1：占い項目セクション
+   =========================== */
+.category-section {
+  margin-bottom: 32px;
+}
+
+/* セクションの小見出し */
+.section-label {
+  font-size: 0.85rem;
+  color: #b89fcc;
+  letter-spacing: 0.15em;
+  margin-bottom: 18px;
+}
+
+/* 5つのボタンを横並びに（折り返しあり） */
+.category-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+/* カテゴリーボタン（通常状態） */
+.cat-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 14px 20px;
+  min-width: 88px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(200, 140, 255, 0.22);
+  border-radius: 18px;
+  color: #b89fcc;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.22s ease;
+}
+
+/* ホバー時 */
+.cat-btn:hover {
+  background: rgba(160, 80, 255, 0.15);
+  border-color: rgba(200, 140, 255, 0.5);
+  color: #e0c8ff;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 16px rgba(160, 80, 255, 0.2);
+}
+
+/* 選択中（activeクラスがつく） */
+.cat-btn.active {
+  background: rgba(130, 50, 255, 0.3);
+  border-color: rgba(210, 150, 255, 0.75);
+  color: #f0e0ff;
+  box-shadow: 0 0 22px rgba(160, 80, 255, 0.45);
+  transform: translateY(-2px);
+}
+
+.cat-icon  { font-size: 1.6rem; }
+.cat-label { font-size: 0.75rem; letter-spacing: 0.04em; white-space: nowrap; }
+
+/* 未選択時のヒントメッセージ */
+.hint-message {
+  font-size: 0.8rem;
+  color: #ff9ecc;
+  letter-spacing: 0.05em;
+}
+
+/* hintが揺れるアニメーション */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-7px); }
+  60%       { transform: translateX(7px); }
+  80%       { transform: translateX(-3px); }
+}
+
+/* ===========================
+   STEP 2：カードを引くボタンエリア
+   =========================== */
+.draw-area {
+  margin-bottom: 48px;
+}
+
+/* 選択した項目名の表示 */
+.selected-info {
+  font-size: 0.85rem;
+  color: #c8a0ff;
+  letter-spacing: 0.1em;
+  margin-bottom: 16px;
+}
+
+/* カードを引くボタン */
+.draw-button {
+  display: inline-block;
+  padding: 16px 48px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  letter-spacing: 0.12em;
+  color: #fff;
+  background: linear-gradient(135deg, #7b2fff, #c44dff, #7b2fff);
+  background-size: 200% 200%;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow:
+    0 0 20px rgba(180, 80, 255, 0.5),
+    0 4px 24px rgba(0, 0, 0, 0.4);
+  animation: gradientShift 4s ease infinite;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.draw-button:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow:
+    0 0 32px rgba(200, 100, 255, 0.7),
+    0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.draw-button:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* ===========================
+   汎用：非表示クラス
+   =========================== */
+.hidden {
+  display: none;
+}
+
+/* ===========================
+   STEP 3：結果エリア全体
+   =========================== */
+#result-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+/* 結果のタイトル行（例：「⭐ 運気 の鑑定結果」） */
+.result-header {
+  font-size: 1.05rem;
+  color: #d4aaff;
+  letter-spacing: 0.14em;
+  padding: 10px 30px;
+  border: 1px solid rgba(200, 140, 255, 0.3);
+  border-radius: 30px;
+  background: rgba(120, 60, 200, 0.14);
+}
+
+/* ===========================
+   3枚のカードを横に並べる
+   =========================== */
+.cards-row {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  justify-content: center;
+  align-items: flex-start; /* 上端を揃える */
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+/* 個々のカードアイテム（ラベル＋カード本体のセット） */
+.card-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  /* アニメーション初期状態：透明＆少し下にある */
+  opacity: 0;
+  transform: translateY(30px) scale(0.9);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* .show クラスが付いたら表示される */
+.card-item.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* 役割ラベル（「現状」「注意点」など） */
+.card-role-label {
+  font-size: 0.78rem;
+  font-weight: bold;
+  letter-spacing: 0.12em;
+  color: #fff;
+  background: linear-gradient(135deg, #6a1fd0, #b03ddf);
+  padding: 5px 20px;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(150, 60, 220, 0.35);
+}
+
+/* カード本体（内側の枠） */
+.card-inner {
+  width: 200px;
+  background: linear-gradient(145deg, #1e0a40, #2d1060, #1a0a35);
+  border: 1.5px solid rgba(200, 140, 255, 0.38);
+  border-radius: 16px;
+  padding: 22px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  box-shadow:
+    0 0 28px rgba(160, 80, 255, 0.2),
+    inset 0 0 24px rgba(120, 60, 200, 0.1);
+  position: relative;
+}
+
+/* カード内側の細い装飾ボーダー */
+.card-inner::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(200, 140, 255, 0.13);
+  border-radius: 10px;
+  pointer-events: none;
+}
+
+/* 絵文字シンボル */
+.card-symbol {
+  font-size: 2.8rem;
+  display: block;
+  transition: transform 0.5s ease;
+  filter: drop-shadow(0 0 10px rgba(255, 200, 255, 0.5));
+}
+
+/* ローマ数字番号 */
+.card-number {
+  font-size: 0.78rem;
+  color: #c8a0ff;
+  letter-spacing: 0.2em;
+}
+
+/* カード名（日本語） */
+.card-name {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #f0e0ff;
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 12px rgba(220, 160, 255, 0.5);
+}
+
+/* カード名（英語） */
+.card-name-en {
+  font-size: 0.68rem;
+  color: #806098;
+  letter-spacing: 0.1em;
+}
+
+/* 区切り線 */
+.divider {
+  width: 65%;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(200, 140, 255, 0.45),
+    transparent
+  );
+}
+
+/* 正位置・逆位置バッジ */
+.card-position {
+  font-size: 0.78rem;
+  font-weight: bold;
+  padding: 4px 16px;
+  border-radius: 20px;
+  letter-spacing: 0.07em;
+}
+
+.card-position.upright {
+  background: rgba(140, 80, 255, 0.2);
+  border: 1px solid rgba(160, 100, 255, 0.45);
+  color: #d4aaff;
+}
+
+.card-position.reversed {
+  background: rgba(255, 80, 160, 0.18);
+  border: 1px solid rgba(255, 100, 180, 0.4);
+  color: #ffaacc;
+}
+
+/* 意味テキスト */
+.card-meaning {
+  font-size: 0.76rem;
+  line-height: 1.75;
+  color: #c8b0e0;
+  text-align: center;
+}
+
+/* ===========================
+   総合鑑定ボックス
+   =========================== */
+.summary-box {
+  width: 100%;
+  max-width: 700px;
+  background: linear-gradient(
+    145deg,
+    rgba(60, 15, 100, 0.72),
+    rgba(28, 8, 60, 0.88)
+  );
+  border: 1.5px solid rgba(210, 150, 255, 0.42);
+  border-radius: 24px;
+  padding: 36px 32px;
+  box-shadow:
+    0 0 60px rgba(160, 80, 255, 0.18),
+    0 0 120px rgba(100, 40, 180, 0.1),
+    inset 0 0 40px rgba(120, 60, 200, 0.08);
+  position: relative;
+  /* アニメーション初期状態 */
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* 表示アニメーション */
+.summary-box.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 装飾の細いボーダー */
+.summary-box::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(200, 140, 255, 0.1);
+  border-radius: 18px;
+  pointer-events: none;
+}
+
+/* 総合鑑定のタイトル */
+.summary-title {
+  font-size: 1.15rem;
+  font-weight: bold;
+  color: #f0d8ff;
+  letter-spacing: 0.22em;
+  margin-bottom: 22px;
+  text-shadow: 0 0 20px rgba(220, 160, 255, 0.5);
+}
+
+/* 総合鑑定のテキスト段落 */
+.summary-content p {
+  font-size: 0.9rem;
+  line-height: 2;
+  color: #d2b8f0;
+  text-align: left;
+  margin-bottom: 14px;
+}
+
+/* 最後の段落（締めくくりメッセージ）は中央揃えで少し明るく */
+.summary-content p:last-child {
+  margin-bottom: 0;
+  text-align: center;
+  color: #e8d4ff;
+  font-size: 0.88rem;
+}
+
+/* ===========================
+   フッター
+   =========================== */
+footer {
+  margin-top: 16px;
+  font-size: 0.75rem;
+  color: #5a4070;
+  letter-spacing: 0.08em;
+}
+
+/* ===========================
+   スマートフォン対応
+   =========================== */
+@media (max-width: 580px) {
+  h1 { font-size: 1.7rem; }
+
+  .draw-button {
+    padding: 14px 36px;
+    font-size: 1rem;
+  }
+
+  /* スマホでは3枚を縦積みにする */
+  .cards-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* スマホ時はカードを少し広くする */
+  .card-inner {
+    width: 260px;
+  }
+
+  .summary-box {
+    padding: 26px 18px;
+  }
+
+  .cat-btn {
+    min-width: 74px;
+    padding: 12px 12px;
+  }
+}

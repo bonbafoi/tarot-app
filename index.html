@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>✨ タロット占い</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- 星のアニメーション用（JavaScriptで追加する） -->
+    <div id="stars"></div>
+
+    <div class="container">
+
+      <!-- ヘッダー -->
+      <header>
+        <span class="moon-decoration">🌙</span>
+        <h1>タロット占い</h1>
+        <p class="subtitle">星たちがあなたにメッセージを届けます</p>
+      </header>
+
+      <!-- ===== STEP 1：占い項目を選ぶ ===== -->
+      <section class="category-section">
+        <p class="section-label">✦ 占いたい項目を選んでください ✦</p>
+
+        <!-- 5つのカテゴリーボタン -->
+        <div class="category-buttons">
+          <button class="cat-btn" data-key="luck"   onclick="selectCategory('luck')">
+            <span class="cat-icon">⭐</span>
+            <span class="cat-label">運気</span>
+          </button>
+          <button class="cat-btn" data-key="work"   onclick="selectCategory('work')">
+            <span class="cat-icon">💼</span>
+            <span class="cat-label">仕事</span>
+          </button>
+          <button class="cat-btn" data-key="money"  onclick="selectCategory('money')">
+            <span class="cat-icon">💰</span>
+            <span class="cat-label">金運</span>
+          </button>
+          <button class="cat-btn" data-key="love"   onclick="selectCategory('love')">
+            <span class="cat-icon">💕</span>
+            <span class="cat-label">恋愛</span>
+          </button>
+          <button class="cat-btn" data-key="secret" onclick="selectCategory('secret')">
+            <span class="cat-icon">🌹</span>
+            <span class="cat-label">秘密の恋愛</span>
+          </button>
+        </div>
+
+        <!-- 未選択のときのヒント（最初は非表示） -->
+        <p class="hint-message hidden" id="hint-message">
+          ↑ まず占いたい項目をタップしてください
+        </p>
+      </section>
+
+      <!-- ===== STEP 2：カードを引くボタン ===== -->
+      <div class="draw-area">
+        <!-- 選択中の項目を表示（選ぶまでは非表示） -->
+        <p class="selected-info hidden" id="selected-info"></p>
+
+        <button class="draw-button" onclick="drawCards()">
+          ✨ カードを3枚引く ✨
+        </button>
+      </div>
+
+      <!-- ===== STEP 3：占い結果（最初は非表示） ===== -->
+      <div id="result-area" class="hidden">
+
+        <!-- 結果のタイトル行 -->
+        <div class="result-header">
+          <span id="result-icon"></span>
+          <span id="result-cat-name"></span>
+          の鑑定結果
+        </div>
+
+        <!-- 3枚のカードを横に並べるエリア -->
+        <div class="cards-row">
+
+          <!-- ── カード1枚目 ── -->
+          <div class="card-item" id="card-item-0">
+            <div class="card-role-label" id="role-0">現状</div>
+            <div class="card-inner">
+              <span class="card-symbol"  id="symbol-0">🌟</span>
+              <span class="card-number"  id="number-0">0</span>
+              <span class="card-name"    id="name-0">愚者</span>
+              <span class="card-name-en" id="name-en-0">The Fool</span>
+              <div class="divider"></div>
+              <span class="card-position upright" id="position-0">🔺 正位置</span>
+              <p class="card-meaning" id="meaning-0"></p>
+            </div>
+          </div>
+
+          <!-- ── カード2枚目 ── -->
+          <div class="card-item" id="card-item-1">
+            <div class="card-role-label" id="role-1">注意点</div>
+            <div class="card-inner">
+              <span class="card-symbol"  id="symbol-1">🌟</span>
+              <span class="card-number"  id="number-1">0</span>
+              <span class="card-name"    id="name-1">愚者</span>
+              <span class="card-name-en" id="name-en-1">The Fool</span>
+              <div class="divider"></div>
+              <span class="card-position upright" id="position-1">🔺 正位置</span>
+              <p class="card-meaning" id="meaning-1"></p>
+            </div>
+          </div>
+
+          <!-- ── カード3枚目 ── -->
+          <div class="card-item" id="card-item-2">
+            <div class="card-role-label" id="role-2">アドバイス</div>
+            <div class="card-inner">
+              <span class="card-symbol"  id="symbol-2">🌟</span>
+              <span class="card-number"  id="number-2">0</span>
+              <span class="card-name"    id="name-2">愚者</span>
+              <span class="card-name-en" id="name-en-2">The Fool</span>
+              <div class="divider"></div>
+              <span class="card-position upright" id="position-2">🔺 正位置</span>
+              <p class="card-meaning" id="meaning-2"></p>
+            </div>
+          </div>
+
+        </div><!-- /cards-row -->
+
+        <!-- 総合鑑定ボックス -->
+        <div class="summary-box" id="summary-box">
+          <div class="summary-title">🔮 総合鑑定 🔮</div>
+          <div class="summary-content" id="summary-content"></div>
+        </div>
+
+      </div><!-- /result-area -->
+
+      <footer>
+        <p>大アルカナ 22枚＋小アルカナ 56枚 ／ 全78枚 ／ 3枚引き ／ 正位置・逆位置ランダム</p>
+      </footer>
+
+    </div><!-- /container -->
+
+    <script src="script.js"></script>
+  </body>
+</html>
