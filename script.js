@@ -34,7 +34,6 @@ const majorArcana = [
 // ② 小アルカナ：ワンド（14枚）
 // 火のスート：情熱・創造・行動力・仕事・野心を象徴する
 // ===========================
-// [表示ランク, 日本語ランク, 英語ランク, 正位置の意味, 逆位置の意味]
 const wandsRawData = [
   ["A",      "エース",   "Ace",    "新しい始まり、創造力、情熱、インスピレーション。新しいプロジェクトを始める好機。",       "創造エネルギーの停滞、方向性の迷い。アイデアはあるが実行に移せていない。"],
   ["2",      "2",        "Two",    "計画、将来のビジョン、進路選択。大きな可能性が広がっている。",                         "計画の行き詰まり、安全地帯への執着。一歩踏み出す勇気を持って。"],
@@ -52,15 +51,9 @@ const wandsRawData = [
   ["King",   "キング",   "King",   "ビジョン、リーダーシップ、決断力。大きな目標に向かって力強く。",                       "独裁的、衝動的な判断。周囲の意見も聞いてみて。"],
 ];
 
-// 上のデータをカードオブジェクトに変換する
 const wands = wandsRawData.map(([num, jp, en, up, rev]) => ({
-  number: num,
-  name: `ワンドの${jp}`,
-  nameEn: `${en} of Wands`,
-  suit: "wands",
-  symbol: "🔥",
-  uprightMeaning: up,
-  reversedMeaning: rev,
+  number: num, name: `ワンドの${jp}`, nameEn: `${en} of Wands`,
+  suit: "wands", symbol: "🔥", uprightMeaning: up, reversedMeaning: rev,
 }));
 
 // ===========================
@@ -85,13 +78,8 @@ const cupsRawData = [
 ];
 
 const cups = cupsRawData.map(([num, jp, en, up, rev]) => ({
-  number: num,
-  name: `カップの${jp}`,
-  nameEn: `${en} of Cups`,
-  suit: "cups",
-  symbol: "💧",
-  uprightMeaning: up,
-  reversedMeaning: rev,
+  number: num, name: `カップの${jp}`, nameEn: `${en} of Cups`,
+  suit: "cups", symbol: "💧", uprightMeaning: up, reversedMeaning: rev,
 }));
 
 // ===========================
@@ -116,13 +104,8 @@ const swordsRawData = [
 ];
 
 const swords = swordsRawData.map(([num, jp, en, up, rev]) => ({
-  number: num,
-  name: `ソードの${jp}`,
-  nameEn: `${en} of Swords`,
-  suit: "swords",
-  symbol: "⚡",
-  uprightMeaning: up,
-  reversedMeaning: rev,
+  number: num, name: `ソードの${jp}`, nameEn: `${en} of Swords`,
+  suit: "swords", symbol: "⚡", uprightMeaning: up, reversedMeaning: rev,
 }));
 
 // ===========================
@@ -147,19 +130,13 @@ const pentaclesRawData = [
 ];
 
 const pentacles = pentaclesRawData.map(([num, jp, en, up, rev]) => ({
-  number: num,
-  name: `ペンタクルの${jp}`,
-  nameEn: `${en} of Pentacles`,
-  suit: "pentacles",
-  symbol: "🌿",
-  uprightMeaning: up,
-  reversedMeaning: rev,
+  number: num, name: `ペンタクルの${jp}`, nameEn: `${en} of Pentacles`,
+  suit: "pentacles", symbol: "🌿", uprightMeaning: up, reversedMeaning: rev,
 }));
 
 // ===========================
 // ⑥ 78枚をまとめる
 // ===========================
-// スプレッド演算子（...）で4つの配列を一つにつなげる
 const tarotCards = [
   ...majorArcana,   // 大アルカナ 22枚
   ...wands,         // ワンド     14枚
@@ -168,15 +145,93 @@ const tarotCards = [
   ...pentacles,     // ペンタクル 14枚
 ];                  // 合計 78枚
 
+// ===================================================================
+// ⑦ おすすめおやつデータ（アフィリエイト用）
+// ===================================================================
+// ★ link の "#" を、後でAmazonアソシエイトのURLに差し替えてください
+// ★ 商品の追加・変更もここで行います
+const snacks = [
+  {
+    name: "明治 ミルクチョコレート",
+    type: "チョコ",
+    emoji: "🍫",
+    description: "定番のまろやかなミルクチョコ。疲れた時の小さな休憩においしい一枚。",
+    link: "#",
+  },
+  {
+    name: "ロイズ 生チョコレート オーレ",
+    type: "チョコ",
+    emoji: "🍫",
+    description: "口の中でふわっととける贅沢な生チョコ。自分へのご褒美にぴったり。",
+    link: "#",
+  },
+  {
+    name: "フェレロ ロシェ チョコレート",
+    type: "チョコ",
+    emoji: "🍫",
+    description: "サクサクのウエハースとヘーゼルナッツのプレミアムチョコ。幸福感たっぷり。",
+    link: "#",
+  },
+  {
+    name: "GODIVA チョコレート アソートメント",
+    type: "チョコ",
+    emoji: "🍫",
+    description: "上質なチョコレートで心を満たして。特別な日の自分へのギフトにも。",
+    link: "#",
+  },
+  {
+    name: "森永 ダース ミルク",
+    type: "チョコ",
+    emoji: "🍫",
+    description: "手軽なひと口サイズのミルクチョコ。ちょっとした甘いひと息に。",
+    link: "#",
+  },
+  {
+    name: "カントリーマアム バニラ&ゴーフレット",
+    type: "クッキー",
+    emoji: "🍪",
+    description: "しっとり柔らかくて懐かしい定番クッキー。ほっとする甘さが後を引く。",
+    link: "#",
+  },
+  {
+    name: "ステラおばさんのクッキー アソート",
+    type: "クッキー",
+    emoji: "🍪",
+    description: "手作り感あふれるバラエティクッキー。いろんな味を少しずつ楽しめる。",
+    link: "#",
+  },
+  {
+    name: "白い恋人 ラング・ド・シャ",
+    type: "クッキー",
+    emoji: "🍪",
+    description: "サクッと軽いクッキーにホワイトチョコがサンドされた北海道の銘菓。",
+    link: "#",
+  },
+  {
+    name: "シュガーバターサンドの木",
+    type: "クッキー",
+    emoji: "🍪",
+    description: "シリアルクッキーのザクザク食感に芳醇なバタークリームのサンド。",
+    link: "#",
+  },
+  {
+    name: "アーモンドフロランタン",
+    type: "クッキー",
+    emoji: "🍪",
+    description: "キャラメルとアーモンドが香ばしい、贅沢なフランス菓子風クッキー。",
+    link: "#",
+  },
+];
+
 // ===========================
 // 占いカテゴリーの定義（5種類）
 // ===========================
 const categories = {
-  luck:   { name: "運気",     icon: "⭐", roles: ["現状",    "注意点",        "アドバイス"] },
-  work:   { name: "仕事",     icon: "💼", roles: ["現状",    "課題",          "未来"]       },
-  money:  { name: "金運",     icon: "💰", roles: ["今の流れ","気をつけること","増やすヒント"]},
-  love:   { name: "恋愛",     icon: "💕", roles: ["相手／状況","障害",         "進展"]       },
-  secret: { name: "秘密の恋愛",icon: "🌹", roles: ["本音",    "隠れた問題",   "これから"]   },
+  luck:   { name: "運気",      icon: "⭐", roles: ["現状",     "注意点",         "アドバイス"] },
+  work:   { name: "仕事",      icon: "💼", roles: ["現状",     "課題",           "未来"]       },
+  money:  { name: "金運",      icon: "💰", roles: ["今の流れ", "気をつけること", "増やすヒント"]},
+  love:   { name: "恋愛",      icon: "💕", roles: ["相手／状況","障害",           "進展"]       },
+  secret: { name: "秘密の恋愛",icon: "🌹", roles: ["本音",     "隠れた問題",     "これから"]   },
 };
 
 // 現在選ばれているカテゴリー（null = 未選択）
@@ -189,12 +244,10 @@ function selectCategory(key) {
   selectedCategory = key;
   const cat = categories[key];
 
-  // すべてのボタンの active クラスをリセットして、選んだボタンだけに付ける
   document.querySelectorAll(".cat-btn").forEach((btn) => {
     btn.classList.toggle("active", btn.dataset.key === key);
   });
 
-  // ヒントを隠して、選択中の項目名を表示する
   document.getElementById("hint-message").classList.add("hidden");
   const info = document.getElementById("selected-info");
   info.textContent = `${cat.icon} ${cat.name} の占いを行います`;
@@ -205,26 +258,24 @@ function selectCategory(key) {
 // カードを3枚引く処理
 // ===========================
 function drawCards() {
-  // カテゴリーが未選択ならヒントを見せて終わる
   if (!selectedCategory) {
     showHint();
     return;
   }
 
-  // ── 重複しないように3枚をランダムに選ぶ ──
-  // Set（集合）を使うことで同じインデックスが入らないようにする
+  // 重複しないように3枚をランダムに選ぶ（Setで重複排除）
   const usedIndices = new Set();
   const drawnCards  = [];
   const cat         = categories[selectedCategory];
 
   while (drawnCards.length < 3) {
-    const idx = Math.floor(Math.random() * tarotCards.length); // 0〜77のランダム整数
+    const idx = Math.floor(Math.random() * tarotCards.length);
     if (!usedIndices.has(idx)) {
       usedIndices.add(idx);
       drawnCards.push({
         card:       tarotCards[idx],
-        isReversed: Math.random() < 0.5,         // 50%で逆位置
-        role:       cat.roles[drawnCards.length], // 1・2・3枚目の役割名
+        isReversed: Math.random() < 0.5,
+        role:       cat.roles[drawnCards.length],
       });
     }
   }
@@ -238,43 +289,34 @@ function drawCards() {
 function displayCards(drawnCards, categoryKey) {
   const cat = categories[categoryKey];
 
-  // 結果タイトルをセット
   document.getElementById("result-icon").textContent     = cat.icon;
   document.getElementById("result-cat-name").textContent = cat.name;
 
-  // 3枚それぞれの情報をHTMLにセットする
   drawnCards.forEach((drawn, i) => {
     const { card, isReversed, role } = drawn;
 
-    // 役割ラベル（「現状」「注意点」など）
     document.getElementById(`role-${i}`).textContent = role;
 
-    // シンボル絵文字（逆位置のときは上下反転）
-    const symbolEl = document.getElementById(`symbol-${i}`);
-    symbolEl.textContent       = card.symbol;
-    symbolEl.style.transform   = isReversed ? "rotate(180deg)" : "rotate(0deg)";
+    const symbolEl           = document.getElementById(`symbol-${i}`);
+    symbolEl.textContent     = card.symbol;
+    symbolEl.style.transform = isReversed ? "rotate(180deg)" : "rotate(0deg)";
 
-    // カード情報
     document.getElementById(`number-${i}`).textContent  = card.number;
     document.getElementById(`name-${i}`).textContent    = card.name;
     document.getElementById(`name-en-${i}`).textContent = card.nameEn;
 
-    // 正位置・逆位置バッジ
-    const posEl     = document.getElementById(`position-${i}`);
+    const posEl       = document.getElementById(`position-${i}`);
     posEl.textContent = isReversed ? "🔻 逆位置" : "🔺 正位置";
     posEl.className   = isReversed ? "card-position reversed" : "card-position upright";
 
-    // 意味テキスト（uprightMeaning / reversedMeaning を使う）
     document.getElementById(`meaning-${i}`).textContent =
       isReversed ? card.reversedMeaning : card.uprightMeaning;
   });
 
-  // 総合鑑定テキストを生成してHTMLにセットする
+  // 総合鑑定テキストを生成
   const summaryText    = generateSummary(categoryKey, drawnCards);
   const summaryContent = document.getElementById("summary-content");
-  summaryContent.innerHTML = ""; // 前回の結果をいったん消す
-
-  // "\n\n" で区切って、段落ごとに <p> タグを作る
+  summaryContent.innerHTML = "";
   summaryText.split("\n\n").forEach((paragraph) => {
     const p       = document.createElement("p");
     p.textContent = paragraph;
@@ -289,20 +331,60 @@ function displayCards(drawnCards, categoryKey) {
   document.querySelectorAll(".card-item").forEach((el) => el.classList.remove("show"));
   document.getElementById("summary-box").classList.remove("show");
 
+  // おやつボックスもリセット（前回の表示を消す）
+  const snackBox = document.getElementById("snack-box");
+  snackBox.classList.remove("show");
+  snackBox.classList.add("hidden");
+
   // 結果エリアの先頭へスクロール
   setTimeout(() => resultArea.scrollIntoView({ behavior: "smooth", block: "start" }), 80);
 
-  // カードを1枚ずつ時間差でフェードイン（0ms → 220ms → 440ms）
+  // カードを1枚ずつ時間差でフェードイン
   drawnCards.forEach((_, i) => {
     setTimeout(() => {
       document.getElementById(`card-item-${i}`).classList.add("show");
     }, i * 220 + 100);
   });
 
-  // 総合鑑定は3枚が揃ってから表示する
+  // 総合鑑定：3枚揃ってから
   setTimeout(() => {
     document.getElementById("summary-box").classList.add("show");
   }, 950);
+
+  // おすすめおやつ：総合鑑定の後に自然に登場させる
+  setTimeout(() => {
+    displaySnack();
+    snackBox.classList.remove("hidden");
+    // display:none を外した次のフレームで show を付けることでアニメーションが動く
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        snackBox.classList.add("show");
+      });
+    });
+  }, 1600);
+}
+
+// ===========================
+// おすすめおやつを表示する処理
+// ===========================
+function displaySnack() {
+  // snacks 配列からランダムに1つ選ぶ
+  const snack   = snacks[Math.floor(Math.random() * snacks.length)];
+  const isChoco = snack.type === "チョコ";
+
+  // タイプバッジ（チョコ／クッキーで色を変える）
+  const badge       = document.getElementById("snack-type");
+  badge.textContent = snack.type;
+  badge.className   = `snack-type-badge ${isChoco ? "choco" : "cookie"}`;
+
+  // 絵文字・名前・説明をセット
+  document.getElementById("snack-emoji").textContent = snack.emoji;
+  document.getElementById("snack-name").textContent  = snack.name;
+  document.getElementById("snack-desc").textContent  = snack.description;
+
+  // リンクをセット（target="_blank" で別タブ、rel="noopener" はセキュリティのお作法）
+  const linkEl  = document.getElementById("snack-link");
+  linkEl.href   = snack.link;
 }
 
 // ===========================
@@ -310,8 +392,6 @@ function displayCards(drawnCards, categoryKey) {
 // ===========================
 function generateSummary(categoryKey, drawnCards) {
   const [c1, c2, c3] = drawnCards;
-
-  // 正位置の枚数で全体のトーンを決める（0〜3）
   const positiveCount = drawnCards.filter((c) => !c.isReversed).length;
 
   const toneIntros = [
@@ -322,10 +402,7 @@ function generateSummary(categoryKey, drawnCards) {
   ];
   const overallTone = toneIntros[positiveCount];
 
-  // 各カードの内容を文章に織り込む
-  // → 意味の最初の文（「。」より前）を引用してリアルな感想を出す
   const firstSentence = (text) => text.split("。")[0];
-
   const describeCard = (c) => {
     const pos     = c.isReversed ? "逆位置" : "正位置";
     const meaning = c.isReversed ? c.card.reversedMeaning : c.card.uprightMeaning;
@@ -334,11 +411,8 @@ function generateSummary(categoryKey, drawnCards) {
       : "明るいエネルギーがしっかりと流れています";
     return `「${c.role}」の【${c.card.name}】（${pos}）は「${firstSentence(meaning)}」を示し、${hint}。`;
   };
+  const cardsParagraph = describeCard(c1) + " " + describeCard(c2) + " " + describeCard(c3);
 
-  const cardsParagraph =
-    describeCard(c1) + " " + describeCard(c2) + " " + describeCard(c3);
-
-  // カテゴリー×トーン別のアドバイス
   const adviceMap = {
     luck: {
       positive: "運気の流れは全体的に良好です。直感を信じて積極的に動くことで、思っていた以上の喜びが舞い込んでくるでしょう。日常の小さな幸せに気づく心が、さらなる幸運を引き寄せます。",
@@ -361,13 +435,8 @@ function generateSummary(categoryKey, drawnCards) {
       caution:  "複雑な状況の中でも、自分を責めないでください。今は自分の本音とゆっくり向き合う時間が必要かもしれません。焦らなくて大丈夫。心が落ち着いたとき、自然と道が見えてきます。",
     },
   };
+  const advice = positiveCount >= 2 ? adviceMap[categoryKey].positive : adviceMap[categoryKey].caution;
 
-  const advice =
-    positiveCount >= 2
-      ? adviceMap[categoryKey].positive
-      : adviceMap[categoryKey].caution;
-
-  // 締めくくりのメッセージ（3種類からランダムに選ぶ）
   const closings = [
     "どんな結果であっても、カードはあなたの幸せを願っています。今日も自分をいたわりながら、一歩ずつ進んでいきましょう。🌟",
     "星たちはいつもあなたのそばにいます。うまくいかない日があっても、それはより良い方向への布石。あなたなら大丈夫です。✨",
@@ -375,7 +444,6 @@ function generateSummary(categoryKey, drawnCards) {
   ];
   const closing = closings[Math.floor(Math.random() * closings.length)];
 
-  // 4つの段落を "\n\n" でつないで返す（displayCards側で <p> タグに分割される）
   return [overallTone, cardsParagraph, advice, closing].join("\n\n");
 }
 
@@ -385,11 +453,8 @@ function generateSummary(categoryKey, drawnCards) {
 function showHint() {
   const hint = document.getElementById("hint-message");
   hint.classList.remove("hidden");
-
-  // animation プロパティをいったんリセットしてから再設定することで
-  // すでに表示中でも shake アニメーションを再生できる
   hint.style.animation = "none";
-  hint.offsetHeight;   // 強制的に再描画させるお作法
+  hint.offsetHeight;
   hint.style.animation = "shake 0.5s ease";
 }
 
@@ -398,9 +463,7 @@ function showHint() {
 // ===========================
 function createStars() {
   const container = document.getElementById("stars");
-  const count     = 120;
-
-  for (let i = 0; i < count; i++) {
+  for (let i = 0; i < 120; i++) {
     const star              = document.createElement("div");
     star.classList.add("star");
     star.style.left         = `${Math.random() * 100}%`;
