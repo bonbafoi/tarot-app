@@ -219,7 +219,7 @@ const snacks = [
     type: "クッキー",
     emoji: "🍪",
     description: "キャラメルとアーモンドが香ばしい、贅沢なフランス菓子風クッキー。",
-    link: "https://amzn.to/4t6NfEu",
+    link: "https://www.amazon.co.jp/%E5%A4%A9%E7%84%B6%E7%94%9F%E6%B4%BB-%E3%83%95%E3%83%AD%E3%83%A9%E3%83%B3%E3%82%BF%E3%83%B33%E7%A8%AE-%E3%82%A2%E3%83%BC%E3%83%A2%E3%83%B3%E3%83%89-%E3%82%B7%E3%83%A7%E3%82%B3%E3%83%A9-%E3%82%AA%E3%83%AC%E3%83%B3%E3%82%B8/dp/B09SPB8Q3D?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&crid=DS4NVWY7YGJ8&dib=eyJ2IjoiMSJ9.Z10QzHq6PgaCnru_asUCBeg03SIxsu_cSaK8WMntyvhieEFBQNvI5h5n58pBQSCqikvkxKj7GCRdQB0NDBEj2CiE-tFxOxc6vheJzSRWAK5TQsvMShQ7lCi71-8Af9yzeCUJk8WD2O3PiCd5uma9_e2budwzh8oK38VtJjG0bgSc1t0M5vj1Yqc03kbax-YhgHccciUQfZOfOk4nfdHH1P9KMk6BEeGUvYt8nUGHAlRENu_bpu9EehTfKzV5McrjMhV3QS-jLxtiFFDsaCn8YdsIsDZVExwelVG-m8VIwAc.kr8ijDWF74dN0b37L9rY4Z9Q8YssRkirnfg1EWbTLBU&dib_tag=se&keywords=%E3%82%A2%E3%83%BC%E3%83%A2%E3%83%B3%E3%83%89%E3%83%95%E3%83%AD%E3%83%A9%E3%83%B3%E3%82%BF%E3%83%B3&qid=1777413046&sprefix=%E3%82%A2%E3%83%BC%E3%83%A2%E3%83%B3%E3%83%89%E3%83%95%E3%83%AD%E3%83%A9%E3%83%B3%E3%82%BF%E3%83%B3%2Caps%2C209&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1&linkCode=ll2&tag=bonbafoi-22&linkId=4730a049dad704b8c644f7128abdc0e2&ref_=as_li_ss_tl",
   },
 ];
 
