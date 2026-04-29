@@ -223,7 +223,7 @@ h1 {
    汎用：非表示クラス
    =========================== */
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 /* ===========================
@@ -428,14 +428,8 @@ h1 {
   border-radius: 24px;
   padding: 32px 28px 28px;
   position: relative;
-  /* ※ opacity や transition はここには書かない。
-       display:none 解除後に transition を動かすと
-       ブラウザが描画を確定する前に終わってしまうため、
-       代わりに .show クラスの keyframe animation を使う */
 }
 
-/* .show が付いた瞬間に keyframe animation が確実に再生される
-   （transition と違い、display:none 解除後でも動く） */
 .snack-box.show {
   animation: snackReveal 0.65s ease both;
 }
@@ -451,7 +445,6 @@ h1 {
   }
 }
 
-/* 内側の細い装飾ボーダー */
 .snack-box::before {
   content: "";
   position: absolute;
@@ -461,7 +454,6 @@ h1 {
   pointer-events: none;
 }
 
-/* 広告ラベル（右上に小さく表示） */
 .snack-ad-label {
   position: absolute;
   top: 12px;
@@ -474,7 +466,6 @@ h1 {
   letter-spacing: 0.04em;
 }
 
-/* セクションタイトル */
 .snack-title {
   font-size: 1.05rem;
   font-weight: bold;
@@ -484,7 +475,6 @@ h1 {
   text-shadow: 0 0 16px rgba(255, 200, 80, 0.4);
 }
 
-/* サブタイトル */
 .snack-subtitle {
   font-size: 0.78rem;
   color: rgba(255, 200, 80, 0.6);
@@ -492,7 +482,6 @@ h1 {
   margin-bottom: 20px;
 }
 
-/* 商品カード（内側の枠） */
 .snack-card {
   background: rgba(255, 200, 80, 0.04);
   border: 1px solid rgba(220, 170, 80, 0.2);
@@ -504,7 +493,6 @@ h1 {
   gap: 10px;
 }
 
-/* タイプバッジ（「チョコ」or「クッキー」） */
 .snack-type-badge {
   font-size: 0.72rem;
   font-weight: bold;
@@ -513,27 +501,23 @@ h1 {
   letter-spacing: 0.1em;
 }
 
-/* チョコのバッジ：チョコブラウン系 */
 .snack-type-badge.choco {
   background: rgba(100, 50, 10, 0.55);
   border: 1px solid rgba(180, 120, 50, 0.5);
   color: #d4a060;
 }
 
-/* クッキーのバッジ：キャラメル系 */
 .snack-type-badge.cookie {
   background: rgba(120, 90, 30, 0.45);
   border: 1px solid rgba(200, 160, 70, 0.45);
   color: #e0c070;
 }
 
-/* 商品の絵文字 */
 .snack-emoji {
   font-size: 2.6rem;
   filter: drop-shadow(0 0 8px rgba(255, 200, 80, 0.35));
 }
 
-/* 商品名 */
 .snack-name {
   font-size: 1rem;
   font-weight: bold;
@@ -542,7 +526,6 @@ h1 {
   letter-spacing: 0.04em;
 }
 
-/* 商品説明 */
 .snack-desc {
   font-size: 0.82rem;
   color: #c8a060;
@@ -550,7 +533,6 @@ h1 {
   text-align: center;
 }
 
-/* 価格注意書き */
 .snack-price-note {
   font-size: 0.68rem;
   color: rgba(200, 160, 70, 0.55);
@@ -558,7 +540,6 @@ h1 {
   line-height: 1.5;
 }
 
-/* Amazonへのリンクボタン */
 .snack-btn {
   display: inline-block;
   padding: 12px 36px;
@@ -578,7 +559,6 @@ h1 {
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-/* ゴールドのグラデーションがゆっくり動く */
 @keyframes goldShift {
   0%   { background-position: 0% 50%; }
   50%  { background-position: 100% 50%; }
@@ -600,6 +580,7 @@ h1 {
    過去の占い結果（履歴）
    =========================== */
 .history-section {
+  display: block;
   width: 100%;
   max-width: 700px;
   margin: 0 auto 16px;
@@ -613,6 +594,15 @@ h1 {
   letter-spacing: 0.18em;
   margin-bottom: 14px;
   text-align: center;
+}
+
+/* 0件のときに表示するメッセージ */
+.history-empty {
+  font-size: 0.78rem;
+  color: #5a4078;
+  text-align: center;
+  padding: 18px 0 8px;
+  letter-spacing: 0.06em;
 }
 
 .history-item {
@@ -660,6 +650,7 @@ h1 {
   margin-left: auto;
   font-size: 0.65rem;
   color: #6a50aa;
+  flex-shrink: 0;
 }
 
 .history-brief {
@@ -760,6 +751,7 @@ h1 {
   line-height: 1.85;
   color: #a890c8;
   margin-bottom: 8px;
+  text-align: left;
 }
 
 .history-summary p:last-child {
@@ -776,12 +768,134 @@ footer {
   letter-spacing: 0.08em;
 }
 
-/* Amazonアソシエイト開示文言 */
 .affiliate-disclosure {
   margin-top: 10px;
   font-size: 0.68rem;
   color: #4a3555;
   letter-spacing: 0.04em;
+}
+
+/* ===========================
+   サイトナビゲーション
+   =========================== */
+.site-nav {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 0 0 28px;
+}
+
+.nav-link {
+  font-size: 0.78rem;
+  color: #a888c8;
+  text-decoration: none;
+  padding: 7px 18px;
+  border: 1px solid rgba(190, 130, 255, 0.2);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.025);
+  letter-spacing: 0.07em;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav-link:hover {
+  background: rgba(160, 80, 255, 0.15);
+  border-color: rgba(200, 140, 255, 0.5);
+  color: #e0c8ff;
+}
+
+.nav-link.current {
+  background: rgba(120, 50, 220, 0.22);
+  border-color: rgba(200, 140, 255, 0.5);
+  color: #e8d4ff;
+}
+
+/* ===========================
+   内部リンクバナー
+   =========================== */
+.internal-banner {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 16px 22px;
+  background: rgba(90, 20, 150, 0.18);
+  border: 1px solid rgba(190, 110, 255, 0.22);
+  border-radius: 16px;
+  text-decoration: none;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.internal-banner:hover {
+  background: rgba(110, 30, 190, 0.28);
+  border-color: rgba(200, 140, 255, 0.4);
+}
+
+.banner-body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.banner-eyebrow {
+  font-size: 0.68rem;
+  color: #8860a8;
+  letter-spacing: 0.1em;
+}
+
+.banner-main {
+  font-size: 0.86rem;
+  font-weight: bold;
+  color: #d4a8ff;
+  letter-spacing: 0.06em;
+}
+
+.banner-cta {
+  font-size: 0.75rem;
+  color: #b080ff;
+  border: 1px solid rgba(180, 100, 255, 0.3);
+  padding: 8px 18px;
+  border-radius: 20px;
+  background: rgba(100, 40, 180, 0.18);
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ===========================
+   フッターナビゲーション
+   =========================== */
+.footer-nav {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(200, 140, 255, 0.1);
+}
+
+.footer-nav a {
+  font-size: 0.72rem;
+  color: #6a5090;
+  text-decoration: none;
+  letter-spacing: 0.07em;
+  transition: color 0.2s ease;
+  padding: 4px 0;
+}
+
+.footer-nav a:hover {
+  color: #b89fcc;
 }
 
 /* ===========================
@@ -795,7 +909,6 @@ footer {
     font-size: 1rem;
   }
 
-  /* スマホでは3枚を縦積みにする */
   .cards-row {
     flex-direction: column;
     align-items: center;
@@ -811,5 +924,23 @@ footer {
   .cat-btn {
     min-width: 74px;
     padding: 12px 12px;
+  }
+
+  .history-card {
+    min-width: 80px;
+  }
+
+  .internal-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .banner-cta {
+    align-self: flex-end;
+  }
+
+  .footer-nav {
+    gap: 14px;
   }
 }

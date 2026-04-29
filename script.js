@@ -32,7 +32,6 @@ const majorArcana = [
 
 // ===========================
 // ② 小アルカナ：ワンド（14枚）
-// 火のスート：情熱・創造・行動力・仕事・野心を象徴する
 // ===========================
 const wandsRawData = [
   ["A",      "エース",   "Ace",    "新しい始まり、創造力、情熱、インスピレーション。新しいプロジェクトを始める好機。",       "創造エネルギーの停滞、方向性の迷い。アイデアはあるが実行に移せていない。"],
@@ -58,7 +57,6 @@ const wands = wandsRawData.map(([num, jp, en, up, rev]) => ({
 
 // ===========================
 // ③ 小アルカナ：カップ（14枚）
-// 水のスート：感情・愛情・関係・直感・夢を象徴する
 // ===========================
 const cupsRawData = [
   ["A",      "エース",   "Ace",    "新しい愛、感情の始まり、直感の覚醒、喜び。心が開かれる時。",                           "感情の抑圧、自己愛の欠如。自分の気持ちを大切にして。"],
@@ -84,7 +82,6 @@ const cups = cupsRawData.map(([num, jp, en, up, rev]) => ({
 
 // ===========================
 // ④ 小アルカナ：ソード（14枚）
-// 風のスート：知性・真実・葛藤・決断・コミュニケーションを象徴する
 // ===========================
 const swordsRawData = [
   ["A",      "エース",   "Ace",    "明確さ、真実、突破口、新しいアイデア。真実を見極める力がある。",                       "混乱、誤った情報、誤解。情報を慎重に見極めて。"],
@@ -110,7 +107,6 @@ const swords = swordsRawData.map(([num, jp, en, up, rev]) => ({
 
 // ===========================
 // ⑤ 小アルカナ：ペンタクル（14枚）
-// 土のスート：物質・お金・仕事・健康・現実的な事柄を象徴する
 // ===========================
 const pentaclesRawData = [
   ["A",      "エース",   "Ace",    "物質的な新たな始まり、機会、豊かさの種。金銭的なチャンスが来る。",                     "機会の逃し、財政的な不安定さ。今は無理な冒険より安定を選んで。"],
@@ -138,12 +134,12 @@ const pentacles = pentaclesRawData.map(([num, jp, en, up, rev]) => ({
 // ⑥ 78枚をまとめる
 // ===========================
 const tarotCards = [
-  ...majorArcana,   // 大アルカナ 22枚
-  ...wands,         // ワンド     14枚
-  ...cups,          // カップ     14枚
-  ...swords,        // ソード     14枚
-  ...pentacles,     // ペンタクル 14枚
-];                  // 合計 78枚
+  ...majorArcana,
+  ...wands,
+  ...cups,
+  ...swords,
+  ...pentacles,
+];
 
 // ===========================
 // 占いカテゴリーの定義（5種類）
@@ -156,7 +152,6 @@ const categories = {
   secret: { name: "秘密の恋愛",icon: "🌹", roles: ["本音",     "隠れた問題",     "これから"]   },
 };
 
-// 現在選ばれているカテゴリー（null = 未選択）
 let selectedCategory = null;
 
 // ===========================
@@ -180,12 +175,8 @@ function selectCategory(key) {
 // カードを3枚引く処理
 // ===========================
 function drawCards() {
-  if (!selectedCategory) {
-    showHint();
-    return;
-  }
+  if (!selectedCategory) { showHint(); return; }
 
-  // 重複しないように3枚をランダムに選ぶ（Setで重複排除）
   const usedIndices = new Set();
   const drawnCards  = [];
   const cat         = categories[selectedCategory];
@@ -235,10 +226,8 @@ function displayCards(drawnCards, categoryKey) {
       isReversed ? card.reversedMeaning : card.uprightMeaning;
   });
 
-  // 総合鑑定テキストを生成
   const summaryText    = generateSummary(categoryKey, drawnCards);
 
-  // 履歴に保存（表示前に確定するため先に実行）
   saveHistory(categoryKey, drawnCards, summaryText);
 
   const summaryContent = document.getElementById("summary-content");
@@ -249,41 +238,31 @@ function displayCards(drawnCards, categoryKey) {
     summaryContent.appendChild(p);
   });
 
-  // 結果エリアを表示する
   const resultArea = document.getElementById("result-area");
   resultArea.classList.remove("hidden");
 
-  // アニメーションをリセット
   document.querySelectorAll(".card-item").forEach((el) => el.classList.remove("show"));
   document.getElementById("summary-box").classList.remove("show");
 
-  // おやつボックスもリセット（前回の表示を消す）
   const snackBox = document.getElementById("snack-box");
   snackBox.classList.remove("show");
   snackBox.classList.add("hidden");
 
-  // 結果エリアの先頭へスクロール
   setTimeout(() => resultArea.scrollIntoView({ behavior: "smooth", block: "start" }), 80);
 
-  // カードを1枚ずつ時間差でフェードイン
   drawnCards.forEach((_, i) => {
     setTimeout(() => {
       document.getElementById(`card-item-${i}`).classList.add("show");
     }, i * 220 + 100);
   });
 
-  // 総合鑑定：3枚揃ってから
   setTimeout(() => {
     document.getElementById("summary-box").classList.add("show");
   }, 950);
 
-  // おすすめおやつ：総合鑑定の後に自然に登場させる
   setTimeout(() => {
-    displaySnack();               // 商品データをセット
-    snackBox.classList.remove("hidden"); // display:none を解除
-    // 50ms 待ってから .show を付ける
-    // → ブラウザが display:none 解除を描画に反映した後で
-    //   keyframe animation が確実に動くようにするため
+    displaySnack();
+    snackBox.classList.remove("hidden");
     setTimeout(() => snackBox.classList.add("show"), 50);
   }, 1600);
 }
@@ -292,88 +271,190 @@ function displayCards(drawnCards, categoryKey) {
 // おすすめおやつを表示する処理
 // ===========================
 function displaySnack() {
-  // snacks 配列からランダムに1つ選ぶ
   const snack   = snackItems[Math.floor(Math.random() * snackItems.length)];
   const isChoco = snack.type === "チョコ";
 
-  // タイプバッジ（チョコ／クッキーで色を変える）
   const badge       = document.getElementById("snack-type");
   badge.textContent = snack.type;
-  badge.className   = `snack-type-badge ${isChoco ? "choco" : "cookie"}`;
+  badge.className   = "snack-type-badge " + (isChoco ? "choco" : "cookie");
 
-  // 絵文字・名前・説明をセット
   document.getElementById("snack-emoji").textContent = snack.emoji;
   document.getElementById("snack-name").textContent  = snack.name;
   document.getElementById("snack-desc").textContent  = snack.description;
-
-  // リンクをセット（target="_blank" で別タブ、rel="noopener" はセキュリティのお作法）
-  const linkEl  = document.getElementById("snack-link");
-  linkEl.href   = snack.link;
+  document.getElementById("snack-link").href         = snack.link;
 }
 
-// ===========================
-// 総合鑑定テキストを生成する処理
-// ===========================
+// ===================================================================
+// 総合鑑定テキストを生成する処理（感情に寄り添う5段構成）
+// ===================================================================
 function generateSummary(categoryKey, drawnCards) {
   const [c1, c2, c3] = drawnCards;
   const positiveCount = drawnCards.filter((c) => !c.isReversed).length;
 
-  const toneIntros = [
-    "カードは今、あなたに「一度立ち止まって、自分の内側と向き合う時間を持ちましょう」とやさしく伝えています。難しく感じる時期でも、それはあなたが成長するための大切なプロセス。必ず乗り越えられます。",
-    "光と影が入り混じった、変化の途中にいるようです。カードはあなたに「焦らなくて大丈夫、自分のペースで進もう」と伝えています。",
-    "全体的にポジティブなエネルギーが流れています。いくつか意識しておきたいことはありますが、着実に良い方向へ向かっています。",
-    "3枚すべてに輝くような光が宿っています！星たちがあなたを応援していることを、カードが教えてくれています。",
+  // カードの意味テキストから最初の一文を取る
+  const firstSentence = (c) => {
+    const text = c.isReversed ? c.card.reversedMeaning : c.card.uprightMeaning;
+    return text.split("。")[0];
+  };
+
+  // ── ① 共感（ユーザーの気持ちを言い当てる） ──────────────────────
+  const empathyMap = {
+    luck: [
+      "最近、なんとなく「ツイていない」「頑張っているのに噛み合わない」と感じることが多くなっていませんか。タロットのカードたちも、今のあなたが少し疲れていることを感じ取っています。でもそれは決して「ダメ」ということではありません。充電が必要な時期にいるだけ。焦らなくていいんです。",
+      "「なんとなくうまくいかない」「変わりたいのに変われない」——そんなもどかしさを抱えていませんか。カードを見ると、あなたは今、光と影が入り混じった変化の途中にいることがわかります。その揺らぎは弱さではなく、何かが動こうとしているサインかもしれません。",
+      "少しずつ、でも確実に、あなたの周りが良い方向へ動き始めています。「そういえば最近、なんとなくいい感じかも」という感覚がありませんか。カードはその変化を、しっかりと映し出しています。",
+      "今この瞬間、あなたには本当に良いエネルギーが流れています。「もしかしたら、うまくいくかも」という直感があるなら、それは正しいかもしれません。3枚のカードが一致して、あなたの可能性を祝福しています。",
+    ],
+    work: [
+      "最近、仕事のことで頭がいっぱいになっていませんか。頑張っているのに結果が見えなかったり、やる気が出なかったり……カードはそのもどかしさをちゃんと感じ取っています。大丈夫、これは「ダメ」じゃなく「準備中」のサインです。",
+      "仕事に対して、なんとなくモヤっとした気持ちが続いていませんか。やる気が出ない日もあれば、突然頑張れる日もある——そんな波の中にいるのかもしれません。カードはその揺らぎを否定せず、あなたのペースをそのまま受け止めています。",
+      "仕事の面で、少しずつ手応えを感じ始めていませんか。すぐには結果に出なくても、あなたのこれまでの努力は確実に土台になっています。カードも、その積み重ねをしっかり認めてくれています。",
+      "仕事に関して、今のあなたには本当に良い流れがあります。カードが3枚そろって、あなたの可能性とエネルギーを祝福しています。この勢いを大切に、次の一手を考えてみてください。",
+    ],
+    money: [
+      "お金のことで、なんとなく不安を感じていませんか。「足りるかな」「もっと稼げたらいいのに」——そんな気持ちを抱えているあなたに、カードは「今は焦らないで」と伝えています。不安を感じること自体、あなたが真剣に将来と向き合っている証拠です。",
+      "金銭面で、安心できるときと不安なときが波のように来ていませんか。カードを見ると、流れはゆっくりと整い始めていますが、まだ慎重さが求められる場面もありそうです。でもその慎重さは、あなたの賢さです。",
+      "金運に関して、今のあなたの周りには安定した流れがあります。急激な変化はないかもしれませんが、着実に良い方向へ向かっています。カードもその流れを、やさしく後押ししてくれています。",
+      "金運に関して、今のあなたにはとても良いエネルギーが宿っています。カードたちが3枚そろって、豊かさへの扉を示してくれています。この流れを丁寧に活かしていきましょう。",
+    ],
+    love: [
+      "好きな人のことを考えると、どこか不安な気持ちが押し寄せてきませんか。「どう思われているんだろう」「うまくいくのかな」——そんな心のざわめきを抱えているあなたに、カードは今、まず深呼吸してと伝えています。あなたが悩んでいること自体、それだけ真剣に想っている証拠です。",
+      "恋愛って、どうしてこんなに難しいんだろう……。うまくいきかけたと思ったら、また迷ってしまう——そんな気持ちを繰り返していませんか。カードは、あなたが今まさに大切なターニングポイントにいることを、やさしく教えてくれています。",
+      "恋愛において、今のあなたはとても良い位置にいます。関係が少しずつ育まれていたり、出会いのエネルギーが高まっていたり。カードがその温かい流れを、そっと後押ししています。",
+      "あなたの恋愛に関して、カードたちがとても温かいメッセージを届けています。今のあなたの中には、素直で純粋な気持ちが満ちています。それが、あなたの最大の魅力です。",
+    ],
+    secret: [
+      "誰にも打ち明けられない気持ちを、ひとりで抱えていませんか。それだけで、心はずいぶん疲れてしまいます。カードは今、あなたにまず「自分を責めないで」と伝えています。どんな状況であっても、あなたの感情は本物で、大切なものです。",
+      "複雑な気持ちをひとりで抱えながら、毎日をやり過ごしている——そんな状況にいませんか。カードは、あなたのその重さを静かに受け止めています。白黒つけようとしなくていいんです。今は、ただ自分の心の声に耳を傾けてみてください。",
+      "誰かを想う気持ちは、それだけで十分に尊いものです。状況がどんなに複雑でも、あなたの心の中にある感情は本物。カードは今、その感情をやさしく肯定しながら、あなたの歩みを静かに応援しています。",
+      "今、あなたの心の中に温かい光があります。複雑な事情があるかもしれないけれど、あなた自身の気持ちはとても純粋です。カードはその誠実さを感じ取りながら、あなたにとっての幸せを一緒に考えたいと言っています。",
+    ],
+  };
+  const para1 = empathyMap[categoryKey][positiveCount];
+
+  // ── ② 状況の解釈（3枚を自然な文章で描写） ──────────────────────
+  const describeCard1 = () => {
+    const f = firstSentence(c1);
+    if (c1.isReversed) {
+      return `「${c1.role}」に現れた【${c1.card.name}】は、逆位置という形でメッセージを届けています。「${f}」——今のあなたの中で、そのエネルギーがうまく流れていない部分があるのかもしれません。でも逆位置のカードは「問題がある」ではなく、「ここに気づいてほしい」とやさしく指し示しているだけです。`;
+    }
+    return `「${c1.role}」に現れた【${c1.card.name}】（正位置）は、「${f}」というエネルギーをしっかりと運んできました。今のあなたの中に、そのエネルギーが確かに宿っています。`;
+  };
+
+  const describeCard2 = () => {
+    const f = firstSentence(c2);
+    if (c2.isReversed) {
+      return `続いて「${c2.role}」の【${c2.card.name}】（逆位置）。「${f}」——ここには、今のあなたが少し立ち止まって考えるべきことのヒントが隠れています。怖がらなくて大丈夫。これはカードからの、やさしい気づきのメモです。`;
+    }
+    return `「${c2.role}」の位置には【${c2.card.name}】（正位置）が現れ、「${f}」というエネルギーが流れています。この流れをうまく活かすことが、今のあなたにとって大切なことかもしれません。`;
+  };
+
+  const describeCard3 = () => {
+    const f = firstSentence(c3);
+    if (c3.isReversed) {
+      return `そして「${c3.role}」の【${c3.card.name}】（逆位置）が伝えるのは、「${f}」というメッセージ。外に向かって動くよりも、まず自分の内側と静かに向き合う時間を持つことが、今のあなたには必要かもしれません。`;
+    }
+    return `そして「${c3.role}」には【${c3.card.name}】（正位置）が現れました。「${f}」——このカードは、あなたの前に光の道が開かれていることを示しています。`;
+  };
+
+  const para2 = describeCard1() + " " + describeCard2() + " " + describeCard3();
+
+  // ── ③ 未来の流れ ────────────────────────────────────────────────
+  const futureMap = {
+    luck: [
+      "この先しばらくは、外に向かって動くよりも内側を整えることに意味があります。無理に行動しようとせず、今の自分をていねいにケアすることで、運気は自然と底上げされていきます。時間がかかっても、それは確実な変化の土台になっています。",
+      "少し時間はかかるかもしれませんが、流れは確実に変わり始めています。今は結果を急がず、日々の小さなことを丁寧に積み重ねていくことが、大きな転換点への道になります。焦らなくていい——あなたのペースが、一番の近道です。",
+      "今後、あなたの運気はさらに上向いていきます。何か直感的に「やってみたい」と感じることがあれば、それは運気の流れと共鳴しているサインかもしれません。その直感を、大切にしてみてください。",
+      "この先、あなたには明るい流れが続きます。チャンスは必ずやってきます——そしてあなたはすでに、それを受け取る準備ができています。自信を持って、前に進んでください。",
+    ],
+    work: [
+      "仕事の面では、しばらくは「結果」よりも「プロセス」を大切にする時期が続きそうです。焦らず、一つひとつ丁寧に取り組むことが、やがて大きな実りへとつながっていきます。今日の積み重ねが、未来のあなたを作っています。",
+      "仕事における変化の兆しが、少しずつ現れてきます。今すぐには見えなくても、今日積み重ねたことは、必ず未来の土台になっています。焦らず、でも着実に、自分のペースを守ってください。",
+      "仕事の流れは確実に良くなっています。今後、あなたの努力や才能が周囲に認められる機会が増えていきそうです。今まで続けてきたことを、自信を持って続けてみてください。",
+      "仕事において、この先さらなる飛躍が期待できます。あなたの中にある力は本物です。それを信じて、一歩ずつ、大きく羽ばたいてください。",
+    ],
+    money: [
+      "金銭面では、しばらくは慎重に、でも前向きに向き合う姿勢が大切です。今は大きな動きをするより、しっかりと土台を固める時期。「守りながら整える」——それが今のあなたに合ったリズムです。",
+      "金運は、ゆっくりと、でも確かに改善に向かっています。今は急がず焦らず、一歩一歩着実に進むことが、長期的な豊かさにつながります。小さな積み重ねが、大きな余裕を生み出します。",
+      "金銭的な流れは安定しており、今後もその傾向が続きそうです。計画的に動くことで、着実に余裕が生まれていきます。今のあなたには、堅実さという力があります。",
+      "金運は、今後さらに良い方向に動いていきます。行動力と計画性を組み合わせることで、豊かさが育まれていきます。あなたの努力は、必ず形になります。",
+    ],
+    love: [
+      "恋愛に関しては、しばらくの間は焦らず、相手とのペースを大切にする時期が続きます。すぐに答えを求めず、ゆっくりと関係を育てていくことが、深い絆へとつながります。急がなくていい。気持ちは、ちゃんと伝わっていきます。",
+      "恋愛の流れは、少しずつ動き始めています。劇的な変化よりも、日々の小さな積み重ねが、大切な変化を生み出していきます。あなたの誠実な気持ちは、必ず相手の心に届きます。",
+      "恋愛運は確実に上向いています。素直に気持ちを向けることで、関係はさらに深まっていきそうです。小さな勇気が、大きな転機になることがあります。",
+      "恋愛において、この先とても良い流れが続きます。あなたの誠実で温かい気持ちは、必ず相手に届きます。その純粋さが、一番の武器です。",
+    ],
+    secret: [
+      "複雑な状況は、すぐには解決しないかもしれません。でも、焦って答えを出そうとしなくていいんです。時間が経つにつれ、自然と見えてくるものがあります。今は自分の気持ちを、大切に守ってください。",
+      "今の状況は、少しずつ変化していきます。あなたが自分の心に正直でいれば、それが少しずつ未来を形作っていきます。焦らなくていい——あなたの感情は、正しい方向を向いています。",
+      "あなたの気持ちは、この先少しずつ形になっていくかもしれません。正直な感情を大切にしながら、自分にとって何が本当に幸せかを、ゆっくりと考えてみてください。",
+      "今の流れは、あなたの感情と誠実さを土台にして、少しずつ良い方向へ向かっています。自分を信じて、あなたらしく歩んでいきましょう。",
+    ],
+  };
+  const para3 = futureMap[categoryKey][positiveCount];
+
+  // ── ④ 安心させるフォロー ────────────────────────────────────────
+  const reassurancePool = [
+    "うまくいかない時期は、誰にでもあります。それはあなたが弱いからではなく、次のステージへ向けて準備しているからです。今日、カードと向き合ったこと——それだけで、あなたはすでに前に進んでいます。",
+    "迷っていい、揺れていい。人生にはそういう時期があって、それが次の確かな一歩をつくります。カードはあなたを責めていません。ただ、やさしく「大丈夫だよ」と言っています。",
+    "あなたは今、ちゃんと良い方向へ歩いています。完璧じゃなくていい、急がなくていい。今日のあなたのままで、十分です。カードはそれを、しっかりと証明してくれています。",
+    "どんな状況にいても、あなたには確かな力があります。それはカードが映し出してくれた、あなた自身の光です。自分を信じることが、これからの一番の武器になります。",
   ];
-  const overallTone = toneIntros[positiveCount];
+  const para4 = reassurancePool[positiveCount];
 
-  const firstSentence = (text) => text.split("。")[0];
-  const describeCard = (c) => {
-    const pos     = c.isReversed ? "逆位置" : "正位置";
-    const meaning = c.isReversed ? c.card.reversedMeaning : c.card.uprightMeaning;
-    const hint    = c.isReversed
-      ? "少し内向きのエネルギーを感じますが、ここに大切な気づきが隠れています"
-      : "明るいエネルギーがしっかりと流れています";
-    return `「${c.role}」の【${c.card.name}】（${pos}）は「${firstSentence(meaning)}」を示し、${hint}。`;
+  // ── ⑤ 具体的な行動アドバイス ────────────────────────────────────
+  const actionMap = {
+    luck: [
+      "今日できる一つのこと——それは、自分をいたわることです。好きな食べものを食べる、少し早く寝る、誰かに「ありがとう」を伝える。そんな小さな行動が、運気の流れをじわじわと変えていきます。",
+      "今週の中でひとつだけ、「ちょっと苦手だけどやってみようかな」ということに挑戦してみてください。その小さな一歩が、新しいエネルギーを呼び込みます。",
+      "今のあなたには、直感を信じて動くことが大切です。「なんとなくいいかも」と感じることを、少し勇気を出して試してみてください。それが、運気の扉を開く鍵になります。",
+      "このエネルギーが高い今こそ、ずっと気になっていたことを始めてみましょう。新しい習慣、新しい出会い、新しい挑戦——どれもあなたの運気をさらに引き上げてくれます。",
+    ],
+    work: [
+      "今日の仕事で、ひとつだけ「丁寧にやること」を選んでみてください。完璧じゃなくていい。ひとつだけ、心を込めて向き合うことで、流れが変わり始めます。",
+      "今の自分に正直になってみてください。「本当はどうしたい？」「何が一番大切？」——その問いへの答えが、次の行動のヒントになります。",
+      "今のあなたには、誰かに相談したり、サポートを求めたりする勇気が必要かもしれません。一人で抱え込まずに、信頼できる人に話してみてください。",
+      "今の流れを活かして、ひとつ具体的な目標を書き出してみましょう。言葉にするだけで、エネルギーが集まります。",
+    ],
+    money: [
+      "今日、家計の状況を少し見直してみましょう。難しいことじゃなくていい。「今の自分の状況を知る」という一歩が、金運を整える第一歩です。",
+      "今週、「本当に必要なもの」と「あったら嬉しいもの」を区別してみてください。その小さな習慣が、長期的な豊かさへの土台を作ります。",
+      "今の流れを活かして、少額でも「未来への投資」を意識してみましょう。勉強、健康、スキルアップ——お金は使い方次第で、あなたを豊かにしてくれます。",
+      "ずっと考えていた経済的な目標を、紙に書き出してみましょう。具体的にするだけで、実現への第一歩になります。",
+    ],
+    love: [
+      "今日、気になる人に「ちょっとした一言」を送ってみましょう。大きな告白じゃなくていい。「最近どう？」それだけで、距離が縮まることがあります。",
+      "今週、自分を少し磨くことに時間をかけてみましょう。好きな服を着る、新しいことを試してみる——自分を大切にすること自体が、恋愛運を高めてくれます。",
+      "気持ちを伝えることを恐れないでください。完璧なタイミングなんてありません。今のあなたの素直な気持ちが、一番の武器です。",
+      "今のあなたの気持ちを、少しだけ言葉にしてみましょう。日記でもいい、信頼できる友人に話すのでもいい。感情を外に出すことで、心が軽くなり、次の行動への力が生まれます。",
+    ],
+    secret: [
+      "今日、自分の気持ちをひとつだけ紙に書き出してみましょう。誰かに見せなくていい。「自分はどう感じているのか」を言葉にするだけで、心の霧が少し晴れていきます。",
+      "今週、自分自身のことを大切にする時間を作ってみてください。好きな音楽を聴く、一人でゆっくりする——自分を癒すことが、これからの道を開く力になります。",
+      "複雑な気持ちを持ちながらも、「自分にとっての幸せ」を一度だけ考えてみてください。相手のことより、まず自分の心が何を求めているかを知ることが、最初の一歩になります。",
+      "自分の感情に正直でいることを選んでください。状況がどれだけ複雑でも、あなたの感情は本物です。その誠実さが、必ずあなたを良い方向へ導いていきます。",
+    ],
   };
-  const cardsParagraph = describeCard(c1) + " " + describeCard(c2) + " " + describeCard(c3);
+  const para5 = actionMap[categoryKey][positiveCount];
 
-  const adviceMap = {
-    luck: {
-      positive: "運気の流れは全体的に良好です。直感を信じて積極的に動くことで、思っていた以上の喜びが舞い込んでくるでしょう。日常の小さな幸せに気づく心が、さらなる幸運を引き寄せます。",
-      caution:  "今は焦らず、土台を固めることに集中しましょう。毎日の小さな習慣を整えることが、じわじわと運気を底上げしてくれます。変化は必ずやってきます。",
-    },
-    work: {
-      positive: "仕事面では良い流れがきています。今の積み重ねは着実に実を結んでいます。自分の強みを信じて、自信を持って取り組んでみてください。",
-      caution:  "今は結果よりもプロセスを大切にする時期です。一つひとつ丁寧に向き合うことが、着実な前進につながります。周りに助けを求める勇気も大切にして。",
-    },
-    money: {
-      positive: "金銭的な流れは安定しており、計画的に動くには良い時期です。自分の成長への投資も視野に入れてみましょう。使い方次第で、さらなるチャンスが広がります。",
-      caution:  "衝動的な出費や甘い誘いには慎重に。今は「本当に必要なものは何か」を見極める目を養う時期です。小さな積み重ねが大きな余裕へとつながります。",
-    },
-    love: {
-      positive: "恋愛運は温かく輝いています。素直な気持ちを少しずつ届けることで、関係がぐっと深まりそうです。思い切って気持ちを伝えてみるのも良いタイミングかもしれません。",
-      caution:  "焦りは禁物です。自分の気持ちに正直でいながら、相手のペースも尊重することが大切です。今は自分自身を磨く時間として過ごすことで、より良い変化を引き寄せられます。",
-    },
-    secret: {
-      positive: "あなたの心は正直なメッセージを届けようとしています。その感覚を大切にしながら、自分にとって本当に幸せな選択を考えてみてください。どんな状況でも、あなたの幸せが最優先です。",
-      caution:  "複雑な状況の中でも、自分を責めないでください。今は自分の本音とゆっくり向き合う時間が必要かもしれません。焦らなくて大丈夫。心が落ち着いたとき、自然と道が見えてきます。",
-    },
-  };
-  const advice = positiveCount >= 2 ? adviceMap[categoryKey].positive : adviceMap[categoryKey].caution;
-
+  // ── 締め（ランダム） ─────────────────────────────────────────────
   const closings = [
-    "どんな結果であっても、カードはあなたの幸せを願っています。今日も自分をいたわりながら、一歩ずつ進んでいきましょう。🌟",
-    "星たちはいつもあなたのそばにいます。うまくいかない日があっても、それはより良い方向への布石。あなたなら大丈夫です。✨",
-    "今日引いたカードのメッセージを胸に、自分らしく過ごしてみてください。素晴らしい可能性がそこにあります。🌙",
+    "どんな結果であっても、カードはいつもあなたの幸せを願っています。今日も自分をいたわりながら、一歩ずつ、あなたらしく進んでいきましょう。🌟",
+    "星たちはいつもあなたのそばにいます。うまくいかない日があっても、それはより良い明日への準備です。あなたなら、きっと大丈夫。✨",
+    "今日引いたカードのメッセージを、ポケットに入れておいてください。迷ったとき、ふっと思い出すだけで、勇気の火が灯ります。🌙",
+    "タロットは答えを「決める」ものではなく、あなたの内側の声を「引き出す」ものです。今日のカードが届けたメッセージを、これからの歩みの小さな光にしてください。🔮",
   ];
   const closing = closings[Math.floor(Math.random() * closings.length)];
 
-  return [overallTone, cardsParagraph, advice, closing].join("\n\n");
+  return [para1, para2, para3, para4, para5, closing].join("\n\n");
 }
 
-// ===========================
+// ===================================================================
 // 履歴の保存・読み込み・描画
-// ===========================
+// in-memory 配列をプライマリに、localStorage を永続化バックアップとして使う
+// ===================================================================
+let historyData = [];
 const HISTORY_KEY = "tarot_history";
 const HISTORY_MAX = 5;
 
@@ -381,111 +462,168 @@ function saveHistory(categoryKey, drawnCards, summaryText) {
   const cat = categories[categoryKey];
   const now = new Date();
   const pad = (n) => String(n).padStart(2, "0");
-  const dateStr = `${now.getFullYear()}年${now.getMonth() + 1}月${now.getDate()}日 ${pad(now.getHours())}:${pad(now.getMinutes())}`;
+  const dateStr =
+    now.getFullYear() + "年" +
+    (now.getMonth() + 1) + "月" +
+    now.getDate() + "日 " +
+    pad(now.getHours()) + ":" +
+    pad(now.getMinutes());
 
   const entry = {
-    date: dateStr,
+    date:         dateStr,
     categoryName: cat.name,
     categoryIcon: cat.icon,
     cards: drawnCards.map(({ card, isReversed, role }) => ({
       role,
-      name:       card.name,
-      symbol:     card.symbol,
+      name:      card.name,
+      symbol:    card.symbol,
       isReversed,
-      meaning:    isReversed ? card.reversedMeaning : card.uprightMeaning,
+      meaning:   isReversed ? card.reversedMeaning : card.uprightMeaning,
     })),
     summary: summaryText,
   };
 
-  const history = loadHistory();
-  history.unshift(entry);
-  if (history.length > HISTORY_MAX) history.length = HISTORY_MAX;
+  // in-memory 更新（常に成功）
+  historyData.unshift(entry);
+  if (historyData.length > HISTORY_MAX) historyData.length = HISTORY_MAX;
 
-  try {
-    localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
-  } catch (_) {}
+  // localStorage にバックアップ（失敗しても無視）
+  try { localStorage.setItem(HISTORY_KEY, JSON.stringify(historyData)); } catch (_) {}
 
   renderHistory();
 }
 
-function loadHistory() {
+function initHistory() {
+  // ページ読み込み時：localStorage から復元を試みる
   try {
-    return JSON.parse(localStorage.getItem(HISTORY_KEY)) || [];
-  } catch (_) {
-    return [];
-  }
+    const saved = JSON.parse(localStorage.getItem(HISTORY_KEY));
+    if (Array.isArray(saved) && saved.length > 0) {
+      historyData = saved.slice(0, HISTORY_MAX);
+    }
+  } catch (_) {}
+  renderHistory();
 }
 
 function renderHistory() {
-  const history = loadHistory();
-  const section = document.getElementById("history-section");
-  const list    = document.getElementById("history-list");
+  const list  = document.getElementById("history-list");
+  const empty = document.getElementById("history-empty");
+  if (!list || !empty) return;
 
-  if (history.length === 0) {
-    section.classList.add("hidden");
+  list.innerHTML = "";
+
+  if (historyData.length === 0) {
+    empty.style.display = "";
     return;
   }
 
-  section.classList.remove("hidden");
-  list.innerHTML = "";
+  empty.style.display = "none";
 
-  history.forEach((entry) => {
+  historyData.forEach((entry) => {
     const item = document.createElement("div");
     item.className = "history-item";
 
-    // ヘッダー（常に表示・クリックで開閉）
+    // ── ヘッダー ──
     const header = document.createElement("div");
     header.className = "history-item-header";
-    header.innerHTML = `
-      <span class="history-date">${entry.date}</span>
-      <span class="history-cat">${entry.categoryIcon} ${entry.categoryName}</span>
-      <span class="history-chevron">▼</span>
-    `;
-    header.addEventListener("click", () => {
-      const detail  = item.querySelector(".history-detail");
-      const chevron = item.querySelector(".history-chevron");
-      const isOpen  = item.classList.contains("open");
 
-      // 他を閉じる
-      document.querySelectorAll(".history-item.open").forEach((el) => {
-        el.classList.remove("open");
-        el.querySelector(".history-detail").classList.add("hidden");
-        el.querySelector(".history-chevron").textContent = "▼";
-      });
+    const dateSpan = document.createElement("span");
+    dateSpan.className   = "history-date";
+    dateSpan.textContent = entry.date;
 
-      if (!isOpen) {
-        item.classList.add("open");
-        detail.classList.remove("hidden");
-        chevron.textContent = "▲";
-      }
-    });
+    const catSpan = document.createElement("span");
+    catSpan.className   = "history-cat";
+    catSpan.textContent = entry.categoryIcon + " " + entry.categoryName;
 
-    // 概要（総合鑑定の1段落目）
+    const chevron = document.createElement("span");
+    chevron.className   = "history-chevron";
+    chevron.textContent = "▼";
+
+    header.appendChild(dateSpan);
+    header.appendChild(catSpan);
+    header.appendChild(chevron);
+
+    // ── 概要（1段落目のみ表示） ──
     const brief = document.createElement("p");
     brief.className   = "history-brief";
     brief.textContent = entry.summary.split("\n\n")[0];
 
-    // 詳細（最初は非表示）
+    // ── 詳細（最初は折りたたみ） ──
     const detail = document.createElement("div");
-    detail.className = "history-detail hidden";
+    detail.className     = "history-detail";
+    detail.style.display = "none";
 
-    const cardsHtml = entry.cards.map((c) => `
-      <div class="history-card">
-        <span class="history-card-role">${c.role}</span>
-        <span class="history-card-symbol" style="${c.isReversed ? "display:inline-block;transform:rotate(180deg)" : ""}">${c.symbol}</span>
-        <span class="history-card-name">${c.name}</span>
-        <span class="history-card-pos ${c.isReversed ? "reversed" : "upright"}">${c.isReversed ? "🔻 逆位置" : "🔺 正位置"}</span>
-        <p class="history-card-meaning">${c.meaning}</p>
-      </div>
-    `).join("");
+    // カード行
+    const cardsRow = document.createElement("div");
+    cardsRow.className = "history-cards-row";
 
-    const summaryHtml = entry.summary.split("\n\n")
-      .map((p) => `<p>${p}</p>`).join("");
+    entry.cards.forEach((c) => {
+      const card = document.createElement("div");
+      card.className = "history-card";
 
-    detail.innerHTML = `
-      <div class="history-cards-row">${cardsHtml}</div>
-      <div class="history-summary">${summaryHtml}</div>
-    `;
+      const roleEl = document.createElement("span");
+      roleEl.className   = "history-card-role";
+      roleEl.textContent = c.role;
+
+      const symEl = document.createElement("span");
+      symEl.className   = "history-card-symbol";
+      symEl.textContent = c.symbol;
+      if (c.isReversed) {
+        symEl.style.display   = "inline-block";
+        symEl.style.transform = "rotate(180deg)";
+      }
+
+      const nameEl = document.createElement("span");
+      nameEl.className   = "history-card-name";
+      nameEl.textContent = c.name;
+
+      const posEl = document.createElement("span");
+      posEl.className   = "history-card-pos " + (c.isReversed ? "reversed" : "upright");
+      posEl.textContent = c.isReversed ? "🔻 逆位置" : "🔺 正位置";
+
+      const meaningEl = document.createElement("p");
+      meaningEl.className   = "history-card-meaning";
+      meaningEl.textContent = c.meaning;
+
+      card.appendChild(roleEl);
+      card.appendChild(symEl);
+      card.appendChild(nameEl);
+      card.appendChild(posEl);
+      card.appendChild(meaningEl);
+      cardsRow.appendChild(card);
+    });
+
+    // 総合鑑定
+    const summaryDiv = document.createElement("div");
+    summaryDiv.className = "history-summary";
+    entry.summary.split("\n\n").forEach((para) => {
+      const p = document.createElement("p");
+      p.textContent = para;
+      summaryDiv.appendChild(p);
+    });
+
+    detail.appendChild(cardsRow);
+    detail.appendChild(summaryDiv);
+
+    // クリックで展開・折りたたみ
+    header.addEventListener("click", () => {
+      const isOpen = detail.style.display !== "none";
+
+      // すべて閉じる
+      document.querySelectorAll(".history-item").forEach((el) => {
+        const d  = el.querySelector(".history-detail");
+        const ch = el.querySelector(".history-chevron");
+        if (d)  d.style.display  = "none";
+        if (ch) ch.textContent   = "▼";
+        el.classList.remove("open");
+      });
+
+      // クリックしたものが閉じていたなら開く
+      if (!isOpen) {
+        detail.style.display = "";
+        chevron.textContent  = "▲";
+        item.classList.add("open");
+      }
+    });
 
     item.appendChild(header);
     item.appendChild(brief);
@@ -511,14 +649,14 @@ function showHint() {
 function createStars() {
   const container = document.getElementById("stars");
   for (let i = 0; i < 120; i++) {
-    const star              = document.createElement("div");
+    const star               = document.createElement("div");
     star.classList.add("star");
-    star.style.left         = `${Math.random() * 100}%`;
-    star.style.top          = `${Math.random() * 100}%`;
-    const size              = Math.random() * 3 + 1;
-    star.style.width        = `${size}px`;
-    star.style.height       = `${size}px`;
-    star.style.animationDelay = `${Math.random() * 4}s`;
+    star.style.left          = Math.random() * 100 + "%";
+    star.style.top           = Math.random() * 100 + "%";
+    const size               = Math.random() * 3 + 1;
+    star.style.width         = size + "px";
+    star.style.height        = size + "px";
+    star.style.animationDelay = Math.random() * 4 + "s";
     container.appendChild(star);
   }
 }
@@ -528,5 +666,5 @@ function createStars() {
 // ===========================
 window.addEventListener("load", () => {
   createStars();
-  renderHistory();
+  initHistory();
 });
