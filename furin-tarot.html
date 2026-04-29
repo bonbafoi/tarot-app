@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>不倫の相手の気持ちを占う無料タロット｜ぼんばの占い</title>
+    <meta name="description" content="不倫関係で悩んでいる方へ。相手の本音や今後の関係をタロットで占います。無料・登録不要ですぐ使えます。" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* ── ランディングページ専用スタイル ── */
+
+      .lp-section {
+        width: 100%;
+        max-width: 700px;
+        margin: 0 auto 48px;
+        text-align: left;
+      }
+
+      .lp-section-center {
+        text-align: center;
+      }
+
+      .lp-lead {
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.7;
+        letter-spacing: 0.06em;
+        background: linear-gradient(120deg, #d4a8ff, #ffe0f7, #a8d4ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .lp-body {
+        font-size: 0.92rem;
+        line-height: 2.1;
+        color: #c8b4e8;
+        margin-bottom: 16px;
+      }
+
+      .lp-body strong {
+        color: #e8d4ff;
+        font-weight: bold;
+      }
+
+      .lp-divider {
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(to right, transparent, rgba(200, 140, 255, 0.35), transparent);
+        margin: 40px 0;
+      }
+
+      .lp-box {
+        background: linear-gradient(145deg, rgba(60, 15, 100, 0.55), rgba(28, 8, 60, 0.75));
+        border: 1.5px solid rgba(210, 150, 255, 0.3);
+        border-radius: 20px;
+        padding: 30px 28px;
+        margin-bottom: 24px;
+        position: relative;
+      }
+
+      .lp-box::before {
+        content: "";
+        position: absolute;
+        inset: 6px;
+        border: 1px solid rgba(200, 140, 255, 0.08);
+        border-radius: 14px;
+        pointer-events: none;
+      }
+
+      .lp-box-title {
+        font-size: 1rem;
+        font-weight: bold;
+        color: #e0c8ff;
+        letter-spacing: 0.16em;
+        margin-bottom: 16px;
+      }
+
+      .lp-check-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .lp-check-list li {
+        font-size: 0.88rem;
+        line-height: 1.85;
+        color: #c0a8e0;
+        padding: 6px 0 6px 28px;
+        position: relative;
+        border-bottom: 1px solid rgba(200, 140, 255, 0.08);
+      }
+
+      .lp-check-list li:last-child {
+        border-bottom: none;
+      }
+
+      .lp-check-list li::before {
+        content: "✦";
+        position: absolute;
+        left: 0;
+        color: #b080ff;
+        font-size: 0.75rem;
+        top: 8px;
+      }
+
+      .lp-section-heading {
+        font-size: 1.05rem;
+        font-weight: bold;
+        color: #d4aaff;
+        letter-spacing: 0.18em;
+        text-align: center;
+        margin-bottom: 20px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid rgba(200, 140, 255, 0.2);
+      }
+
+      .lp-cards-preview {
+        display: flex;
+        gap: 14px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 8px;
+      }
+
+      .lp-card-chip {
+        background: rgba(80, 20, 140, 0.45);
+        border: 1px solid rgba(190, 120, 255, 0.28);
+        border-radius: 14px;
+        padding: 14px 16px;
+        text-align: center;
+        min-width: 120px;
+        flex: 1;
+        max-width: 160px;
+      }
+
+      .lp-card-chip .chip-icon {
+        font-size: 1.8rem;
+        display: block;
+        margin-bottom: 6px;
+        filter: drop-shadow(0 0 8px rgba(220, 160, 255, 0.4));
+      }
+
+      .lp-card-chip .chip-name {
+        font-size: 0.8rem;
+        font-weight: bold;
+        color: #e0ccff;
+        display: block;
+        margin-bottom: 4px;
+        letter-spacing: 0.06em;
+      }
+
+      .lp-card-chip .chip-desc {
+        font-size: 0.68rem;
+        color: #9878b8;
+        line-height: 1.6;
+      }
+
+      .lp-faq-item {
+        margin-bottom: 16px;
+      }
+
+      .lp-faq-q {
+        font-size: 0.88rem;
+        font-weight: bold;
+        color: #d4a8ff;
+        background: rgba(100, 40, 180, 0.2);
+        border-left: 3px solid rgba(180, 100, 255, 0.6);
+        padding: 10px 14px;
+        border-radius: 0 8px 8px 0;
+        margin-bottom: 8px;
+        letter-spacing: 0.04em;
+      }
+
+      .lp-faq-a {
+        font-size: 0.84rem;
+        line-height: 1.9;
+        color: #b8a0d8;
+        padding: 4px 14px;
+      }
+
+      .lp-cta-wrap {
+        text-align: center;
+        padding: 40px 20px;
+        background: linear-gradient(145deg, rgba(70, 20, 120, 0.5), rgba(30, 8, 70, 0.7));
+        border: 1.5px solid rgba(210, 150, 255, 0.35);
+        border-radius: 24px;
+        margin-bottom: 48px;
+      }
+
+      .lp-cta-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #f0deff;
+        letter-spacing: 0.14em;
+        margin-bottom: 10px;
+        text-shadow: 0 0 20px rgba(220, 160, 255, 0.4);
+      }
+
+      .lp-cta-sub {
+        font-size: 0.82rem;
+        color: #a890c8;
+        letter-spacing: 0.08em;
+        margin-bottom: 28px;
+        line-height: 1.8;
+      }
+
+      .lp-cta-btn {
+        display: inline-block;
+        padding: 18px 52px;
+        font-size: 1.05rem;
+        font-weight: bold;
+        letter-spacing: 0.12em;
+        color: #fff;
+        background: linear-gradient(135deg, #7b2fff, #c44dff, #7b2fff);
+        background-size: 200% 200%;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        text-decoration: none;
+        box-shadow:
+          0 0 24px rgba(180, 80, 255, 0.55),
+          0 4px 24px rgba(0, 0, 0, 0.4);
+        animation: gradientShift 4s ease infinite;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+        font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+      }
+
+      .lp-cta-btn:hover {
+        transform: translateY(-3px) scale(1.04);
+        box-shadow:
+          0 0 36px rgba(200, 100, 255, 0.75),
+          0 8px 32px rgba(0, 0, 0, 0.5);
+      }
+
+      .lp-cta-note {
+        font-size: 0.72rem;
+        color: #7a609a;
+        margin-top: 14px;
+        letter-spacing: 0.06em;
+      }
+
+      .lp-keyword-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+        margin-bottom: 24px;
+      }
+
+      .lp-tag {
+        font-size: 0.72rem;
+        color: #a888d8;
+        border: 1px solid rgba(180, 120, 255, 0.25);
+        border-radius: 20px;
+        padding: 4px 14px;
+        letter-spacing: 0.06em;
+        background: rgba(100, 40, 160, 0.12);
+      }
+
+      @media (max-width: 580px) {
+        .lp-lead { font-size: 1.2rem; }
+        .lp-box  { padding: 22px 16px; }
+        .lp-cta-wrap { padding: 28px 16px; }
+        .lp-cta-btn  { padding: 16px 36px; font-size: 0.95rem; }
+        .lp-card-chip { min-width: 90px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="stars"></div>
+
+    <div class="container">
+
+      <!-- サイトナビゲーション -->
+      <nav class="site-nav" aria-label="サイトメニュー">
+        <a href="index.html"        class="nav-link">🔮 無料タロット占い（トップ）</a>
+        <a href="furin-tarot.html"  class="nav-link current">🌹 不倫タロット</a>
+      </nav>
+
+      <!-- ヘッダー -->
+      <header>
+        <span class="moon-decoration">🌹</span>
+        <h1>不倫の相手の気持ちを占う無料タロット</h1>
+        <p class="subtitle">誰にも言えない恋を、星たちはちゃんと知っています</p>
+      </header>
+
+      <!-- キーワードタグ -->
+      <div class="lp-keyword-tags">
+        <span class="lp-tag"># 無料タロット占い</span>
+        <span class="lp-tag"># 不倫</span>
+        <span class="lp-tag"># 相手の気持ち</span>
+        <span class="lp-tag"># 秘密の恋愛</span>
+        <span class="lp-tag"># 大アルカナ78枚</span>
+        <span class="lp-tag"># 正位置・逆位置</span>
+      </div>
+
+      <!-- ① 共感：誰にも言えない -->
+      <section class="lp-section">
+        <p class="lp-lead">誰にも打ち明けられない<br>その気持ち、カードに話してみませんか</p>
+        <p class="lp-body">
+          不倫の恋は、誰かに相談できません。<br>
+          友人に話せば引かれるかもしれない。家族には絶対に言えない。SNSには書けない。<br>
+          だから、ひとりで抱えて、ひとりで悩んで、ひとりで眠れない夜を過ごしている——。
+        </p>
+        <p class="lp-body">
+          あなたが今感じている<strong>「相手はどう思っているんだろう」「この関係はどこへ向かうんだろう」</strong>という問いは、とても切実なものです。答えが出ないから苦しい。出口が見えないから怖い。
+        </p>
+        <p class="lp-body">
+          タロット占いは、そんなあなたの心に静かに寄り添います。カードは責めません。裁きません。ただ、あなたの内側にある答えを、やさしく引き出してくれます。
+        </p>
+      </section>
+
+      <div class="lp-divider"></div>
+
+      <!-- ② こんな悩みを持つ人に -->
+      <section class="lp-section">
+        <p class="lp-section-heading">🌙 こんなお悩みはありませんか</p>
+        <div class="lp-box">
+          <ul class="lp-check-list">
+            <li>不倫相手の<strong>本当の気持ち</strong>を知りたい</li>
+            <li>「好き」と言ってくれるけど、<strong>本気なのかどうか</strong>わからない</li>
+            <li>このまま待ち続けていいのか、<strong>関係を続けるべきか</strong>迷っている</li>
+            <li>相手は奥さん（旦那さん）と<strong>別れる気があるのか</strong>知りたい</li>
+            <li>自分が<strong>都合よく扱われている</strong>のではないかと不安になっている</li>
+            <li>相手に<strong>別の人</strong>がいるのか気になってしまう</li>
+            <li>この恋に<strong>未来があるのか</strong>、正直に見てほしい</li>
+            <li>気持ちの整理をして、<strong>次の一歩</strong>を踏み出したい</li>
+          </ul>
+        </div>
+        <p class="lp-body">
+          ひとつでも当てはまるなら、このタロット占いはあなたのためにあります。不倫という複雑な状況だからこそ、<strong>無料で・すぐに・誰にも知られず</strong>、カードに問いかけることができます。
+        </p>
+      </section>
+
+      <div class="lp-divider"></div>
+
+      <!-- ③ タロットで何がわかるか -->
+      <section class="lp-section">
+        <p class="lp-section-heading">🔮 タロット占いで見えてくること</p>
+        <p class="lp-body">
+          この占いでは、大アルカナ22枚・小アルカナ56枚の<strong>合計78枚のタロットカード</strong>を使います。正位置・逆位置のランダム判定も含め、毎回異なる組み合わせがあなただけの答えを届けます。
+        </p>
+        <div class="lp-cards-preview">
+          <div class="lp-card-chip">
+            <span class="chip-icon">💕</span>
+            <span class="chip-name">現状</span>
+            <span class="chip-desc">今の関係と<br>相手の気持ち</span>
+          </div>
+          <div class="lp-card-chip">
+            <span class="chip-icon">⚖️</span>
+            <span class="chip-name">注意点</span>
+            <span class="chip-desc">見落としている<br>リスクや課題</span>
+          </div>
+          <div class="lp-card-chip">
+            <span class="chip-icon">⭐</span>
+            <span class="chip-name">アドバイス</span>
+            <span class="chip-desc">あなたが今<br>取るべき行動</span>
+          </div>
+        </div>
+        <p class="lp-body" style="margin-top:20px;">
+          3枚のカードが、現在の状況・見えていない課題・今後の方向性を映し出します。<strong>「秘密の恋愛」カテゴリ</strong>を選ぶと、不倫・複雑な恋愛に特化した解釈で鑑定を行います。相手の気持ちや関係の行方を、カードが静かに語りかけてくれます。
+        </p>
+      </section>
+
+      <div class="lp-divider"></div>
+
+      <!-- ④ 不倫に特化した解説 -->
+      <section class="lp-section">
+        <p class="lp-section-heading">🌹 不倫の恋とタロットカード</p>
+        <p class="lp-body">
+          タロット占いが不倫の悩みに向いている理由は、カードが<strong>「白か黒か」ではなく「今の流れ」</strong>を見せてくれるからです。
+        </p>
+        <p class="lp-body">
+          恋愛占いの中でも不倫は特別に複雑です。相手には家庭があり、あなたにも守るものがあり、感情だけでは動けない現実がある。そういう入り組んだ状況を、タロットは数字や星座に縛られることなく、<strong>今この瞬間のエネルギー</strong>として読み解きます。
+        </p>
+        <p class="lp-body">
+          たとえば——
+        </p>
+        <div class="lp-box">
+          <ul class="lp-check-list">
+            <li><strong>「恋人」のカード（正位置）</strong>が出たとき——相手の中にあなたへの真剣な感情があることを示します。ただし、重要な「選択」も示唆します。</li>
+            <li><strong>「月」のカード（逆位置）</strong>が出たとき——隠されていた真実が明らかになる兆しがあります。不安の霧が晴れていく可能性があります。</li>
+            <li><strong>「星」のカード（正位置）</strong>が出たとき——傷ついた心が癒され、新しい希望の光が見え始めていることを伝えます。</li>
+            <li><strong>「塔」のカード（逆位置）</strong>が出たとき——大きな変化は少し緩和されますが、現状維持への執着が問われています。</li>
+            <li><strong>「世界」のカード（正位置）</strong>が出たとき——ひとつのサイクルの完結と、新しいステージへの扉が開くことを意味します。</li>
+          </ul>
+        </div>
+        <p class="lp-body">
+          カードは「こうしなさい」とは言いません。ただ、<strong>あなたが見ようとしていなかったものを、静かに照らしてくれます</strong>。それが、タロット占いの本質です。
+        </p>
+      </section>
+
+      <div class="lp-divider"></div>
+
+      <!-- ⑤ 安心して使えることを伝える -->
+      <section class="lp-section">
+        <p class="lp-section-heading">✨ 安心してお使いいただけます</p>
+        <div class="lp-box">
+          <ul class="lp-check-list">
+            <li><strong>完全無料</strong>——登録不要、課金なし。何度でも占えます。</li>
+            <li><strong>匿名・記録なし</strong>——名前も連絡先も一切不要。秘密の恋愛を誰かに知られる心配はありません。</li>
+            <li><strong>大アルカナ22枚＋小アルカナ56枚</strong>——本格的な78枚フルデッキを使用。毎回違うカードが引かれます。</li>
+            <li><strong>正位置・逆位置ランダム判定</strong>——同じカードでも出方によって意味が変わる、本格タロット体験。</li>
+            <li><strong>占い結果は端末に保存</strong>——過去5回分の鑑定結果がブラウザに残り、いつでも見返せます。</li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="lp-divider"></div>
+
+      <!-- ⑥ よくある質問 -->
+      <section class="lp-section">
+        <p class="lp-section-heading">💬 よくある質問</p>
+
+        <div class="lp-faq-item">
+          <p class="lp-faq-q">Q. 不倫占いと普通の恋愛占いは何が違いますか？</p>
+          <p class="lp-faq-a">
+            このアプリには「秘密の恋愛」という専用カテゴリがあります。不倫・複雑な恋愛に特化した鑑定文で、相手の気持ち・関係の行方・あなたが今取るべき行動を読み解きます。一般的な恋愛占いよりも、複雑な感情や状況に寄り添った解釈が得られます。
+          </p>
+        </div>
+
+        <div class="lp-faq-item">
+          <p class="lp-faq-q">Q. タロット占いで本当に相手の気持ちがわかりますか？</p>
+          <p class="lp-faq-a">
+            タロットは「確実な答え」を出すものではありません。しかし、今あなたの周りにあるエネルギーや流れを映し出すことで、「相手がどういう状況にいるか」「関係にどんな力が働いているか」を感じ取る助けになります。カードを通して、自分の直感や心の声と向き合うことができます。
+          </p>
+        </div>
+
+        <div class="lp-faq-item">
+          <p class="lp-faq-q">Q. 何度占っても同じ結果が出ますか？</p>
+          <p class="lp-faq-a">
+            いいえ。78枚のカードからランダムに3枚引き、さらに正位置・逆位置もランダムに決まるため、毎回異なる組み合わせが出ます。気持ちが整理されたとき、状況が変わったとき、改めて占ってみると新しい気づきが得られることがあります。
+          </p>
+        </div>
+
+        <div class="lp-faq-item">
+          <p class="lp-faq-q">Q. 無料で本当に大丈夫ですか？後から請求されませんか？</p>
+          <p class="lp-faq-a">
+            完全無料です。登録も、個人情報の入力も一切不要です。ブラウザ上で動作するシンプルなアプリなので、後から費用が発生することはありません。安心してお使いください。
+          </p>
+        </div>
+
+        <div class="lp-faq-item">
+          <p class="lp-faq-q">Q. 占い結果は他の人に見られませんか？</p>
+          <p class="lp-faq-a">
+            占い結果はあなたのブラウザ（端末内）にのみ保存されます。サーバーには送信されません。あなた以外の誰かがあなたの結果を見ることはできません。
+          </p>
+        </div>
+      </section>
+
+      <div class="lp-divider"></div>
+
+      <!-- ⑦ 締め：感情に寄り添う文章 -->
+      <section class="lp-section lp-section-center">
+        <p class="lp-body" style="text-align:center;">
+          あなたの恋は、誰かに否定されるものではありません。<br>
+          複雑で、矛盾していて、それでも本物の気持ちがそこにある。<br><br>
+          タロットはあなたの恋の<strong>味方</strong>です。<br>
+          答えを「決める」のではなく、あなたが自分で答えを見つける手助けをする——それがタロット占いの役割です。<br><br>
+          今夜、静かにカードに問いかけてみてください。<br>
+          星たちは、あなたの言葉を待っています。
+        </p>
+      </section>
+
+      <!-- ⑧ CTAボタン -->
+      <div class="lp-cta-wrap">
+        <p class="lp-cta-title">🔮 今すぐ無料で不倫タロット占いを始める</p>
+        <p class="lp-cta-sub">
+          「秘密の恋愛」を選んでカードを引いてください<br>
+          相手の気持ち・関係の行方・あなたへのアドバイスを鑑定します
+        </p>
+        <a class="lp-cta-btn" href="index.html">
+          ✨ カードを引いてみる ✨
+        </a>
+        <p class="lp-cta-note">登録不要・完全無料・何度でも占えます</p>
+      </div>
+
+      <!-- フッター -->
+      <footer>
+        <nav class="footer-nav" aria-label="フッターメニュー">
+          <a href="index.html">🔮 トップ（無料タロット占い）</a>
+          <a href="furin-tarot.html">🌹 不倫タロット</a>
+          <a href="index.html#result-area">占い結果の見かた</a>
+        </nav>
+        <p>大アルカナ 22枚＋小アルカナ 56枚 ／ 全78枚 ／ 3枚引き ／ 正位置・逆位置ランダム</p>
+        <p class="affiliate-disclosure">
+          Amazonのアソシエイトとして、bonbafoiは適格販売により収入を得ています。
+        </p>
+      </footer>
+
+    </div><!-- /container -->
+
+    <script>
+      // 背景の星を生成
+      (function () {
+        const container = document.getElementById("stars");
+        for (let i = 0; i < 120; i++) {
+          const star = document.createElement("div");
+          star.classList.add("star");
+          star.style.left = Math.random() * 100 + "%";
+          star.style.top  = Math.random() * 100 + "%";
+          const size = Math.random() * 3 + 1;
+          star.style.width  = size + "px";
+          star.style.height = size + "px";
+          star.style.animationDelay = Math.random() * 4 + "s";
+          container.appendChild(star);
+        }
+      })();
+    </script>
+  </body>
+</html>
