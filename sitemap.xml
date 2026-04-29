@@ -15,4 +15,26 @@
     <priority>0.8</priority>
   </url>
 
+
+  <url>
+    <loc>https://bonbafoi.github.io/tarot-app/furin-feelings.html</loc>
+    <lastmod>2026-04-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://bonbafoi.github.io/tarot-app/furin-future.html</loc>
+    <lastmod>2026-04-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://bonbafoi.github.io/tarot-app/furin-pain.html</loc>
+    <lastmod>2026-04-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>
