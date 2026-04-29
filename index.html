@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>✨ タロット占い</title>
+    <title>無料タロット占い｜ぼんばの占い</title>
+    <meta name="description" content="恋愛・仕事・金運・不倫など、気になる項目をタロットで無料鑑定。大アルカナ22枚＋小アルカナ56枚の全78枚を使った本格占いがブラウザですぐ使えます。登録不要。" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -11,10 +12,16 @@
 
     <div class="container">
 
+      <!-- サイトナビゲーション -->
+      <nav class="site-nav" aria-label="サイトメニュー">
+        <a href="index.html"        class="nav-link current">🔮 無料タロット占い</a>
+        <a href="furan-tarot.html"  class="nav-link">🌹 不倫タロット</a>
+      </nav>
+
       <!-- ヘッダー -->
       <header>
         <span class="moon-decoration">🌙</span>
-        <h1>タロット占い</h1>
+        <h1>無料タロット占い</h1>
         <p class="subtitle">星たちがあなたにメッセージを届けます</p>
       </header>
 
@@ -42,6 +49,15 @@
           ↑ まず占いたい項目をタップしてください
         </p>
       </section>
+
+      <!-- 不倫タロットページへの内部リンク -->
+      <a href="furan-tarot.html" class="internal-banner">
+        <div class="banner-body">
+          <span class="banner-eyebrow">🌹 不倫・秘密の恋愛で悩んでいる方へ</span>
+          <span class="banner-main">相手の本音を詳しく知りたい方はこちら →</span>
+        </div>
+        <span class="banner-cta">不倫タロット専用ページ</span>
+      </a>
 
       <!-- STEP 2：カードを引くボタン -->
       <div class="draw-area">
@@ -115,7 +131,6 @@
         </div>
 
         <!-- ===== ラッキーおやつ（アフィリエイト） ===== -->
-        <!-- JavaScriptが結果表示後に内容を入れて visible にする -->
         <div class="snack-box hidden" id="snack-box">
 
           <!-- 広告表示ラベル（右上） -->
@@ -127,25 +142,13 @@
 
           <!-- 商品カード -->
           <div class="snack-card">
-            <!-- タイプバッジ（チョコ or クッキー）：JavaScriptがクラスを付け替える -->
             <span class="snack-type-badge choco" id="snack-type">チョコ</span>
-
-            <!-- 商品の絵文字 -->
             <span class="snack-emoji" id="snack-emoji">🍫</span>
-
-            <!-- 商品名 -->
             <p class="snack-name" id="snack-name">商品名が入ります</p>
-
-            <!-- 商品説明 -->
             <p class="snack-desc" id="snack-desc">説明文が入ります</p>
-
-            <!-- 価格注意書き -->
             <p class="snack-price-note">
               ※ 価格・在庫状況はAmazonのページでご確認ください
             </p>
-
-            <!-- Amazonへのリンクボタン -->
-            <!-- target="_blank" で別タブ、rel="noopener noreferrer" はセキュリティのお作法 -->
             <a class="snack-btn"
                id="snack-link"
                href="#"
@@ -159,14 +162,23 @@
 
       </div><!-- /result-area -->
 
-      <!-- 過去の占い結果 -->
-      <section class="history-section hidden" id="history-section">
+      <!-- ===== 過去の占い結果（履歴） ===== -->
+      <!-- hidden クラスは付けない：常に表示し、中身で空状態を伝える -->
+      <section class="history-section" id="history-section">
         <div class="history-title">📜 過去の占い結果</div>
+        <!-- 0件のとき表示するメッセージ -->
+        <p class="history-empty" id="history-empty">まだ履歴はありません</p>
+        <!-- 1件以上のとき JS がカードを挿入するリスト -->
         <div class="history-list" id="history-list"></div>
       </section>
 
       <!-- フッター -->
       <footer>
+        <nav class="footer-nav" aria-label="フッターメニュー">
+          <a href="index.html">🔮 トップ（無料タロット占い）</a>
+          <a href="furan-tarot.html">🌹 不倫タロット</a>
+          <a href="index.html#result-area">占い結果の見かた</a>
+        </nav>
         <p>大アルカナ 22枚＋小アルカナ 56枚 ／ 全78枚 ／ 3枚引き ／ 正位置・逆位置ランダム</p>
         <!-- Amazonアソシエイト必須の開示文言 -->
         <p class="affiliate-disclosure">
