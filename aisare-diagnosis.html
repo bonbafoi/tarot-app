@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>あなた本当に愛されてる？愛され度診断｜彼氏・不倫相手の本気度がわかる無料診断</title>
+    <meta name="description" content="彼氏に愛されてるかわからない、本命か遊びか不安、不倫相手が本気か知りたい方へ。連絡頻度だけでは見えない彼の無意識の優先順位・回避癖・本命度を無料診断。" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .diagnosis-wrap {
+        width: 100%;
+        max-width: 720px;
+        margin: 0 auto 48px;
+        text-align: left;
+      }
+
+      .diagnosis-lead {
+        font-size: 0.94rem;
+        line-height: 2.05;
+        color: #c8b4e8;
+        margin-bottom: 24px;
+      }
+
+      .diagnosis-lead strong {
+        color: #f0d8ff;
+      }
+
+      .progress-shell {
+        width: 100%;
+        height: 8px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(200, 140, 255, 0.16);
+        border-radius: 999px;
+        overflow: hidden;
+        margin: 0 0 18px;
+      }
+
+      .progress-bar {
+        width: 0%;
+        height: 100%;
+        background: linear-gradient(90deg, #b080ff, #ff9ecc, #a8d4ff);
+        transition: width 0.25s ease;
+      }
+
+      .question-card,
+      .result-panel,
+      .diagnosis-panel {
+        background: linear-gradient(145deg, rgba(60, 15, 100, 0.55), rgba(28, 8, 60, 0.76));
+        border: 1.5px solid rgba(210, 150, 255, 0.3);
+        border-radius: 20px;
+        padding: 28px 24px;
+        position: relative;
+      }
+
+      .question-count {
+        font-size: 0.74rem;
+        color: #9878b8;
+        letter-spacing: 0.12em;
+        margin-bottom: 10px;
+      }
+
+      .question-title {
+        font-size: 1.18rem;
+        line-height: 1.75;
+        color: #ead8ff;
+        font-weight: bold;
+        letter-spacing: 0.05em;
+        margin-bottom: 18px;
+      }
+
+      .choice-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .choice-btn {
+        width: 100%;
+        padding: 15px 16px;
+        text-align: left;
+        color: #d8c4f0;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(190, 130, 255, 0.22);
+        border-radius: 14px;
+        font-family: inherit;
+        font-size: 0.9rem;
+        line-height: 1.65;
+        cursor: pointer;
+        transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+      }
+
+      .choice-btn:hover {
+        background: rgba(160, 80, 255, 0.16);
+        border-color: rgba(220, 160, 255, 0.48);
+        transform: translateY(-2px);
+      }
+
+      .diagnosis-actions {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .subtle-btn {
+        border: 1px solid rgba(180, 100, 255, 0.28);
+        border-radius: 999px;
+        background: rgba(100, 40, 180, 0.16);
+        color: #bfa0e8;
+        font-family: inherit;
+        font-size: 0.78rem;
+        padding: 10px 18px;
+        cursor: pointer;
+      }
+
+      .subtle-btn:disabled {
+        opacity: 0.35;
+        cursor: default;
+      }
+
+      .result-panel {
+        display: none;
+      }
+
+      .result-panel.show {
+        display: block;
+      }
+
+      .result-kicker {
+        text-align: center;
+        color: #9878b8;
+        font-size: 0.76rem;
+        letter-spacing: 0.16em;
+        margin-bottom: 10px;
+      }
+
+      .result-title {
+        text-align: center;
+        font-size: 1.45rem;
+        line-height: 1.55;
+        font-weight: bold;
+        background: linear-gradient(120deg, #d4a8ff, #ffe0f7, #a8d4ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 18px;
+      }
+
+      .result-score {
+        text-align: center;
+        font-size: 0.86rem;
+        color: #ffcae6;
+        letter-spacing: 0.1em;
+        margin-bottom: 22px;
+      }
+
+      .result-body p {
+        color: #c8b4e8;
+        font-size: 0.92rem;
+        line-height: 2.05;
+        margin-bottom: 14px;
+      }
+
+      .result-body strong {
+        color: #f0d8ff;
+      }
+
+      .route-grid {
+        display: grid;
+        gap: 12px;
+        margin-top: 26px;
+      }
+
+      .route-title {
+        font-size: 0.78rem;
+        color: #9878b8;
+        letter-spacing: 0.14em;
+        margin: 8px 0 2px;
+        text-align: center;
+      }
+
+      .affiliate-box {
+        margin-top: 14px;
+        padding: 18px 16px;
+        background: linear-gradient(
+          145deg,
+          rgba(35, 18, 5, 0.85),
+          rgba(55, 30, 8, 0.78)
+        );
+        border: 1.5px solid rgba(220, 170, 80, 0.35);
+        border-radius: 16px;
+        position: relative;
+      }
+
+      .affiliate-box::before {
+        content: "";
+        position: absolute;
+        inset: 7px;
+        border: 1px solid rgba(220, 170, 80, 0.1);
+        border-radius: 11px;
+        pointer-events: none;
+      }
+
+      .affiliate-box p {
+        font-size: 0.82rem;
+        line-height: 1.8;
+        color: #c8a060;
+        margin-bottom: 10px;
+      }
+
+      .affiliate-box .route-title {
+        color: #ffd580;
+        text-shadow: 0 0 16px rgba(255, 200, 80, 0.35);
+      }
+
+      .affiliate-box .banner-cta {
+        background: linear-gradient(135deg, #b87020, #e09030, #b87020);
+        background-size: 200% 200%;
+        border-color: rgba(220, 170, 80, 0.45);
+        color: #fff;
+        box-shadow:
+          0 0 18px rgba(200, 140, 40, 0.35),
+          0 3px 12px rgba(0, 0, 0, 0.35);
+        animation: goldShift 3s ease infinite;
+      }
+
+      .diagnosis-panel {
+        margin-top: 34px;
+      }
+
+      .diagnosis-panel h2 {
+        font-size: 1rem;
+        color: #d4aaff;
+        letter-spacing: 0.12em;
+        margin-bottom: 12px;
+        text-align: center;
+      }
+
+      .diagnosis-panel p,
+      .diagnosis-panel li {
+        color: #bca6d8;
+        font-size: 0.86rem;
+        line-height: 1.9;
+      }
+
+      .diagnosis-panel ul {
+        list-style: none;
+        padding: 0;
+        margin: 12px 0 0;
+      }
+
+      .diagnosis-panel li {
+        padding: 8px 0 8px 24px;
+        border-bottom: 1px solid rgba(200, 140, 255, 0.08);
+        position: relative;
+      }
+
+      .diagnosis-panel li::before {
+        content: "✦";
+        position: absolute;
+        left: 0;
+        color: #b080ff;
+      }
+
+      @media (max-width: 580px) {
+        .question-card,
+        .result-panel,
+        .diagnosis-panel {
+          padding: 24px 16px;
+        }
+
+        .question-title {
+          font-size: 1.05rem;
+        }
+
+        .result-title {
+          font-size: 1.25rem;
+        }
+
+        .diagnosis-actions {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="stars"></div>
+
+    <div class="container">
+      <nav class="site-nav" aria-label="サイトメニュー">
+        <a href="index.html" class="nav-link">🔮 無料タロット占い</a>
+        <a href="furin-tarot.html" class="nav-link">🌹 不倫タロット</a>
+        <a href="love-compatibility.html" class="nav-link">💑 相性占い</a>
+        <a href="diagnosis.html" class="nav-link">💗 恋の本音がわかる診断（無料）</a>
+        <a href="aisare-diagnosis.html" class="nav-link current">愛され度診断</a>
+      </nav>
+
+      <header>
+        <span class="moon-decoration">💗</span>
+        <h1>あなた本当に愛されてる？愛され度診断</h1>
+        <p class="subtitle">彼の無意識が見える、愛され度診断</p>
+      </header>
+
+      <main class="diagnosis-wrap">
+        <p class="diagnosis-lead">
+          彼氏に愛されてるかわからない。本命なのか、遊びなのか、都合のいい女になっていないか。<br>
+          連絡が多い、会ってくれる、優しい言葉をくれる。それだけでは、彼の本気度は見えません。<br><br>
+          本当に見るべきなのは、彼が優しい日の言葉よりも、<strong>不安・沈黙・すれ違いが起きた時の無意識の反応</strong>です。
+          この愛され度診断では、彼氏・不倫相手・曖昧な関係の相手の愛情表現、回避癖、罪悪感、あなたへの優先順位を静かに可視化していきます。
+        </p>
+
+        <div id="diagnosis-area">
+          <div class="progress-shell" aria-hidden="true">
+            <div class="progress-bar" id="progress-bar"></div>
+          </div>
+
+          <section class="question-card" id="question-card">
+            <p class="question-count" id="question-count"></p>
+            <p class="question-title" id="question-title"></p>
+            <div class="choice-list" id="choice-list"></div>
+            <div class="diagnosis-actions">
+              <button class="subtle-btn" id="back-btn" type="button">ひとつ戻る</button>
+              <button class="subtle-btn" id="restart-btn" type="button">最初から</button>
+            </div>
+          </section>
+        </div>
+
+        <section class="result-panel" id="result-panel" aria-live="polite">
+          <p class="result-kicker">診断結果</p>
+          <h2 class="result-title" id="result-title"></h2>
+          <p class="result-score" id="result-score"></p>
+          <div class="result-body" id="result-body"></div>
+
+          <div class="route-grid">
+            <p class="route-title">もっと詳しく知りたい方はこちら</p>
+            <a href="index.html" class="internal-banner">
+              <div class="banner-body">
+                <span class="banner-eyebrow">🔮 彼の本音とこの恋の未来をカードで見る</span>
+                <span class="banner-main">無料タロット占いへ進む</span>
+              </div>
+              <span class="banner-cta">占う</span>
+            </a>
+
+            <div class="affiliate-box">
+              <p class="route-title">今のあなたにおすすめ</p>
+              <p id="affiliate-text">相手の気持ちを追いすぎて、自分を後回しにしてない？恋愛って本当はもっと楽でいいもの、気持ちを軽くするきっかけに。</p>
+              <a href="https://www.amazon.co.jp/%E3%83%A9%E3%83%B3%E3%83%89%E3%83%AA%E3%83%B3-4582469506195-%E3%83%AB%E3%83%BC%E3%83%A0%E3%83%87%E3%82%A3%E3%83%95%E3%83%A5%E3%83%BC%E3%82%B6%E3%83%BC-%E3%82%AF%E3%83%A9%E3%82%B7%E3%83%83%E3%82%AF%E3%83%95%E3%82%A3%E3%82%AA%E3%83%BC%E3%83%AC-80ml/dp/B06XT8YGTW?crid=O8Y35Y0WN78W&amp;dib=eyJ2IjoiMSJ9.K847MritKLPQPHc3G4mIczOFdntrMxF9ZGnTGl44xoUcFIms9QJfschF5U4FPlr1ycKtj9FWZqMOToupAQLvSc8kHxNnuLRa-CEYPdrq-k4VpNZIZ71Mv2EmrDSirEIpUeMMyNgTseyF6QE2CsRwDRL9tqiqyEQudaMygYIGVh9xcvrPYg1eRjmaw5_QOwu4Hn8ivVMpJfqVkaQF7ir4kxKo2arf_UQ3z7LExaPOCM803XbCzeYxxaDvTR8f_imykvw5QXnTwie2kceDOi73d1Pya3mMzXk8wLJ8cqVBm5Y.NwU-dvv07nfiNYndKZWeMR2IdTY7aPbV50vyBq42W-0&amp;dib_tag=se&amp;keywords=%E3%82%A2%E3%83%AD%E3%83%9E%E3%83%87%E3%82%A3%E3%83%95%E3%83%A5%E3%83%BC%E3%82%B6%E3%83%BC&amp;qid=1777558981&amp;rdc=1&amp;sprefix=%E3%82%A2%E3%83%AD%E3%83%9E%2Caps%2C739&amp;sr=8-2-spons&amp;sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&amp;th=1&amp;linkCode=ll2&amp;tag=bonbafoi-22&amp;linkId=dde2b616a4e118f33054ddf3c611e67b&amp;ref_=as_li_ss_tl" class="banner-cta" target="_blank" rel="noopener noreferrer">Amazonで見る</a>
+            </div>
+
+            <p class="route-title">他の診断もやってみる</p>
+            <a href="iionna-diagnosis.html" class="internal-banner">
+              <div class="banner-body">
+                <span class="banner-eyebrow">💄 恋の中の自分の魅力を見たい方へ</span>
+                <span class="banner-main">モテる？モテない？いい女診断</span>
+              </div>
+              <span class="banner-cta">診断する</span>
+            </a>
+            <a href="marriage-diagnosis.html" class="internal-banner">
+              <div class="banner-body">
+                <span class="banner-eyebrow">💍 長く愛し合える相手を知りたい方へ</span>
+                <span class="banner-main">あなたの運命の結婚相手はこんな人診断</span>
+              </div>
+              <span class="banner-cta">診断する</span>
+            </a>
+            <a href="love-compatibility.html" class="internal-banner">
+              <div class="banner-body">
+                <span class="banner-eyebrow">💑 あの人との相性が気になる方へ</span>
+                <span class="banner-main">相性占いタロットで2人の未来を見る</span>
+              </div>
+              <span class="banner-cta">見る</span>
+            </a>
+            <a href="furin-tarot.html" class="internal-banner">
+              <div class="banner-body">
+                <span class="banner-eyebrow">🌹 秘密の恋・曖昧な関係で苦しい方へ</span>
+                <span class="banner-main">不倫タロットまとめへ</span>
+              </div>
+              <span class="banner-cta">読む</span>
+            </a>
+          </div>
+
+          <div style="text-align:center; margin-top:22px;">
+            <button class="subtle-btn" id="again-btn" type="button">もう一度診断する</button>
+          </div>
+        </section>
+
+        <section class="diagnosis-panel">
+          <h2>この診断で見ていること</h2>
+          <p>
+            愛され度は、LINEの回数や甘い言葉だけでは測れません。
+            彼が無意識に見せる「近づき方」「逃げ方」「守り方」に、本命度は出ます。
+          </p>
+          <ul>
+            <li>不安をぶつけられた時、関係を守る方向へ動けるか</li>
+            <li>あなたが離れそうな時だけ優しくなる恋になっていないか</li>
+            <li>言葉ではなく、時間・説明・配慮を差し出せているか</li>
+            <li>秘密の恋や曖昧な関係でも、あなたの心を置き去りにしていないか</li>
+          </ul>
+        </section>
+      </main>
+
+      <footer>
+        <p class="footer-brand">ぼんばの占い｜無料タロット占いサイト</p>
+        <nav class="footer-nav" aria-label="フッターメニュー">
+          <a href="index.html">🔮 トップ</a>
+          <a href="furin-tarot.html">🌹 不倫タロット</a>
+          <a href="love-compatibility.html">💑 相性占い</a>
+          <a href="diagnosis.html">💗 診断一覧</a>
+          <a href="aisare-diagnosis.html">愛され度診断</a>
+          <a href="iionna-diagnosis.html">いい女診断</a>
+          <a href="marriage-diagnosis.html">結婚相手診断</a>
+        </nav>
+        <p>診断結果は目安です。苦しい恋ほど、ひとりで抱え込まないでください。</p>
+      </footer>
+    </div>
+
+    <script>
+      const questions = [
+        {
+          text: "彼と少しすれ違ったあと、あなたの心に一番残りやすい感覚は？",
+          choices: [
+            { text: "「結局、私が折れれば戻れる」と思ってしまう", score: 1 },
+            { text: "気まずさは残っても、最後は話し合える感覚がある", score: 3 },
+            { text: "急に優しくされて安心するけど、理由は曖昧なまま", score: 2 },
+            { text: "私が不安を出すほど、彼が遠くなる気がする", score: 0 }
+          ]
+        },
+        {
+          text: "あなたが予定を合わせられなかった時、彼の反応に近いものは？",
+          choices: [
+            { text: "残念がりながらも、別の日を一緒に探してくれる", score: 3 },
+            { text: "一瞬そっけなくなるが、あとで普通に戻る", score: 2 },
+            { text: "責めはしないけど、その後しばらく温度が下がる", score: 1 },
+            { text: "自分の都合が通らないと、あなたのせいにする", score: 0 }
+          ]
+        },
+        {
+          text: "彼の「好き」は、どんな場面で一番出やすい？",
+          choices: [
+            { text: "あなたが離れそうな時や、関係が危うい時に強くなる", score: 1 },
+            { text: "会えない日にも、ふとした配慮や確認として出る", score: 3 },
+            { text: "楽しい時や甘い雰囲気の時には自然に出る", score: 2 },
+            { text: "言葉より、求められる時だけ必要とされる感じがする", score: 0 }
+          ]
+        },
+        {
+          text: "あなたが弱っている時、彼はどんな距離の取り方をする？",
+          choices: [
+            { text: "何をすればいいかわからないなりに、そばにいようとする", score: 3 },
+            { text: "心配はしてくれるが、深い話になると少し逃げる", score: 2 },
+            { text: "励ましてくれるけど、早く元気なあなたに戻ってほしそう", score: 1 },
+            { text: "重い空気になると、連絡や会話を避けがちになる", score: 0 }
+          ]
+        },
+        {
+          text: "彼があなたに秘密や説明不足を作った時、その後は？",
+          choices: [
+            { text: "説明よりも機嫌取りが増えて、なんとなく流れる", score: 1 },
+            { text: "必要なことは話してくれるし、こちらの不安も聞く", score: 3 },
+            { text: "聞けば答えるが、自分からはあまり開かない", score: 2 },
+            { text: "聞いたあなたが悪いような空気になる", score: 0 }
+          ]
+        },
+        {
+          text: "あなたが彼に合わせすぎていると感じる瞬間は？",
+          choices: [
+            { text: "合わせているけど、彼も別の形で返してくれている", score: 3 },
+            { text: "会う場所や時間など、彼の生活側に寄りがち", score: 1 },
+            { text: "多少はあるけど、お互いさまと思える範囲", score: 2 },
+            { text: "私の寂しさより、彼の都合がいつも優先される", score: 0 }
+          ]
+        },
+        {
+          text: "彼の優しさには、どんな後味が残る？",
+          choices: [
+            { text: "うれしいのに、また不安になる予感も同時にある", score: 1 },
+            { text: "安心して眠れるような、静かな温度が残る", score: 3 },
+            { text: "その日は満たされるけど、持続するかは日による", score: 2 },
+            { text: "優しくされた後ほど、次に冷たくされるのが怖い", score: 0 }
+          ]
+        },
+        {
+          text: "この恋で、あなたの自己肯定感はどう変わった？",
+          choices: [
+            { text: "弱い部分も含めて、前より自分を大事にできている", score: 3 },
+            { text: "幸せな時は上がるけど、不安な時の落ち方が大きい", score: 2 },
+            { text: "愛されるために、少しずつ自分を小さくしている", score: 1 },
+            { text: "彼の反応ひとつで、自分の価値まで揺れてしまう", score: 0 }
+          ]
+        }
+      ];
+
+      const results = [
+        {
+          min: 21,
+          title: "愛され度88％｜彼はあなたを大切にする覚悟を持っています",
+          score: "安心していい恋。ただし、疑いすぎると光まで見失います。",
+          affiliate: "彼との関係をもっと深めたい時期です。相性占い、恋愛相談、2人の未来を整理できるサービスと相性が良い状態です。",
+          body: [
+            "彼の無意識には、あなたを関係の外へ追いやらない力があります。すれ違った時も、面倒だから切るのではなく、もう一度つながろうとする反応が見えています。",
+            "これはかなり大事です。恋の本気度は、甘い言葉よりも、気まずい沈黙のあとにどう戻ってくるかに出ます。彼はあなたをただの癒しや都合のいい存在として扱っている可能性は低いでしょう。",
+            "ただ、あなたの中にはまだ「本当に信じていいの？」という小さな震えが残っていそうです。過去に傷ついた経験や、彼の言葉の足りなさが、安心を少し曇らせているのかもしれません。",
+            "この恋を育てる鍵は、試すことではなく、伝えることです。彼の愛はあります。だからこそ、あなたの不安を責める材料にせず、2人で扱えるものにしていきましょう。"
+          ]
+        },
+        {
+          min: 15,
+          title: "愛され度67％｜気持ちはある。でも安心させる力がまだ弱い恋です",
+          score: "好きはあるのに、不安の回収が追いついていません。",
+          affiliate: "彼の本音や温度差を知りたい時期です。電話占い、恋愛カウンセリング、相手の心理を読む鑑定への導線と相性が良い結果です。",
+          body: [
+            "彼はあなたを嫌いではありません。むしろ、気持ちはちゃんとあります。けれど彼の愛し方は、あなたを安心させるには少し不器用で、時々自分の都合や気分に引っ張られます。",
+            "あなたが苦しくなるのは、彼が冷たいからだけではありません。優しい時の彼を知っているからです。その優しさが本物に見えるほど、次に距離を置かれた時の落差が深く刺さります。",
+            "このタイプの恋は、期待を捨てきれないぶん、心が揺れます。彼の無意識にはあなたを求める気持ちがある一方で、責任や未来の話になると少し身を引く癖が見えます。",
+            "今必要なのは、彼を追いつめることではなく、あなたがどこまでなら待てるのかを知ることです。好きだけで続けるには、あなたの心が繊細すぎる場所まで来ています。"
+          ]
+        },
+        {
+          min: 8,
+          title: "愛され度43％｜彼はあなたを求めています。でも本命の守り方ではないかも",
+          score: "優しさと不安が交互に来る、心が削られやすい恋です。",
+          affiliate: "曖昧な関係や不倫の悩みを整理したい時期です。複雑愛に強い占い、第三者に話せる恋愛相談への導線と相性が良い結果です。",
+          body: [
+            "彼の中にあなたへの欲しさはあります。会いたい、癒されたい、そばにいてほしい。そういう気持ちはきっと嘘ではありません。",
+            "でも、愛されているかどうかは「求められているか」だけでは測れません。あなたが不安になった時、彼がその心を守ろうとするか。そこに本命度が出ます。",
+            "今の彼は、あなたが離れそうになると近づき、安心し始めるとまた自分のペースに戻る傾向がありそうです。その揺れに巻き込まれるほど、あなたは自分の感情を後回しにしてしまいます。",
+            "あなたは、もっと堂々と愛されていい人です。彼の事情を理解する優しさは美しいけれど、その優しさであなた自身を置き去りにしないでください。"
+          ]
+        },
+        {
+          min: 0,
+          title: "愛され度18％｜今のままだと、あなたばかりが待つ恋です",
+          score: "たまの優しさが、あなたを引き止めている可能性があります。",
+          affiliate: "苦しい恋から抜け出す整理が必要な時期です。電話占い、恋愛カウンセリング、気持ちを書き出せるセルフケア商品への導線と相性が良い結果です。",
+          body: [
+            "この結果は少し苦しいかもしれません。でも、あなたを責めるためのものではありません。むしろ、ここまでひとりで耐えてきたあなたの心を、これ以上雑に扱わないための結果です。",
+            "彼はあなたの気持ちに甘えている可能性があります。あなたが不安を飲み込むこと、待つこと、察すること。それを無意識に当たり前にしてしまっているのかもしれません。",
+            "たまに優しい人は、忘れられません。その一瞬が本物に見えるから、苦しかった日の記憶まで上書きされてしまいます。でも本当に大切にする人は、あなたの心を何度も置き去りにはしません。",
+            "今は、彼を失う怖さよりも、あなたがあなたを失っていないかを見てください。愛されるために自分を小さくする恋からは、少し距離を置いてもいいのです。"
+          ]
+        }
+      ];
+
+      let currentIndex = 0;
+      const answers = [];
+
+      const questionCount = document.getElementById("question-count");
+      const questionTitle = document.getElementById("question-title");
+      const choiceList = document.getElementById("choice-list");
+      const progressBar = document.getElementById("progress-bar");
+      const backBtn = document.getElementById("back-btn");
+      const restartBtn = document.getElementById("restart-btn");
+      const diagnosisArea = document.getElementById("diagnosis-area");
+      const resultPanel = document.getElementById("result-panel");
+
+      function renderQuestion() {
+        const question = questions[currentIndex];
+        questionCount.textContent = `Question ${currentIndex + 1} / ${questions.length}`;
+        questionTitle.textContent = question.text;
+        progressBar.style.width = `${(currentIndex / questions.length) * 100}%`;
+        backBtn.disabled = currentIndex === 0;
+        choiceList.innerHTML = "";
+
+        question.choices.forEach((choice) => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "choice-btn";
+          button.textContent = choice.text;
+          button.addEventListener("click", () => chooseAnswer(choice.score));
+          choiceList.appendChild(button);
+        });
+      }
+
+      function chooseAnswer(score) {
+        answers[currentIndex] = score;
+        currentIndex += 1;
+
+        if (currentIndex >= questions.length) {
+          showResult();
+          return;
+        }
+
+        renderQuestion();
+      }
+
+      function showResult() {
+        const total = answers.reduce((sum, value) => sum + value, 0);
+        const result = results.find((item) => total >= item.min);
+
+        progressBar.style.width = "100%";
+        diagnosisArea.style.display = "none";
+        document.getElementById("result-title").textContent = result.title;
+        document.getElementById("result-score").textContent = result.score;
+
+        const resultBody = document.getElementById("result-body");
+        resultBody.innerHTML = "";
+        result.body.forEach((text) => {
+          const p = document.createElement("p");
+          p.textContent = text;
+          resultBody.appendChild(p);
+        });
+
+        resultPanel.classList.add("show");
+        resultPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      function resetDiagnosis() {
+        currentIndex = 0;
+        answers.length = 0;
+        diagnosisArea.style.display = "";
+        resultPanel.classList.remove("show");
+        renderQuestion();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      backBtn.addEventListener("click", () => {
+        if (currentIndex === 0) return;
+        currentIndex -= 1;
+        answers.pop();
+        renderQuestion();
+      });
+
+      restartBtn.addEventListener("click", resetDiagnosis);
+      document.getElementById("again-btn").addEventListener("click", resetDiagnosis);
+
+      (function createStars() {
+        const container = document.getElementById("stars");
+        for (let i = 0; i < 120; i++) {
+          const star = document.createElement("div");
+          star.classList.add("star");
+          star.style.left = Math.random() * 100 + "%";
+          star.style.top = Math.random() * 100 + "%";
+          const size = Math.random() * 3 + 1;
+          star.style.width = size + "px";
+          star.style.height = size + "px";
+          star.style.animationDelay = Math.random() * 4 + "s";
+          container.appendChild(star);
+        }
+      })();
+
+      renderQuestion();
+    </script>
+  </body>
+</html>

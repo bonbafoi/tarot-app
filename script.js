@@ -349,7 +349,7 @@ function generateSummary(categoryKey, drawnCards) {
     const opening = pick(compatOpenings[positiveCount]);
 
     const compatSuitLine = (drawn, roleLabel) => {
-      const s = drawn.card.suit;
+      const s = drawn.card.suit || "major";
       const r = drawn.isReversed;
       const phrases = {
         cups: {
@@ -406,7 +406,7 @@ function generateSummary(categoryKey, drawnCards) {
         r: ["大きな転換期にあり、関係の形が変わっていく可能性があります", "流れが変わる時期で、2人の関係も新たな局面を迎えるかもしれません", "今は試練の時ですが、この転換を乗り越えた先に新しい縁の形があります"],
       },
     };
-    const c3s = c3.card.suit, c3r = c3.isReversed;
+    const c3s = c3.card.suit || "major", c3r = c3.isReversed;
     const futurePhrase = pick(futurePhrases[c3s][c3r ? "r" : "u"]);
     const futureTail = c3r
       ? pick(["難しい流れでも、2人で向き合えば乗り越えられます。", "課題はありますが、それを知ることが未来への準備になります。", "試練の先に、本当の相性が見えてきます。"])

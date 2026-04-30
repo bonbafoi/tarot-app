@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>あなたの運命の結婚相手はこんな人診断｜結婚相手タイプ・長続きする相性がわかる無料診断</title>
+    <meta name="description" content="運命の人や結婚相手のタイプを知りたい方へ。長続きするカップルに多い安心感・応答性・価値観の調整力・衝突後の修復力から、あなたに合う相手を無料診断。" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .diagnosis-wrap {
+        width: 100%;
+        max-width: 720px;
+        margin: 0 auto 48px;
+        text-align: left;
+      }
+
+      .diagnosis-lead {
+        font-size: 0.94rem;
+        line-height: 2.05;
+        color: #c8b4e8;
+        margin-bottom: 24px;
+      }
+
+      .diagnosis-lead strong {
+        color: #f0d8ff;
+      }
+
+      .progress-shell {
+        width: 100%;
+        height: 8px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(200, 140, 255, 0.16);
+        border-radius: 999px;
+        overflow: hidden;
+        margin: 0 0 18px;
+      }
+
+      .progress-bar {
+        width: 0%;
+        height: 100%;
+        background: linear-gradient(90deg, #b080ff, #ff9ecc, #a8d4ff);
+        transition: width 0.25s ease;
+      }
+
+      .question-card,
+      .result-panel,
+      .diagnosis-panel {
+        background: linear-gradient(145deg, rgba(60, 15, 100, 0.55), rgba(28, 8, 60, 0.76));
+        border: 1.5px solid rgba(210, 150, 255, 0.3);
+        border-radius: 20px;
+        padding: 28px 24px;
+        position: relative;
+      }
+
+      .question-count {
+        font-size: 0.74rem;
+        color: #9878b8;
+        letter-spacing: 0.12em;
+        margin-bottom: 10px;
+      }
+
+      .question-title {
+        font-size: 1.18rem;
+        line-height: 1.75;
+        color: #ead8ff;
+        font-weight: bold;
+        letter-spacing: 0.05em;
+        margin-bottom: 18px;
+      }
+
+      .choice-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .choice-btn {
+        width: 100%;
+        padding: 15px 16px;
+        text-align: left;
+        color: #d8c4f0;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(190, 130, 255, 0.22);
+        border-radius: 14px;
+        font-family: inherit;
+        font-size: 0.9rem;
+        line-height: 1.65;
+        cursor: pointer;
+        transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+      }
+
+      .choice-btn:hover {
+        background: rgba(160, 80, 255, 0.16);
+        border-color: rgba(220, 160, 255, 0.48);
+        transform: translateY(-2px);
+      }
+
+      .diagnosis-actions {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .subtle-btn {
+        border: 1px solid rgba(180, 100, 255, 0.28);
+        border-radius: 999px;
+        background: rgba(100, 40, 180, 0.16);
+        color: #bfa0e8;
+        font-family: inherit;
+        font-size: 0.78rem;
+        padding: 10px 18px;
+        cursor: pointer;
+      }
+
+      .subtle-btn:disabled {
+        opacity: 0.35;
+        cursor: default;
+      }
+
+      .result-panel {
+        display: none;
+      }
+
+      .result-panel.show {
+        display: block;
+      }
+
+      .result-kicker {
+        text-align: center;
+        color: #9878b8;
+        font-size: 0.76rem;
+        letter-spacing: 0.16em;
+        margin-bottom: 10px;
+      }
+
+      .result-title {
+        text-align: center;
+        font-size: 1.45rem;
+        line-height: 1.55;
+        font-weight: bold;
+        background: linear-gradient(120deg, #d4a8ff, #ffe0f7, #a8d4ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 18px;
+      }
+
+      .result-score {
+        text-align: center;
+        font-size: 0.86rem;
+        color: #ffcae6;
+        letter-spacing: 0.1em;
+        margin-bottom: 22px;
+      }
+
+      .result-body p {
+        color: #c8b4e8;
+        font-size: 0.92rem;
+        line-height: 2.05;
+        margin-bottom: 14px;
+      }
+
+      .route-grid {
+        display: grid;
+        gap: 12px;
+        margin-top: 26px;
+      }
+
+      .route-title {
+        font-size: 0.78rem;
+        color: #9878b8;
+        letter-spacing: 0.14em;
+        margin: 8px 0 2px;
+        text-align: center;
+      }
+
+      .affiliate-box {
+        margin-top: 14px;
+        padding: 18px 16px;
+        background: linear-gradient(
+          145deg,
+          rgba(35, 18, 5, 0.85),
+          rgba(55, 30, 8, 0.78)
+        );
+        border: 1.5px solid rgba(220, 170, 80, 0.35);
+        border-radius: 16px;
+        position: relative;
+      }
+
+      .affiliate-box::before {
+        content: "";
+        position: absolute;
+        inset: 7px;
+        border: 1px solid rgba(220, 170, 80, 0.1);
+        border-radius: 11px;
+        pointer-events: none;
+      }
+
+      .affiliate-box p {
+        font-size: 0.82rem;
+        line-height: 1.8;
+        color: #c8a060;
+        margin-bottom: 10px;
+      }
+
+      .affiliate-box .route-title {
+        color: #ffd580;
+        text-shadow: 0 0 16px rgba(255, 200, 80, 0.35);
+      }
+
+      .affiliate-box .banner-cta {
+        background: linear-gradient(135deg, #b87020, #e09030, #b87020);
+        background-size: 200% 200%;
+        border-color: rgba(220, 170, 80, 0.45);
+        color: #fff;
+        box-shadow:
+          0 0 18px rgba(200, 140, 40, 0.35),
+          0 3px 12px rgba(0, 0, 0, 0.35);
+        animation: goldShift 3s ease infinite;
+      }
+
+      .diagnosis-panel {
+        margin-top: 34px;
+      }
+
+      .diagnosis-panel h2 {
+        font-size: 1rem;
+        color: #d4aaff;
+        letter-spacing: 0.12em;
+        margin-bottom: 12px;
+        text-align: center;
+      }
+
+      .diagnosis-panel p,
+      .diagnosis-panel li {
+        color: #bca6d8;
+        font-size: 0.86rem;
+        line-height: 1.9;
+      }
+
+      .diagnosis-panel ul {
+        list-style: none;
+        padding: 0;
+        margin: 12px 0 0;
+      }
+
+      .diagnosis-panel li {
+        padding: 8px 0 8px 24px;
+        border-bottom: 1px solid rgba(200, 140, 255, 0.08);
+        position: relative;
+      }
+
+      .diagnosis-panel li::before {
+        content: "✦";
+        position: absolute;
+        left: 0;
+        color: #b080ff;
+      }
+
+      @media (max-width: 580px) {
+        .question-card,
+        .result-panel,
+        .diagnosis-panel {
+          padding: 24px 16px;
+        }
+
+        .question-title {
+          font-size: 1.05rem;
+        }
+
+        .result-title {
+          font-size: 1.25rem;
+        }
+
+        .diagnosis-actions {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="stars"></div>
+
+    <div class="container">
+      <nav class="site-nav" aria-label="サイトメニュー">
+        <a href="index.html" class="nav-link">🔮 無料タロット占い</a>
+        <a href="furin-tarot.html" class="nav-link">🌹 不倫タロット</a>
+        <a href="love-compatibility.html" class="nav-link">💑 相性占い</a>
+        <a href="diagnosis.html" class="nav-link">💗 恋の本音がわかる診断（無料）</a>
+        <a href="marriage-diagnosis.html" class="nav-link current">結婚相手診断</a>
+      </nav>
+
+      <header>
+        <span class="moon-decoration">💍</span>
+        <h1>あなたの運命の結婚相手はこんな人診断</h1>
+        <p class="subtitle">ときめきだけではなく、長く愛し合える相手のタイプを見つけます</p>
+      </header>
+
+      <main class="diagnosis-wrap">
+        <p class="diagnosis-lead">
+          運命の人は、ただ刺激的な人や条件がいい人とは限りません。<br>
+          結婚相手として長続きしやすい関係には、安心感、応答性、対話のしやすさ、価値観の調整力、ケンカ後に戻れる修復力が出やすいと言われます。<br><br>
+          この結婚相手タイプ診断では、あなたが恋愛や結婚で本当に必要としている<strong>関係の土台</strong>から、
+          運命の人の特徴、相性のいい相手像、長く愛し合える関係の形を見つけます。
+        </p>
+
+        <div id="diagnosis-area">
+          <div class="progress-shell" aria-hidden="true">
+            <div class="progress-bar" id="progress-bar"></div>
+          </div>
+
+          <section class="question-card" id="question-card">
+            <p class="question-count" id="question-count"></p>
+            <p class="question-title" id="question-title"></p>
+            <div class="choice-list" id="choice-list"></div>
+            <div class="diagnosis-actions">
+              <button class="subtle-btn" id="back-btn" type="button">ひとつ戻る</button>
+              <button class="subtle-btn" id="restart-btn" type="button">最初から</button>
+            </div>
+          </section>
+        </div>
+
+        <section class="result-panel" id="result-panel" aria-live="polite">
+          <p class="result-kicker">診断結果</p>
+          <h2 class="result-title" id="result-title"></h2>
+          <p class="result-score" id="result-score"></p>
+          <div class="result-body" id="result-body"></div>
+
+          <div class="route-grid">
+            <p class="route-title">もっと詳しく知りたい方はこちら</p>
+            <a href="index.html" class="internal-banner">
+              <div class="banner-body">
+                <span class="banner-eyebrow">🔮 出会い・相性・結婚の流れをカードで見る</span>
+                <span class="banner-main">無料タロット占いへ進む</span>
+              </div>
+              <span class="banner-cta">占う</span>
+            </a>
+
+            <div class="affiliate-box">
+              <p class="route-title">今のあなたにおすすめ</p>
+              <p>運命の出会いって、何もしなくても来るわけじゃない。でもほんの少し整えるだけで引き寄せ方は変わる。あなたをお姫様にしてくれるものを取り入れてみて。</p>
+              <a href="https://www.amazon.co.jp/%E3%80%90%E5%9B%BD%E5%86%85%E6%AD%A3%E8%A6%8F%E5%93%81%E3%83%BB%E3%83%A9%E3%83%83%E3%83%94%E3%83%B3%E3%82%B0%E6%B8%88%E3%81%BF%E3%80%91JILL-STUART-%E3%82%B8%E3%83%AB%E3%82%B9%E3%83%81%E3%83%A5%E3%82%A2%E3%83%BC%E3%83%88-%E3%83%8F%E3%83%B3%E3%83%89%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%A0-%E3%83%9B%E3%83%AF%E3%82%A4%E3%83%88%E3%83%95%E3%83%AD%E3%83%BC%E3%83%A9%E3%83%AB/dp/B0CMQHDY21?crid=3F72TF3FLMLD1&amp;dib=eyJ2IjoiMSJ9.BSjk6_ZxXoXJ7y1WRUbFTgoH6cIzTHNzD1jMChB-FTQ_BDvUp7oWrNY3DzLB3Shhs9jz6BPwH5nJgOyvjS2_l9V_glIVc4Y4khIQHrZjN2zxLB2JJc_IhN4114BaExjENuUYjVivUQc9nRs8_3CuRM5lBtA7VvHYQfy0oNUhvGI2SNf90hLT1ylPav3AEfSi4Ua4zNJwDvRdDquyAbHHx6TIsZJmlmR676aIIw_3KCr-ZhJJEwoAEab7CPT8YHeWFVX4sX6N3WKpfaZUH9tRfJXGUPCPghH-dEqrUUQOhdk.fDeRddSSQUMr5slMCVmloMCKEVfXb94fmk_3QNqXlf0&amp;dib_tag=se&amp;keywords=%E3%82%B8%E3%83%AB%E3%82%B9%E3%83%81%E3%83%A5%E3%82%A2%E3%83%BC%E3%83%88+%E3%83%8F%E3%83%B3%E3%83%89%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%A0&amp;qid=1777561374&amp;sprefix=%E3%82%B8%E3%83%AB%E3%82%B9%E3%83%81%E3%83%A5%E3%82%A2%E3%83%BC%E3%83%88%2Caps%2C769&amp;sr=8-5&amp;linkCode=ll2&amp;tag=bonbafoi-22&amp;linkId=f2c3b0a063629edac0eadce559f2ebe9&amp;ref_=as_li_ss_tl" class="banner-cta" target="_blank" rel="noopener noreferrer">Amazonで見る</a>
+            </div>
+
+            <p class="route-title">他の診断もやってみる</p>
+            <a href="aisare-diagnosis.html" class="internal-banner">
+              <div class="banner-body">
+                <span class="banner-eyebrow">💗 彼に大切にされているか不安な方へ</span>
+                <span class="banner-main">あなた本当に愛されてる？愛され度診断</span>
+              </div>
+              <span class="banner-cta">診断する</span>
+            </a>
+            <a href="iionna-diagnosis.html" class="internal-banner">
+              <div class="banner-body">
+                <span class="banner-eyebrow">💄 恋の中の自分の魅力を見たい方へ</span>
+                <span class="banner-main">モテる？モテない？いい女診断</span>
+              </div>
+              <span class="banner-cta">診断する</span>
+            </a>
+          </div>
+
+          <div style="text-align:center; margin-top:22px;">
+            <button class="subtle-btn" id="again-btn" type="button">もう一度診断する</button>
+          </div>
+        </section>
+
+        <section class="diagnosis-panel">
+          <h2>この診断で見ていること</h2>
+          <p>
+            この診断は、わかりやすい「優しい人が好き？」ではなく、
+            長期的な関係で重要になりやすい土台を見ています。
+          </p>
+          <ul>
+            <li>不安な時に、相手がどう応答してくれると安心するか</li>
+            <li>意見が違った時、どんな修復の仕方が合うか</li>
+            <li>近さと自由のバランスを、どれくらい必要としているか</li>
+            <li>日常の安定と、心が動く刺激のどちらを重視しやすいか</li>
+          </ul>
+        </section>
+      </main>
+
+      <footer>
+        <p class="footer-brand">ぼんばの占い｜無料タロット占いサイト</p>
+        <nav class="footer-nav" aria-label="フッターメニュー">
+          <a href="index.html">🔮 トップ</a>
+          <a href="diagnosis.html">💗 診断一覧</a>
+          <a href="aisare-diagnosis.html">愛され度診断</a>
+          <a href="iionna-diagnosis.html">いい女診断</a>
+          <a href="marriage-diagnosis.html">結婚相手診断</a>
+        </nav>
+        <p>診断結果は目安です。結婚相手は条件だけではなく、一緒に戻れる感覚でも見てください。</p>
+      </footer>
+    </div>
+
+    <script>
+      const questions = [
+        {
+          text: "忙しい日が続いたあと、恋人にしてもらえると一番心がほどけるのは？",
+          choices: [
+            { text: "細かく聞きすぎず、温かいごはんや休む時間を用意してくれる", type: "secure" },
+            { text: "何が大変だったか、落ち着いて言葉にする時間をくれる", type: "repair" },
+            { text: "ひとりで整える時間を尊重し、戻った時に普通に迎えてくれる", type: "freedom" },
+            { text: "気分が変わるような小さな外出や楽しみを提案してくれる", type: "spark" }
+          ]
+        },
+        {
+          text: "意見が割れた時、長く一緒にいる相手に一番あってほしい反応は？",
+          choices: [
+            { text: "どちらが勝つかより、2人の落としどころを探してくれる", type: "repair" },
+            { text: "感情的になりすぎず、まず生活が崩れない選択を考えてくれる", type: "secure" },
+            { text: "違う考えを否定せず、お互いの領域を残してくれる", type: "freedom" },
+            { text: "重くなった空気をやわらげ、また笑える方向へ戻してくれる", type: "spark" }
+          ]
+        },
+        {
+          text: "結婚生活で、あなたがいちばん怖いと感じるのは？",
+          choices: [
+            { text: "会話がなくなり、何を考えているかわからなくなること", type: "repair" },
+            { text: "安心できるはずの家で、気を張り続けること", type: "secure" },
+            { text: "相手の人生に飲み込まれて、自分が薄くなること", type: "freedom" },
+            { text: "穏やかだけど、ときめきも好奇心も消えてしまうこと", type: "spark" }
+          ]
+        },
+        {
+          text: "あなたが相手を「この人、信頼できる」と感じる瞬間は？",
+          choices: [
+            { text: "小さな約束や時間を、当たり前のように守ってくれる時", type: "secure" },
+            { text: "間違えた時にごまかさず、謝って直そうとしてくれる時", type: "repair" },
+            { text: "あなたの友人・仕事・趣味を、自分のもののように尊重する時", type: "freedom" },
+            { text: "あなたの変化や挑戦を面白がって、一緒に喜んでくれる時", type: "spark" }
+          ]
+        },
+        {
+          text: "一緒に暮らすなら、どんな日常が一番しっくりくる？",
+          choices: [
+            { text: "派手ではなくても、帰る場所があると感じられる日常", type: "secure" },
+            { text: "困ったことをためこまず、その日のうちに少し話せる日常", type: "repair" },
+            { text: "同じ部屋にいても、別々のことを自然に楽しめる日常", type: "freedom" },
+            { text: "たまに新しい店や場所を試して、空気を入れ替えられる日常", type: "spark" }
+          ]
+        },
+        {
+          text: "相手からの愛情表現で、じわじわ効いてくるものは？",
+          choices: [
+            { text: "あなたの不調や変化に気づき、無理させないこと", type: "secure" },
+            { text: "すれ違った後も、ちゃんと戻ってきて話すこと", type: "repair" },
+            { text: "束縛ではなく、信じて送り出してくれること", type: "freedom" },
+            { text: "何年経っても、あなたを女性として見てくれること", type: "spark" }
+          ]
+        },
+        {
+          text: "あなたが結婚相手に求める強さは、どれに近い？",
+          choices: [
+            { text: "大きなことを言うより、生活を守る持久力", type: "secure" },
+            { text: "問題から逃げず、向き合い方を更新できる柔軟さ", type: "repair" },
+            { text: "依存しすぎず、それぞれの人生を育てられる自立心", type: "freedom" },
+            { text: "落ち込んだ時も、未来を少し楽しみに変える明るさ", type: "spark" }
+          ]
+        },
+        {
+          text: "10年後の2人を想像した時、いちばん幸せだと思う景色は？",
+          choices: [
+            { text: "言葉が少なくても、そばにいるだけで落ち着ける2人", type: "secure" },
+            { text: "何度もぶつかりながら、そのたび関係が深くなった2人", type: "repair" },
+            { text: "夫婦でありながら、お互いの夢も育てている2人", type: "freedom" },
+            { text: "日常の中に、小さなデートや笑いを残し続けている2人", type: "spark" }
+          ]
+        }
+      ];
+
+      const results = {
+        secure: {
+          title: "あなたの運命の結婚相手は、安心をくれる生活安定型の人",
+          score: "約束・誠実さ・日常の温度で、あなたを深く満たす相手です。",
+          body: [
+            "あなたに合う結婚相手は、派手な言葉よりも、日々の行動で愛を見せる人です。小さな約束を守る、疲れている時に無理をさせない、言葉にしなくても生活の中で支えてくれる。そういう安定した優しさが、あなたの心を長く守ります。",
+            "恋の始まりでは、刺激的な人に惹かれることもあるかもしれません。でも結婚となると、あなたが本当に必要としているのは、帰る場所のような安心感です。",
+            "このタイプの人は、感情表現が少し地味に見えることがあります。けれど、関係が深くなるほど信頼が積み上がっていく相手です。",
+            "あなたの運命の人は、あなたを急かさず、試さず、毎日の中で静かに大切にしてくれる人。燃え上がる恋より、消えにくい愛をくれる人です。"
+          ]
+        },
+        repair: {
+          title: "あなたの運命の結婚相手は、話し合って戻ってこられる対話修復型の人",
+          score: "ケンカしない相手より、ケンカ後にちゃんと戻れる相手が合います。",
+          body: [
+            "あなたに合う結婚相手は、問題が起きた時に逃げない人です。意見が違っても、沈黙で終わらせず、責めるだけでもなく、2人がまた同じ場所へ戻れるように言葉を使える人です。",
+            "長く続く関係では、価値観が完全に同じことより、違いが出た時に調整できることが大切になります。あなたは特に、この修復力のある相手と相性がいいでしょう。",
+            "このタイプの人は、最初から完璧にスマートではないかもしれません。でも、向き合う姿勢があります。ごまかさず、変わろうとする力があります。",
+            "あなたの運命の人は、ぶつかっても壊れない関係を一緒に作れる人。恋を感情だけで終わらせず、深い信頼へ育てていける人です。"
+          ]
+        },
+        freedom: {
+          title: "あなたの運命の結婚相手は、自由を尊重してくれる自立共走型の人",
+          score: "近すぎず遠すぎず、お互いの人生を育てられる相手です。",
+          body: [
+            "あなたに合う結婚相手は、愛することと縛ることを混同しない人です。あなたの友人、仕事、趣味、ひとりの時間を尊重しながら、それでも大切な場面では隣にいてくれる人です。",
+            "あなたは、相手に全部を預ける関係より、それぞれの世界を持ったまま並んで歩く関係で魅力が出ます。結婚しても、自分が自分でいられることがとても大切です。",
+            "このタイプの人は、べったりした愛情表現は少ないかもしれません。でも、信頼を土台にした関係を作るのが得意です。",
+            "あなたの運命の人は、あなたを囲い込む人ではなく、広い場所へ連れていってくれる人。夫婦でありながら、互いの人生を応援できる相手です。"
+          ]
+        },
+        spark: {
+          title: "あなたの運命の結婚相手は、ときめきを育て続ける情熱育成型の人",
+          score: "安定だけでなく、心が動く時間を一緒に作れる相手です。",
+          body: [
+            "あなたに合う結婚相手は、日常に小さな光を入れてくれる人です。新しい場所へ行く、ふざけて笑う、記念日でなくても少し特別にする。そういう感性が、あなたの心を長く温めます。",
+            "結婚生活では安心も大切です。でもあなたの場合、安心だけでは少し心が乾いてしまうことがあります。愛されている実感に加えて、女性として見られている感覚や、一緒に未来を楽しむ感覚が必要です。",
+            "このタイプの人は、空気を変えるのが上手です。重くなりすぎた気持ちを、少し明るいほうへ連れていってくれます。",
+            "あなたの運命の人は、落ち着いた関係の中にもときめきを残してくれる人。何年経っても、あなたの心をちゃんと見つけ直してくれる相手です。"
+          ]
+        }
+      };
+
+      let currentIndex = 0;
+      const answers = [];
+      const scores = { secure: 0, repair: 0, freedom: 0, spark: 0 };
+
+      const questionCount = document.getElementById("question-count");
+      const questionTitle = document.getElementById("question-title");
+      const choiceList = document.getElementById("choice-list");
+      const progressBar = document.getElementById("progress-bar");
+      const backBtn = document.getElementById("back-btn");
+      const restartBtn = document.getElementById("restart-btn");
+      const diagnosisArea = document.getElementById("diagnosis-area");
+      const resultPanel = document.getElementById("result-panel");
+
+      function renderQuestion() {
+        const question = questions[currentIndex];
+        questionCount.textContent = `Question ${currentIndex + 1} / ${questions.length}`;
+        questionTitle.textContent = question.text;
+        progressBar.style.width = `${(currentIndex / questions.length) * 100}%`;
+        backBtn.disabled = currentIndex === 0;
+        choiceList.innerHTML = "";
+
+        question.choices.forEach((choice) => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "choice-btn";
+          button.textContent = choice.text;
+          button.addEventListener("click", () => chooseAnswer(choice.type));
+          choiceList.appendChild(button);
+        });
+      }
+
+      function chooseAnswer(type) {
+        answers[currentIndex] = type;
+        currentIndex += 1;
+
+        if (currentIndex >= questions.length) {
+          showResult();
+          return;
+        }
+
+        renderQuestion();
+      }
+
+      function showResult() {
+        Object.keys(scores).forEach((key) => { scores[key] = 0; });
+        answers.forEach((type) => { scores[type] += 1; });
+
+        const priority = ["secure", "repair", "freedom", "spark"];
+        const resultType = priority.reduce((best, key) => {
+          if (scores[key] > scores[best]) return key;
+          return best;
+        }, priority[0]);
+        const result = results[resultType];
+
+        progressBar.style.width = "100%";
+        diagnosisArea.style.display = "none";
+        document.getElementById("result-title").textContent = result.title;
+        document.getElementById("result-score").textContent = result.score;
+
+        const resultBody = document.getElementById("result-body");
+        resultBody.innerHTML = "";
+        result.body.forEach((text) => {
+          const p = document.createElement("p");
+          p.textContent = text;
+          resultBody.appendChild(p);
+        });
+
+        resultPanel.classList.add("show");
+        resultPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      function resetDiagnosis() {
+        currentIndex = 0;
+        answers.length = 0;
+        diagnosisArea.style.display = "";
+        resultPanel.classList.remove("show");
+        renderQuestion();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      backBtn.addEventListener("click", () => {
+        if (currentIndex === 0) return;
+        currentIndex -= 1;
+        answers.pop();
+        renderQuestion();
+      });
+
+      restartBtn.addEventListener("click", resetDiagnosis);
+      document.getElementById("again-btn").addEventListener("click", resetDiagnosis);
+
+      (function createStars() {
+        const container = document.getElementById("stars");
+        for (let i = 0; i < 120; i++) {
+          const star = document.createElement("div");
+          star.classList.add("star");
+          star.style.left = Math.random() * 100 + "%";
+          star.style.top = Math.random() * 100 + "%";
+          const size = Math.random() * 3 + 1;
+          star.style.width = size + "px";
+          star.style.height = size + "px";
+          star.style.animationDelay = Math.random() * 4 + "s";
+          container.appendChild(star);
+        }
+      })();
+
+      renderQuestion();
+    </script>
+  </body>
+</html>

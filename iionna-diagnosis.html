@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>モテる？モテない？いい女診断｜追われる女・都合のいい女度がわかる無料診断</title>
+    <meta name="description" content="モテる女になりたい、いい女度を知りたい、都合のいい女になっていないか不安な方へ。恋愛で追いすぎる傾向、自己価値、追われる余白を無料診断。" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .diagnosis-wrap {
+        width: 100%;
+        max-width: 720px;
+        margin: 0 auto 48px;
+        text-align: left;
+      }
+
+      .diagnosis-lead {
+        font-size: 0.94rem;
+        line-height: 2.05;
+        color: #c8b4e8;
+        margin-bottom: 24px;
+      }
+
+      .diagnosis-lead strong {
+        color: #f0d8ff;
+      }
+
+      .progress-shell {
+        width: 100%;
+        height: 8px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(200, 140, 255, 0.16);
+        border-radius: 999px;
+        overflow: hidden;
+        margin: 0 0 18px;
+      }
+
+      .progress-bar {
+        width: 0%;
+        height: 100%;
+        background: linear-gradient(90deg, #b080ff, #ff9ecc, #a8d4ff);
+        transition: width 0.25s ease;
+      }
+
+      .question-card,
+      .result-panel,
+      .diagnosis-panel {
+        background: linear-gradient(145deg, rgba(60, 15, 100, 0.55), rgba(28, 8, 60, 0.76));
+        border: 1.5px solid rgba(210, 150, 255, 0.3);
+        border-radius: 20px;
+        padding: 28px 24px;
+        position: relative;
+      }
+
+      .question-count {
+        font-size: 0.74rem;
+        color: #9878b8;
+        letter-spacing: 0.12em;
+        margin-bottom: 10px;
+      }
+
+      .question-title {
+        font-size: 1.18rem;
+        line-height: 1.75;
+        color: #ead8ff;
+        font-weight: bold;
+        letter-spacing: 0.05em;
+        margin-bottom: 18px;
+      }
+
+      .choice-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .choice-btn {
+        width: 100%;
+        padding: 15px 16px;
+        text-align: left;
+        color: #d8c4f0;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(190, 130, 255, 0.22);
+        border-radius: 14px;
+        font-family: inherit;
+        font-size: 0.9rem;
+        line-height: 1.65;
+        cursor: pointer;
+        transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+      }
+
+      .choice-btn:hover {
+        background: rgba(160, 80, 255, 0.16);
+        border-color: rgba(220, 160, 255, 0.48);
+        transform: translateY(-2px);
+      }
+
+      .diagnosis-actions {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .subtle-btn {
+        border: 1px solid rgba(180, 100, 255, 0.28);
+        border-radius: 999px;
+        background: rgba(100, 40, 180, 0.16);
+        color: #bfa0e8;
+        font-family: inherit;
+        font-size: 0.78rem;
+        padding: 10px 18px;
+        cursor: pointer;
+      }
+
+      .subtle-btn:disabled {
+        opacity: 0.35;
+        cursor: default;
+      }
+
+      .result-panel {
+        display: none;
+      }
+
+      .result-panel.show {
+        display: block;
+      }
+
+      .result-kicker {
+        text-align: center;
+        color: #9878b8;
+        font-size: 0.76rem;
+        letter-spacing: 0.16em;
+        margin-bottom: 10px;
+      }
+
+      .result-title {
+        text-align: center;
+        font-size: 1.45rem;
+        line-height: 1.55;
+        font-weight: bold;
+        background: linear-gradient(120deg, #d4a8ff, #ffe0f7, #a8d4ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 18px;
+      }
+
+      .result-score {
+        text-align: center;
+        font-size: 0.86rem;
+        color: #ffcae6;
+        letter-spacing: 0.1em;
+        margin-bottom: 22px;
+      }
+
+      .result-body p {
+        color: #c8b4e8;
+        font-size: 0.92rem;
+        line-height: 2.05;
+        margin-bottom: 14px;
+      }
+
+      .route-grid {
+        display: grid;
+        gap: 12px;
+        margin-top: 26px;
+      }
+
+      .route-title {
+        font-size: 0.78rem;
+        color: #9878b8;
+        letter-spacing: 0.14em;
+        margin: 8px 0 2px;
+        text-align: center;
+      }
+
+      .affiliate-box {
+        margin-top: 14px;
+        padding: 18px 16px;
+        background: linear-gradient(
+          145deg,
+          rgba(35, 18, 5, 0.85),
+          rgba(55, 30, 8, 0.78)
+        );
+        border: 1.5px solid rgba(220, 170, 80, 0.35);
+        border-radius: 16px;
+        position: relative;
+      }
+
+      .affiliate-box::before {
+        content: "";
+        position: absolute;
+        inset: 7px;
+        border: 1px solid rgba(220, 170, 80, 0.1);
+        border-radius: 11px;
+        pointer-events: none;
+      }
+
+      .affiliate-box p {
+        font-size: 0.82rem;
+        line-height: 1.8;
+        color: #c8a060;
+        margin-bottom: 10px;
+      }
+
+      .affiliate-box .route-title {
+        color: #ffd580;
+        text-shadow: 0 0 16px rgba(255, 200, 80, 0.35);
+      }
+
+      .affiliate-box .banner-cta {
+        background: linear-gradient(135deg, #b87020, #e09030, #b87020);
+        background-size: 200% 200%;
+        border-color: rgba(220, 170, 80, 0.45);
+        color: #fff;
+        box-shadow:
+          0 0 18px rgba(200, 140, 40, 0.35),
+          0 3px 12px rgba(0, 0, 0, 0.35);
+        animation: goldShift 3s ease infinite;
+      }
+
+      .diagnosis-panel {
+        margin-top: 34px;
+      }
+
+      .diagnosis-panel h2 {
+        font-size: 1rem;
+        color: #d4aaff;
+        letter-spacing: 0.12em;
+        margin-bottom: 12px;
+        text-align: center;
+      }
+
+      .diagnosis-panel p,
+      .diagnosis-panel li {
+        color: #bca6d8;
+        font-size: 0.86rem;
+        line-height: 1.9;
+      }
+
+      .diagnosis-panel ul {
+        list-style: none;
+        padding: 0;
+        margin: 12px 0 0;
+      }
+
+      .diagnosis-panel li {
+        padding: 8px 0 8px 24px;
+        border-bottom: 1px solid rgba(200, 140, 255, 0.08);
+        position: relative;
+      }
+
+      .diagnosis-panel li::before {
+        content: "✦";
+        position: absolute;
+        left: 0;
+        color: #b080ff;
+      }
+
+      @media (max-width: 580px) {
+        .question-card,
+        .result-panel,
+        .diagnosis-panel {
+          padding: 24px 16px;
+        }
+
+        .question-title {
+          font-size: 1.05rem;
+        }
+
+        .result-title {
+          font-size: 1.25rem;
+        }
+
+        .diagnosis-actions {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="stars"></div>
+
+    <div class="container">
+      <nav class="site-nav" aria-label="サイトメニュー">
+        <a href="index.html" class="nav-link">🔮 無料タロット占い</a>
+        <a href="furin-tarot.html" class="nav-link">🌹 不倫タロット</a>
+        <a href="love-compatibility.html" class="nav-link">💑 相性占い</a>
+        <a href="diagnosis.html" class="nav-link">💗 恋の本音がわかる診断（無料）</a>
+        <a href="iionna-diagnosis.html" class="nav-link current">いい女診断</a>
+      </nav>
+
+      <header>
+        <span class="moon-decoration">💄</span>
+        <h1>モテる？モテない？いい女診断</h1>
+        <p class="subtitle">追いかけられる女か、都合よく追ってしまう女か。恋の魅力を診断します</p>
+      </header>
+
+      <main class="diagnosis-wrap">
+        <p class="diagnosis-lead">
+          モテる女と、都合のいい女の違いは、見た目や駆け引きだけではありません。<br>
+          好きな人に合わせすぎていないか、追いLINEや我慢で自分の価値を下げていないか。そこに恋愛の扱われ方が出ます。<br><br>
+          このいい女診断では、あなたの<strong>恋愛の余白・境界線・自己価値・追われる魅力</strong>を見ていきます。
+          モテない気がする、いつも追う恋になる、大切にされる女性になりたい。そんな不安がある時に、自分の魅力の出し方を確認してみてください。
+        </p>
+
+        <div id="diagnosis-area">
+          <div class="progress-shell" aria-hidden="true">
+            <div class="progress-bar" id="progress-bar"></div>
+          </div>
+
+          <section class="question-card" id="question-card">
+            <p class="question-count" id="question-count"></p>
+            <p class="question-title" id="question-title"></p>
+            <div class="choice-list" id="choice-list"></div>
+            <div class="diagnosis-actions">
+              <button class="subtle-btn" id="back-btn" type="button">ひとつ戻る</button>
+              <button class="subtle-btn" id="restart-btn" type="button">最初から</button>
+            </div>
+          </section>
+        </div>
+
+        <section class="result-panel" id="result-panel" aria-live="polite">
+          <p class="result-kicker">診断結果</p>
+          <h2 class="result-title" id="result-title"></h2>
+          <p class="result-score" id="result-score"></p>
+          <div class="result-body" id="result-body"></div>
+
+          <div class="route-grid">
+            <p class="route-title">もっと詳しく知りたい方はこちら</p>
+            <a href="index.html" class="internal-banner">
+              <div class="banner-body">
+                <span class="banner-eyebrow">🔮 あなたの恋の流れと、相手が感じている魅力を見る</span>
+                <span class="banner-main">無料タロット占いへ進む</span>
+              </div>
+              <span class="banner-cta">占う</span>
+            </a>
+
+            <div class="affiliate-box">
+              <p class="route-title">今のあなたにおすすめ</p>
+              <p>あなたはもう「良い女」の要素ちゃんと持ってる。でもそれを自分で認めてあげることも大事。ちょっとだけ気分を上げたいときに、特別なフェイスパックを。</p>
+              <a href="https://www.amazon.co.jp/LuLuLun-%E3%83%AB%E3%83%AB%E3%83%AB%E3%83%B3-%E7%89%B9%E5%88%A5%E3%81%AA%E6%97%A5%E3%81%AE%E3%82%B9%E3%82%AD%E3%83%B3%E3%82%B1%E3%82%A2-%E3%83%95%E3%82%A7%E3%82%A4%E3%82%B9%E3%83%91%E3%83%83%E3%82%AF-1%E6%9E%9A%E5%85%A5%E2%98%935%E8%A2%8B/dp/B0CQXYWWXL?adgrpid=48816311410&amp;dib=eyJ2IjoiMSJ9.MJgyN20aNknPkwzza5k8OHO58b-Sv56c1ce5DJgmhjWt3skY_VfCpL4ITQgFW4hnIb8S8nr_uV2tc09NnJ_DwQdgjw2dBSeEuKCAMEkFuxPIZgEHjxI0PE33ltmrifJYenMfRVgztJocrGxz8_S25GaN35ANGmSkOYI3s4Yt7LPNYUjCC8NCuSzDkTLfHaCmLhidIcmibqseeRg-aeQJ2E1icI1yXtoJgY6rHdxbAZHS5MsNCSS425DHCKll09q-U-aLEE-gAUcYbGM8Fcn51BOUkCNwfc5Z-NL6JnYNjyw.N0rKxeaCeThP-RnoOII3u32ZXZZN-Oz1pqbUDDyH11o&amp;dib_tag=se&amp;hvadid=658913592617&amp;hvdev=c&amp;hvexpln=0&amp;hvlocphy=1009549&amp;hvnetw=g&amp;hvocijid=12805459501552142355--&amp;hvqmt=e&amp;hvrand=12805459501552142355&amp;hvtargid=kwd-334437305431&amp;hydadcr=5419_13328554&amp;jp-ad-ap=0&amp;keywords=%E3%83%95%E3%82%A7%E3%82%A4%E3%82%B9%2B%E3%83%91%E3%83%83%E3%82%AF%2B%E3%83%97%E3%83%AC%E3%82%BC%E3%83%B3%E3%83%88&amp;mcid=34c53b129d6e35d486acb58dcf7199d9&amp;qid=1777560823&amp;sr=8-2-spons&amp;sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&amp;th=1&amp;linkCode=ll2&amp;tag=bonbafoi-22&amp;linkId=1883c6ad5aa5e013b39468c437b85e1d&amp;ref_=as_li_ss_tl" class="banner-cta" target="_blank" rel="noopener noreferrer">Amazonで見る</a>
+            </div>
+
+            <p class="route-title">他の診断もやってみる</p>
+            <a href="aisare-diagnosis.html" class="internal-banner">
+              <div class="banner-body">
+                <span class="banner-eyebrow">💗 彼に大切にされているか不安な方へ</span>
+                <span class="banner-main">あなた本当に愛されてる？愛され度診断</span>
+              </div>
+              <span class="banner-cta">診断する</span>
+            </a>
+            <a href="marriage-diagnosis.html" class="internal-banner">
+              <div class="banner-body">
+                <span class="banner-eyebrow">💍 長く愛し合える相手を知りたい方へ</span>
+                <span class="banner-main">あなたの運命の結婚相手はこんな人診断</span>
+              </div>
+              <span class="banner-cta">診断する</span>
+            </a>
+            <a href="diagnosis.html" class="internal-banner">
+              <div class="banner-body">
+                <span class="banner-eyebrow">💗 恋愛診断をまとめて見る</span>
+                <span class="banner-main">恋の本音がわかる診断一覧へ</span>
+              </div>
+              <span class="banner-cta">一覧へ</span>
+            </a>
+          </div>
+
+          <div style="text-align:center; margin-top:22px;">
+            <button class="subtle-btn" id="again-btn" type="button">もう一度診断する</button>
+          </div>
+        </section>
+
+        <section class="diagnosis-panel">
+          <h2>この診断で見ていること</h2>
+          <p>
+            いい女度は、顔や駆け引きだけでは決まりません。
+            恋に飲まれそうな時ほど、自分を雑に扱わない力に魅力が出ます。
+          </p>
+          <ul>
+            <li>相手の返信や機嫌で、自分の価値まで揺れていないか</li>
+            <li>好きな人に合わせながらも、自分の生活を守れているか</li>
+            <li>尽くす優しさが、都合のよさに変わっていないか</li>
+            <li>恋の中で「追う」より「選ぶ」感覚を持てているか</li>
+          </ul>
+        </section>
+      </main>
+
+      <footer>
+        <p class="footer-brand">ぼんばの占い｜無料タロット占いサイト</p>
+        <nav class="footer-nav" aria-label="フッターメニュー">
+          <a href="index.html">🔮 トップ</a>
+          <a href="diagnosis.html">💗 診断一覧</a>
+          <a href="aisare-diagnosis.html">愛され度診断</a>
+          <a href="iionna-diagnosis.html">いい女診断</a>
+          <a href="marriage-diagnosis.html">結婚相手診断</a>
+        </nav>
+        <p>診断結果は目安です。あなたの魅力を、恋の不安だけで決めないでください。</p>
+      </footer>
+    </div>
+
+    <script>
+      const questions = [
+        {
+          text: "気になる人から返信が遅い時、あなたの心はどこへ向かいやすい？",
+          choices: [
+            { text: "忙しいのかもと思い、自分の予定に意識を戻す", score: 3 },
+            { text: "気になるけど、何度も確認しないようにはしている", score: 2 },
+            { text: "嫌われたかもと不安になり、言葉を探してしまう", score: 1 },
+            { text: "追いLINEしたくなり、相手の反応で一日が決まる", score: 0 }
+          ]
+        },
+        {
+          text: "彼に急に誘われた時、あなたの反応に近いものは？",
+          choices: [
+            { text: "会いたくても、先約や体調をちゃんと優先できる", score: 3 },
+            { text: "無理がなければ会う。少し予定を動かすこともある", score: 2 },
+            { text: "本当は疲れていても、断ったら次がない気がする", score: 1 },
+            { text: "自分の予定を崩してでも、ほぼ彼に合わせてしまう", score: 0 }
+          ]
+        },
+        {
+          text: "恋愛で褒められた時、あなたはどう受け取りやすい？",
+          choices: [
+            { text: "うれしい。けれどそれで自分の価値が全部決まるとは思わない", score: 3 },
+            { text: "素直に喜べるけど、相手の本気度も少し気になる", score: 2 },
+            { text: "褒められると安心して、もっと好かれようと頑張る", score: 1 },
+            { text: "褒められない日は、自分に魅力がない気がしてしまう", score: 0 }
+          ]
+        },
+        {
+          text: "好きな人の前で、あなたが無意識にやりがちなことは？",
+          choices: [
+            { text: "空気を読みすぎて、本音を飲み込む", score: 1 },
+            { text: "楽しく話しつつ、嫌なことはやわらかく伝える", score: 3 },
+            { text: "相手に合わせることはあるけど、違和感は残る", score: 2 },
+            { text: "好かれるために、平気なふりをしすぎる", score: 0 }
+          ]
+        },
+        {
+          text: "彼が他の女性の話をした時、あなたの反応は？",
+          choices: [
+            { text: "少し気になるけど、自分と比べすぎない", score: 3 },
+            { text: "その場では笑うが、あとで少し引っかかる", score: 2 },
+            { text: "その人より魅力的でいなきゃと焦る", score: 1 },
+            { text: "一気に不安になり、自分の価値が下がった気がする", score: 0 }
+          ]
+        },
+        {
+          text: "恋がうまくいっていない時、あなたの生活はどうなる？",
+          choices: [
+            { text: "揺れるけど、仕事・友人・自分時間は守ろうとする", score: 3 },
+            { text: "少し手につかなくなるが、戻そうとはできる", score: 2 },
+            { text: "彼のことが中心になり、自分のケアが後回しになる", score: 1 },
+            { text: "眠れない、食べられないほど、彼の反応に支配される", score: 0 }
+          ]
+        },
+        {
+          text: "あなたの優しさは、恋の中でどんな形になりやすい？",
+          choices: [
+            { text: "相手を思いやるけど、自分の限界も大切にできる", score: 3 },
+            { text: "つい多めに許すけど、あとから言葉にはできる", score: 2 },
+            { text: "嫌われたくなくて、我慢を優しさに変えてしまう", score: 1 },
+            { text: "相手のためなら、自分が苦しくても飲み込んでしまう", score: 0 }
+          ]
+        },
+        {
+          text: "あなたが一番魅力的に見える瞬間は、どれに近い？",
+          choices: [
+            { text: "好きな人がいても、自分の世界を楽しんでいる時", score: 3 },
+            { text: "相手に喜んでほしくて、自然にかわいくなれる時", score: 2 },
+            { text: "相手の理想に近づこうと、一生懸命になっている時", score: 1 },
+            { text: "捨てられないように、必死で必要とされようとする時", score: 0 }
+          ]
+        }
+      ];
+
+      const results = [
+        {
+          min: 21,
+          title: "いい女度92％｜あなたは追われる余白を持っている人",
+          score: "好きでも、自分を失わない。そこが一番の魅力です。",
+          body: [
+            "あなたの魅力は、相手に好かれるために自分を曲げすぎないところにあります。優しさはあるのに、全部を差し出さない。好きでも、自分の時間や機嫌を守れる。それが恋の中で強い光になっています。",
+            "いい女は、相手を不安にさせる人ではありません。でも、相手に安心されすぎて雑に扱われる人でもありません。あなたには、そのちょうどいい余白があります。",
+            "彼から見たあなたは、そばにいると温かいのに、完全には支配できない人。だからこそ、もっと知りたい、ちゃんと向き合いたいと思わせる力があります。",
+            "これからも大切なのは、恋を頑張りすぎないこと。あなたの魅力は、追いかける姿より、自分の人生をちゃんと生きている時に一番伝わります。"
+          ]
+        },
+        {
+          min: 15,
+          title: "いい女度70％｜魅力はある。でも恋で少し揺れやすいタイプ",
+          score: "好かれる力はあります。あとは、自分軸をもう少し戻すだけ。",
+          body: [
+            "あなたには、人を惹きつけるやわらかさがあります。相手の気持ちを読めるし、場の空気も感じ取れる。恋愛では、その繊細さが魅力として伝わりやすいでしょう。",
+            "ただ、好きな人ができると少し相手中心になりやすいところがあります。返信の温度、会える頻度、彼の機嫌。そのひとつひとつに、心が引っぱられてしまうのです。",
+            "でも、それはモテないという意味ではありません。むしろ、魅力があるからこそ、もっと大切にされる恋に調整していける段階です。",
+            "これから意識したいのは、彼にどう見られるかより、自分がその恋でどう感じているか。あなたが自分を大事にし始めると、恋の空気も変わっていきます。"
+          ]
+        },
+        {
+          min: 8,
+          title: "いい女度45％｜尽くしすぎて、都合のいい女に見られやすいかも",
+          score: "魅力がないのではなく、魅力の出し方を間違えやすい状態です。",
+          body: [
+            "あなたは本来、愛情深い人です。好きな人のために動けるし、相手を喜ばせたい気持ちも強い。そこは、とても素敵な魅力です。",
+            "でも今は、その優しさが少し危うい形で出ているかもしれません。嫌われたくなくて合わせる。寂しくても平気なふりをする。傷ついても相手を責めない。その我慢が、恋の中であなたを小さく見せてしまいます。",
+            "男性は、何でも許してくれる人を大切にするとは限りません。むしろ、失いたくないと思うのは、自分の価値をちゃんと知っている人です。",
+            "あなたに必要なのは、冷たくなることではありません。嫌なことを嫌と言う勇気、自分の予定を守る強さ、追いすぎない余白。それだけで、魅力はかなり戻ります。"
+          ]
+        },
+        {
+          min: 0,
+          title: "いい女度22％｜恋で自分を後回しにしすぎています",
+          score: "彼に選ばれる前に、あなたがあなたを選び直す時です。",
+          body: [
+            "この結果は、あなたに魅力がないという意味ではありません。むしろ、あなたの魅力が恋の不安で隠れてしまっている状態です。",
+            "相手の返信、態度、言葉、予定。その全部に心を預けすぎると、あなた自身の輪郭が薄くなってしまいます。彼に嫌われないように頑張るほど、あなたの本来の明るさやかわいさが見えにくくなるのです。",
+            "いい女になるために、無理に強くならなくて大丈夫。ただ、苦しいのに笑うこと、寂しいのに平気なふりをすること、都合のいい誘いに毎回応えることを、少しずつやめていきましょう。",
+            "あなたは、誰かに追われるために価値があるのではありません。最初から価値があります。その感覚を取り戻した時、恋の流れは静かに変わり始めます。"
+          ]
+        }
+      ];
+
+      let currentIndex = 0;
+      const answers = [];
+
+      const questionCount = document.getElementById("question-count");
+      const questionTitle = document.getElementById("question-title");
+      const choiceList = document.getElementById("choice-list");
+      const progressBar = document.getElementById("progress-bar");
+      const backBtn = document.getElementById("back-btn");
+      const restartBtn = document.getElementById("restart-btn");
+      const diagnosisArea = document.getElementById("diagnosis-area");
+      const resultPanel = document.getElementById("result-panel");
+
+      function renderQuestion() {
+        const question = questions[currentIndex];
+        questionCount.textContent = `Question ${currentIndex + 1} / ${questions.length}`;
+        questionTitle.textContent = question.text;
+        progressBar.style.width = `${(currentIndex / questions.length) * 100}%`;
+        backBtn.disabled = currentIndex === 0;
+        choiceList.innerHTML = "";
+
+        question.choices.forEach((choice) => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "choice-btn";
+          button.textContent = choice.text;
+          button.addEventListener("click", () => chooseAnswer(choice.score));
+          choiceList.appendChild(button);
+        });
+      }
+
+      function chooseAnswer(score) {
+        answers[currentIndex] = score;
+        currentIndex += 1;
+
+        if (currentIndex >= questions.length) {
+          showResult();
+          return;
+        }
+
+        renderQuestion();
+      }
+
+      function showResult() {
+        const total = answers.reduce((sum, value) => sum + value, 0);
+        const result = results.find((item) => total >= item.min);
+
+        progressBar.style.width = "100%";
+        diagnosisArea.style.display = "none";
+        document.getElementById("result-title").textContent = result.title;
+        document.getElementById("result-score").textContent = result.score;
+
+        const resultBody = document.getElementById("result-body");
+        resultBody.innerHTML = "";
+        result.body.forEach((text) => {
+          const p = document.createElement("p");
+          p.textContent = text;
+          resultBody.appendChild(p);
+        });
+
+        resultPanel.classList.add("show");
+        resultPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      function resetDiagnosis() {
+        currentIndex = 0;
+        answers.length = 0;
+        diagnosisArea.style.display = "";
+        resultPanel.classList.remove("show");
+        renderQuestion();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      backBtn.addEventListener("click", () => {
+        if (currentIndex === 0) return;
+        currentIndex -= 1;
+        answers.pop();
+        renderQuestion();
+      });
+
+      restartBtn.addEventListener("click", resetDiagnosis);
+      document.getElementById("again-btn").addEventListener("click", resetDiagnosis);
+
+      (function createStars() {
+        const container = document.getElementById("stars");
+        for (let i = 0; i < 120; i++) {
+          const star = document.createElement("div");
+          star.classList.add("star");
+          star.style.left = Math.random() * 100 + "%";
+          star.style.top = Math.random() * 100 + "%";
+          const size = Math.random() * 3 + 1;
+          star.style.width = size + "px";
+          star.style.height = size + "px";
+          star.style.animationDelay = Math.random() * 4 + "s";
+          container.appendChild(star);
+        }
+      })();
+
+      renderQuestion();
+    </script>
+  </body>
+</html>
