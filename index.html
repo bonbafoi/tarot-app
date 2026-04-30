@@ -14,8 +14,9 @@
 
       <!-- サイトナビゲーション -->
       <nav class="site-nav" aria-label="サイトメニュー">
-        <a href="index.html"        class="nav-link current">🔮 無料タロット占い</a>
-        <a href="furin-tarot.html"  class="nav-link">🌹 不倫タロット</a>
+        <a href="index.html"              class="nav-link current">🔮 無料タロット占い</a>
+        <a href="furin-tarot.html"        class="nav-link">🌹 不倫タロット</a>
+        <a href="love-compatibility.html" class="nav-link">💑 相性占い</a>
       </nav>
 
       <!-- ヘッダー -->
@@ -44,6 +45,9 @@
           <button class="cat-btn" data-key="secret" onclick="selectCategory('secret')">
             <span class="cat-icon">🌹</span><span class="cat-label">秘密の恋愛</span>
           </button>
+          <button class="cat-btn" data-key="compatibility" onclick="selectCategory('compatibility')">
+            <span class="cat-icon">💑</span><span class="cat-label">相性占い</span>
+          </button>
         </div>
         <p class="hint-message hidden" id="hint-message">
           ↑ まず占いたい項目をタップしてください
@@ -57,6 +61,15 @@
           <span class="banner-main">相手の本音を詳しく知りたい方はこちら →</span>
         </div>
         <span class="banner-cta">不倫タロット専用ページ</span>
+      </a>
+
+      <!-- 相性占いページへの内部リンク -->
+      <a href="love-compatibility.html" class="internal-banner">
+        <div class="banner-body">
+          <span class="banner-eyebrow">💑 あの人との相性が気になる方へ</span>
+          <span class="banner-main">2人の縁・相性を詳しく知りたい方はこちら →</span>
+        </div>
+        <span class="banner-cta">相性占い専用ページ</span>
       </a>
 
       <!-- STEP 2：カードを引くボタン -->
@@ -178,6 +191,7 @@
         <nav class="footer-nav" aria-label="フッターメニュー">
           <a href="index.html">🔮 トップ（無料タロット占い）</a>
           <a href="furin-tarot.html">🌹 不倫タロット</a>
+          <a href="love-compatibility.html">💑 相性占い</a>
         </nav>
         <p>大アルカナ 22枚＋小アルカナ 56枚 ／ 全78枚 ／ 3枚引き ／ 正位置・逆位置ランダム</p>
         <!-- Amazonアソシエイト必須の開示文言 -->
