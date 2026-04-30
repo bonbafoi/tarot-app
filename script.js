@@ -272,7 +272,8 @@ function displayCards(drawnCards, categoryKey) {
 // おすすめおやつを表示する処理
 // ===========================
 function displaySnack() {
-  const snack   = snackItems[Math.floor(Math.random() * snackItems.length)];
+  const items = Array.isArray(window.snackItems) ? window.snackItems : snackItems;
+  const snack = items[Math.floor(Math.random() * items.length)];
   const isChoco = snack.type === "チョコ";
 
   const badge       = document.getElementById("snack-type");
@@ -282,7 +283,9 @@ function displaySnack() {
   document.getElementById("snack-emoji").textContent = snack.emoji;
   document.getElementById("snack-name").textContent  = snack.name;
   document.getElementById("snack-desc").textContent  = snack.description;
-  document.getElementById("snack-link").href         = snack.link;
+  const snackLink = document.getElementById("snack-link");
+  snackLink.href = snack.link;
+  snackLink.setAttribute("href", snack.link);
 }
 
 // ===================================================================

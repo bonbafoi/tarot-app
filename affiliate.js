@@ -96,3 +96,5 @@ const snackItems = [
   },
 
 ];
+
+window.snackItems = snackItems;
