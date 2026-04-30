@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bonbafoi.github.io/tarot-app/sitemap.xml
